@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Check, ChevronRight, Loader2 } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 
 interface OptionCardProps {
   label: string;
@@ -70,7 +69,7 @@ interface LikertScaleProps {
   labels?: { min: string; max: string };
 }
 
-export function LikertScale({ value, onChange, labels = { min: "Strongly Disagree", max: "Strongly Agree" } }: LikertScaleProps) {
+export function LikertScale({ value, onChange, labels = { min: "Discordo Totalmente", max: "Concordo Totalmente" } }: LikertScaleProps) {
   return (
     <div className="w-full space-y-3">
       <div className="flex justify-between w-full gap-2">
@@ -105,7 +104,7 @@ interface BottomBarProps {
   className?: string;
 }
 
-export function BottomBar({ onContinue, disabled, label = "Continue", loading, className }: BottomBarProps) {
+export function BottomBar({ onContinue, disabled, label = "Continuar", loading, className }: BottomBarProps) {
   return (
     <div className={cn("fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 z-40", className)}>
       <div className="max-w-3xl mx-auto w-full">
@@ -120,7 +119,7 @@ export function BottomBar({ onContinue, disabled, label = "Continue", loading, c
           )}
         >
           {loading ? (
-            <span className="animate-pulse">Processing...</span>
+            <span className="animate-pulse">Processando...</span>
           ) : (
             <>
               {label} <ChevronRight className="w-5 h-5" />
@@ -165,59 +164,14 @@ interface OptimizedImageProps {
 }
 
 export function OptimizedImage({ src, alt = "", className }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: "100px" }
-    );
-
-    const placeholder = document.getElementById(`img-placeholder-${src}`);
-    if (placeholder) observer.observe(placeholder);
-
-    return () => observer.disconnect();
-  }, [src]);
-
   return (
-    <div 
-      id={`img-placeholder-${src}`}
-      className={cn("relative overflow-hidden", className)}
-    >
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center"
-          >
-            <div className="flex flex-col items-center gap-3">
-              <Loader2 className="w-8 h-8 text-primary animate-spin" />
-              <span className="text-sm text-muted-foreground font-medium">Loading...</span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
-      {isInView && (
-        <motion.img
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.05 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          src={src}
-          alt={alt}
-          onLoad={() => setIsLoaded(true)}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-      )}
+    <div className={cn("overflow-hidden", className)}>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
     </div>
   );
 }

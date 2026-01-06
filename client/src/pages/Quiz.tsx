@@ -12,7 +12,6 @@ import {
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 
-// Import generated images
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
 import researchImg from "@assets/generated_images/scientific_behavioral_research_logos_illustration.png";
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
@@ -36,241 +35,213 @@ interface QuizStep {
   icon?: React.ReactNode;
 }
 
-// Types for Quiz Data
 interface QuizAnswers {
   [key: string]: any;
 }
 
 const steps: QuizStep[] = [
-  // 0: Landing (Handled separately but index 0 for flow)
   { type: "landing" }, 
   
-  // 1: Age
   { 
     id: "age",
     type: "single", 
-    question: "What’s your age?", 
-    options: ["18–24", "25–34", "35–44", "45–54", "55+"] 
+    question: "Qual a sua idade?", 
+    options: ["18-24", "25-34", "35-44", "45-54", "55+"] 
   },
   
-  // 2: Hook
   { 
     id: "struggle",
     type: "single", 
-    question: "Be honest: what usually happens when you try to learn something new?", 
+    question: "Seja honesto: o que geralmente acontece quando voce tenta aprender algo novo?", 
     options: [
-      "I start strong… then disappear",
-      "I overthink and never start",
-      "I start but I get distracted",
-      "I’m consistent, but slow",
-      "I don’t even know what to learn"
+      "Comeco forte... depois sumo",
+      "Penso demais e nunca comeco",
+      "Comeco mas me distraio",
+      "Sou consistente, mas lento",
+      "Nem sei o que aprender"
     ]
   },
   
-  // 3: Likert - Potential
   { 
     id: "consistency_likert",
     type: "likert", 
-    statement: "I have the potential — I just can't stay consistent.",
-    sub: "Do you agree with the statement above?"
+    statement: "Eu tenho potencial - so nao consigo manter a consistencia.",
+    sub: "Voce concorda com essa afirmacao?"
   },
   
-  // 4: Focus
   {
     id: "focus_struggle",
     type: "single",
-    question: "Do you struggle to focus even on easy tasks?",
-    options: ["Almost always", "Often", "Rarely", "Almost never"]
+    question: "Voce tem dificuldade em focar mesmo em tarefas faceis?",
+    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
   },
   
-  // 5: Mental Fog
   {
     id: "mental_fog",
     type: "single",
-    question: "Do you feel mentally “foggy” during the day?",
-    options: ["Almost always", "Often", "Rarely", "Almost never"]
+    question: "Voce se sente mentalmente 'enevoado' durante o dia?",
+    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
   },
   
-  // 6: Decision Fatigue
   {
     id: "decision_fatigue",
     type: "single",
-    question: "Do you feel stuck choosing what to learn first?",
-    options: ["Almost always", "Often", "Rarely", "Almost never"]
+    question: "Voce se sente travado escolhendo o que aprender primeiro?",
+    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
   },
   
-  // 7: Likert - Autopilot
   {
     id: "autopilot_likert",
     type: "likert",
-    statement: "I feel like my days run on autopilot.",
-    sub: "Do you agree?"
+    statement: "Sinto que meus dias funcionam no piloto automatico.",
+    sub: "Voce concorda?"
   },
   
-  // 8: Typical Day
   {
     id: "typical_day",
     type: "single",
-    question: "How would you describe your typical day?",
+    question: "Como voce descreveria seu dia tipico?",
     options: [
-      "Always busy / always rushing",
-      "Busy but manageable",
-      "Calm but unfocused",
-      "Chaotic and unpredictable"
+      "Sempre ocupado / sempre correndo",
+      "Ocupado mas administravel",
+      "Calmo mas sem foco",
+      "Caotico e imprevisivel"
     ]
   },
   
-  // 9: Screen Time
   {
     id: "screen_distraction",
     type: "single",
-    question: "How often does your phone steal your attention?",
-    options: ["All the time", "Often", "Sometimes", "Rarely"]
+    question: "Com que frequencia seu celular rouba sua atencao?",
+    options: ["O tempo todo", "Frequentemente", "As vezes", "Raramente"]
   },
   
-  // 10: Learning Time
   {
     id: "dedicated_time",
     type: "single",
-    question: "How much time can you реально dedicate per day?",
-    options: ["2 min", "5 min (recommended)", "10 min", "15 min"]
+    question: "Quanto tempo voce pode dedicar por dia de verdade?",
+    options: ["2 min", "5 min (recomendado)", "10 min", "15 min"]
   },
   
-  // 11: Eating/Routine
   {
     id: "routine_chaos",
     type: "single",
-    question: "Have your routines been chaotic lately?",
-    options: ["Yes a lot", "A little", "Not really", "No I'm structured"]
+    question: "Suas rotinas estao caoticas ultimamente?",
+    options: ["Sim, muito", "Um pouco", "Nao muito", "Nao, sou organizado"]
   },
   
-  // 12: Motivation Pain (Multi)
   {
     id: "fix_priority",
     type: "multi",
-    question: "What do you want to fix first?",
-    options: ["Discipline", "Focus", "Confidence", "Consistency", "Money/Career", "Creativity", "Anxiety", "Energy"]
+    question: "O que voce quer melhorar primeiro?",
+    options: ["Disciplina", "Foco", "Confianca", "Consistencia", "Dinheiro/Carreira", "Criatividade", "Ansiedade", "Energia"]
   },
   
-  // 13: Story (Info)
   {
     id: "story_1",
     type: "info",
-    title: "Your problem isn't laziness.",
-    text: "If learning feels hard, it's usually because your \"daily system\" is broken — distracted attention, unclear goals, and zero feedback. QUICKHABIT rebuilds that system in 5 minutes a day.",
+    title: "Seu problema nao e preguica.",
+    text: "Se aprender parece dificil, geralmente e porque seu 'sistema diario' esta quebrado - atencao distraida, metas confusas e zero feedback. O QUICKHABIT reconstroi esse sistema em 5 minutos por dia.",
     visual: "image",
     image: batteryLowImg
   },
   
-  // 14: Life Impact (Multi)
   {
     id: "suffering_area",
     type: "multi",
-    question: "What suffers the most when you don't learn?",
-    options: ["Work", "Confidence", "Money", "Relationships", "Mental health", "Creativity", "Motivation"]
+    question: "O que mais sofre quando voce nao aprende?",
+    options: ["Trabalho", "Confianca", "Dinheiro", "Relacionamentos", "Saude mental", "Criatividade", "Motivacao"]
   },
   
-  // 15: Skill Type
   {
     id: "skill_interest",
     type: "single",
-    question: "What kind of skills excite you most?",
-    options: ["Tech/AI", "Communication", "Business", "Creative", "Mind & Body", "Languages"]
+    question: "Que tipo de habilidades te animam mais?",
+    options: ["Tech/IA", "Comunicacao", "Negocios", "Criativo", "Mente e Corpo", "Idiomas"]
   },
   
-  // 16: Learning Style
   {
     id: "learning_style",
     type: "single",
-    question: "How do you learn best?",
-    options: ["Micro-lessons", "Step-by-step", "Reading", "Practice", "Mix"]
+    question: "Como voce aprende melhor?",
+    options: ["Micro-licoes", "Passo a passo", "Leitura", "Pratica", "Mix de tudo"]
   },
   
-  // 17: Quit Habits (Multi)
   {
     id: "bad_habits",
     type: "multi",
-    question: "Which habits are holding you back?",
-    options: ["Late nights", "Screen time", "Scrolling", "Skipping workouts", "Sugar", "Procrastination", "Overthinking", "None"]
+    question: "Quais habitos estao te atrapalhando?",
+    options: ["Dormir tarde", "Tempo de tela", "Scrollar redes", "Pular treinos", "Acucar", "Procrastinacao", "Pensar demais", "Nenhum"]
   },
   
-  // 18: Authority (Info)
   {
     id: "authority_info",
     type: "info",
-    title: "Built on behavioral science.",
-    text: "Your plan uses proven principles: habit stacking, friction design, and micro-commitments.",
+    title: "Baseado em ciencia comportamental.",
+    text: "Seu plano usa principios comprovados: empilhamento de habitos, design de friccao e micro-compromissos.",
     visual: "image",
     image: researchImg
   },
   
-  // 19: Experience
   {
     id: "app_experience",
     type: "single",
-    question: "Have you tried habit apps before?",
-    options: ["Yes but quit", "Yes still use", "No, I'm a pro"]
+    question: "Voce ja tentou apps de habitos antes?",
+    options: ["Sim, mas desisti", "Sim, ainda uso", "Nao, sou um expert"]
   },
   
-  // 20: Expert Review (Info)
   {
     id: "expert_review",
     type: "info",
-    title: "Your plan is generated by an adaptive engine.",
-    text: "It chooses a skill track and a daily mission based on your answers — then adjusts as you improve.",
+    title: "Seu plano e gerado por um motor adaptativo.",
+    text: "Ele escolhe uma trilha de habilidades e uma missao diaria baseada nas suas respostas - e se ajusta conforme voce evolui.",
     visual: "image",
     image: engineImg
   },
   
-  // 21: Improvements (Multi)
   {
     id: "outcome_desire",
     type: "multi",
-    question: "How will your life improve if you fix this?",
-    options: ["Better performance", "More money", "Confidence", "Focus", "Less anxiety", "Creativity", "Discipline"]
+    question: "Como sua vida vai melhorar se voce resolver isso?",
+    options: ["Melhor desempenho", "Mais dinheiro", "Confianca", "Foco", "Menos ansiedade", "Criatividade", "Disciplina"]
   },
   
-  // 22: Profile Summary (Info/Result Preview)
   {
     id: "profile_summary",
     type: "summary",
-    title: "Summary of your Profile",
+    title: "Resumo do seu Perfil",
     image: profileImg
   },
   
-  // 23: Commitment
   {
     id: "commitment_time",
     type: "single",
-    question: "How much time can you dedicate daily to your QUICKHABIT plan?",
+    question: "Quanto tempo voce pode dedicar diariamente ao seu plano QUICKHABIT?",
     options: ["5 min", "10 min", "15 min", "20 min"]
   },
   
-  // 24: Plan Timeline (Info/Graph)
   {
     id: "timeline_view",
     type: "timeline",
-    title: "The last learning plan you'll ever need",
+    title: "O ultimo plano de aprendizado que voce vai precisar",
     image: growthImg
   },
   
-  // 25: Email Capture
   {
     id: "email_capture",
     type: "input",
     inputType: "email",
-    question: "Enter your email to get your personalized QUICKHABIT Plan",
-    placeholder: "name@example.com",
-    note: "We respect your privacy. No spam."
+    question: "Digite seu email para receber seu Plano QUICKHABIT personalizado",
+    placeholder: "seu@email.com",
+    note: "Respeitamos sua privacidade. Sem spam."
   },
   
-  // 26: Name Capture (Submit)
   {
     id: "name_capture",
     type: "input",
     inputType: "text",
-    question: "What's your name?",
-    placeholder: "Your Name"
+    question: "Qual e o seu nome?",
+    placeholder: "Seu Nome"
   }
 ];
 
@@ -285,7 +256,6 @@ export default function Quiz() {
   const progress = (stepIndex / (steps.length - 1)) * 100;
 
   useEffect(() => {
-    // If no goal selected, redirect to landing
     if (!answers.goal && stepIndex > 0) {
       setStepIndex(0);
     }
@@ -294,7 +264,6 @@ export default function Quiz() {
   const handleAnswer = (key: string, value: any) => {
     setAnswers((prev: QuizAnswers) => ({ ...prev, [key]: value }));
     
-    // Auto-advance for single choice and likert questions
     if (currentStep.type === "single" || currentStep.type === "likert") {
       setTimeout(() => {
         handleContinue();
@@ -307,7 +276,6 @@ export default function Quiz() {
       setStepIndex(prev => prev + 1);
       window.scrollTo(0, 0);
     } else {
-      // Final step submission
       try {
         const email = answers.email_capture;
         const name = answers.name_capture;
@@ -318,15 +286,14 @@ export default function Quiz() {
           quizData: answers,
         });
         
-        // Pass collected data via localStorage to avoid URL params limits
         localStorage.setItem("quickhabit_answers", JSON.stringify(answers));
         localStorage.setItem("quickhabit_name", name);
         
         setLocation("/processing");
       } catch (error) {
         toast({
-          title: "Error",
-          description: "Something went wrong saving your progress. Please try again.",
+          title: "Erro",
+          description: "Algo deu errado ao salvar seu progresso. Tente novamente.",
           variant: "destructive",
         });
       }
@@ -340,7 +307,6 @@ export default function Quiz() {
     }
   };
 
-  // Render Landing (Step 0)
   if (stepIndex === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
@@ -349,16 +315,16 @@ export default function Quiz() {
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest">
                 <Zap className="w-4 h-4" />
-                Free 1-min Assessment
+                Avaliacao Gratuita de 1 min
               </div>
               
               <h1 className="text-5xl md:text-7xl font-heading font-black text-foreground tracking-tight leading-[1.1]">
                 QUICK<span className="text-primary">HABIT</span>
               </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-              Discover your learning blockers and get a personalized 4-week plan in just 5 minutes a day.
-            </p>
-          </div>
+              <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
+                Descubra seus bloqueios de aprendizado e receba um plano personalizado de 4 semanas em apenas 5 minutos por dia.
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <button
@@ -370,7 +336,7 @@ export default function Quiz() {
                 data-testid="button-start-career"
               >
                 <Laptop className="w-6 h-6" />
-                I want to grow my Career
+                Quero crescer na Carreira
               </button>
 
               <button
@@ -382,22 +348,22 @@ export default function Quiz() {
                 data-testid="button-start-life"
               >
                 <Heart className="w-6 h-6 text-rose-500" />
-                I want to improve my Life
+                Quero melhorar minha Vida
               </button>
             </div>
 
             <div className="flex items-center justify-center gap-6 pt-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span>100% Free</span>
+                <span>100% Gratuito</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-primary" />
-                <span>Takes 1 minute</span>
+                <span>Leva 1 minuto</span>
               </div>
               <div className="flex items-center gap-2">
                 <Brain className="w-4 h-4 text-purple-500" />
-                <span>Science-backed</span>
+                <span>Base cientifica</span>
               </div>
             </div>
           </div>
@@ -406,11 +372,10 @@ export default function Quiz() {
     );
   }
 
-  // Helper to check if current step is completed
   const isStepValid = () => {
     const val = answers[currentStep.id!];
     if (currentStep.type === "multi") return Array.isArray(val) && val.length > 0;
-    if (currentStep.type === "input") return val && val.length > 2; // Basic validation
+    if (currentStep.type === "input") return val && val.length > 2;
     if (["info", "summary", "timeline"].includes(currentStep.type)) return true;
     return val !== undefined && val !== null;
   };
@@ -426,7 +391,6 @@ export default function Quiz() {
           transition={{ duration: 0.3 }}
           className="w-full max-w-xl mx-auto"
         >
-          {/* CONTENT RENDERER */}
           {currentStep.type === "single" && (
             <div className="space-y-6">
               <QuestionHeader title={currentStep.question!} />
@@ -447,7 +411,7 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader 
                 title={currentStep.question!} 
-                subtitle="Select all that apply" 
+                subtitle="Selecione todas que se aplicam" 
               />
               <div className="grid gap-3">
                 {currentStep.options?.map((opt) => {
@@ -511,7 +475,7 @@ export default function Quiz() {
               {currentStep.image && (
                 <OptimizedImage
                   src={currentStep.image as string}
-                  alt="Profile summary"
+                  alt="Resumo do perfil"
                   className="w-full max-w-[280px] mx-auto aspect-square rounded-2xl shadow-lg mb-6"
                 />
               )}
@@ -519,32 +483,32 @@ export default function Quiz() {
               <div className="bg-card rounded-2xl p-6 space-y-6 border border-border shadow-sm">
                 <ProgressBar 
                   value={30} 
-                  label="Learning Battery" 
-                  status="Low" 
+                  label="Bateria de Aprendizado" 
+                  status="Baixa" 
                   statusColor="orange" 
                 />
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <StatCard 
-                    label="Main Blocker" 
-                    value="Inconsistent Focus" 
+                    label="Principal Bloqueio" 
+                    value="Foco Inconsistente" 
                     icon={<Target className="w-5 h-5" />}
                     color="orange"
                   />
                   <StatCard 
-                    label="Skill Track" 
-                    value={answers.skill_interest || "General Growth"} 
+                    label="Trilha de Habilidade" 
+                    value={answers.skill_interest || "Crescimento Geral"} 
                     icon={<Sparkles className="w-5 h-5" />}
                     color="purple"
                   />
                   <StatCard 
-                    label="Best Format" 
-                    value="Micro-lessons" 
+                    label="Melhor Formato" 
+                    value="Micro-licoes" 
                     icon={<Timer className="w-5 h-5" />}
                     color="primary"
                   />
                   <StatCard 
-                    label="Daily Commitment" 
+                    label="Compromisso Diario" 
                     value={answers.dedicated_time || "5 min"} 
                     icon={<TrendingUp className="w-5 h-5" />}
                     color="green"
@@ -567,11 +531,11 @@ export default function Quiz() {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
                     data={[
-                      { name: "Now", value: 20, label: "Starting" },
-                      { name: "Week 1", value: 40, label: "Foundation" },
-                      { name: "Week 2", value: 65, label: "Building" },
-                      { name: "Week 3", value: 85, label: "Momentum" },
-                      { name: "Week 4", value: 100, label: "Mastery" },
+                      { name: "Agora", value: 20, label: "Inicio" },
+                      { name: "Sem 1", value: 40, label: "Base" },
+                      { name: "Sem 2", value: 65, label: "Construcao" },
+                      { name: "Sem 3", value: 85, label: "Momentum" },
+                      { name: "Sem 4", value: 100, label: "Dominio" },
                     ]}
                     margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
                   >
@@ -604,7 +568,7 @@ export default function Quiz() {
                         padding: '12px 16px'
                       }}
                       labelStyle={{ fontWeight: 600, color: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => [`${value}%`, 'Progress']}
+                      formatter={(value: number) => [`${value}%`, 'Progresso']}
                     />
                     <Area 
                       type="monotone" 
@@ -636,10 +600,10 @@ export default function Quiz() {
                   />
                   
                   {[
-                    { week: "Week 1", text: "Stop breaking promises", color: "red" as const },
-                    { week: "Week 2", text: "Build the habit loop", color: "orange" as const },
-                    { week: "Week 3", text: "Momentum phase", color: "yellow" as const },
-                    { week: "Week 4", text: "Consistent Growth", color: "green" as const }
+                    { week: "Semana 1", text: "Parar de quebrar promessas", color: "red" as const },
+                    { week: "Semana 2", text: "Construir o loop do habito", color: "orange" as const },
+                    { week: "Semana 3", text: "Fase de momentum", color: "yellow" as const },
+                    { week: "Semana 4", text: "Crescimento Consistente", color: "green" as const }
                   ].map((item, idx) => (
                     <TimelineItem 
                       key={idx}
@@ -667,6 +631,7 @@ export default function Quiz() {
                 onChange={(e) => handleAnswer(currentStep.id!, e.target.value)}
                 className="w-full text-2xl p-6 rounded-2xl border-2 border-border focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
                 autoFocus
+                data-testid={`input-${currentStep.id}`}
               />
             </div>
           )}
@@ -678,7 +643,7 @@ export default function Quiz() {
         onContinue={handleContinue} 
         disabled={!isStepValid()} 
         loading={createLead.isPending}
-        label={stepIndex === steps.length - 1 ? "Generate Plan" : "Continue"}
+        label={stepIndex === steps.length - 1 ? "Gerar Plano" : "Continuar"}
         className={["single", "likert"].includes(currentStep.type) ? "hidden" : ""}
       />
     </Layout>
