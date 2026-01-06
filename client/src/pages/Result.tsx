@@ -507,22 +507,6 @@ export default function Result() {
             <span className="underline">Termos de Assinatura</span>.
           </p>
 
-          <div className="bg-muted/50 rounded-2xl p-6 text-center space-y-3">
-            <div className="flex justify-center">
-              <div className="w-10 h-10 rounded-full bg-[#1a1a2e] flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-white" />
-              </div>
-            </div>
-            <h4 className="text-xl font-bold">Garantia de 30 Dias</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Acreditamos que nosso plano pode funcionar para voce e que voce vera resultados visiveis em 4 semanas! Estamos prontos para devolver seu dinheiro se voce nao ver resultados visiveis e puder demonstrar que seguiu nosso plano.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Saiba mais sobre limitacoes aplicaveis em nossos{" "}
-              <span className="underline cursor-pointer">Termos de Assinatura</span>.
-            </p>
-          </div>
-
           <div className="space-y-4 pt-3 pb-8">
             <button
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
@@ -837,7 +821,7 @@ export default function Result() {
             <span className="underline">Termos de Assinatura</span>.
           </p>
 
-          <div className="space-y-4 pt-3 pb-8">
+          <div className="space-y-4 pt-3">
             <button
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
@@ -846,6 +830,23 @@ export default function Result() {
             </button>
           </div>
         </div>
+
+        <div className="bg-muted/50 rounded-2xl p-6 text-center space-y-3 mb-8">
+          <div className="flex justify-center">
+            <div className="w-10 h-10 rounded-full bg-[#1a1a2e] flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-white" />
+            </div>
+          </div>
+          <h4 className="text-xl font-bold">Garantia de 30 Dias</h4>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Acreditamos que nosso plano pode funcionar para voce e que voce vera resultados visiveis em 4 semanas! Estamos prontos para devolver seu dinheiro se voce nao ver resultados visiveis e puder demonstrar que seguiu nosso plano.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Saiba mais sobre limitacoes aplicaveis em nossos{" "}
+            <span className="underline cursor-pointer">Termos de Assinatura</span>.
+          </p>
+        </div>
+
       </main>
     </div>
   );
