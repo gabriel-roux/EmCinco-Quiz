@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from "recharts";
 import { Layout } from "@/components/Layout";
 import { OptionCard, LikertScale, BottomBar, QuestionHeader, OptimizedImage, StatCard, ProgressBar, TimelineItem } from "@/components/QuizComponents";
-import { Target, Sparkles, Timer, TrendingUp } from "lucide-react";
+import { Target, Sparkles, Timer, TrendingUp, ChevronRight } from "lucide-react";
 import { 
   Laptop, Heart, Clock, Battery, Brain, 
   Smartphone, Coffee, AlertTriangle, CheckCircle, Zap

@@ -75,7 +75,7 @@ export default function Processing() {
             cy="112"
             r="90"
             fill="none"
-            stroke="hsl(var(--muted))"
+            stroke="hsl(var(--muted) / 0.15)"
             strokeWidth="8"
           />
           <motion.circle
@@ -112,7 +112,7 @@ export default function Processing() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.4 }}
-            className="bg-card border border-border rounded-2xl p-6 shadow-lg"
+            className="bg-card/15 backdrop-blur-sm rounded-2xl p-6"
           >
             <div className="flex gap-0.5 mb-3">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -133,7 +133,7 @@ export default function Processing() {
             <div
               key={idx}
               className={`w-2 h-2 rounded-full transition-colors ${
-                idx === currentTestimonial ? "bg-primary" : "bg-muted"
+                idx === currentTestimonial ? "bg-primary" : "bg-muted/30"
               }`}
             />
           ))}
