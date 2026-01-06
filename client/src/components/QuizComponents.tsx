@@ -91,11 +91,12 @@ interface BottomBarProps {
   disabled?: boolean;
   label?: string;
   loading?: boolean;
+  className?: string;
 }
 
-export function BottomBar({ onContinue, disabled, label = "Continue", loading }: BottomBarProps) {
+export function BottomBar({ onContinue, disabled, label = "Continue", loading, className }: BottomBarProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 z-40">
+    <div className={cn("fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 z-40", className)}>
       <div className="max-w-3xl mx-auto w-full">
         <button
           onClick={onContinue}

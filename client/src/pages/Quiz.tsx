@@ -17,12 +17,29 @@ import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_ill
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
 
+interface QuizStep {
+  id?: string;
+  type: string;
+  question?: string;
+  options?: string[];
+  statement?: string;
+  sub?: string;
+  title?: string;
+  text?: string;
+  visual?: string;
+  image?: string;
+  inputType?: string;
+  placeholder?: string;
+  note?: string;
+  icon?: React.ReactNode;
+}
+
 // Types for Quiz Data
 interface QuizAnswers {
   [key: string]: any;
 }
 
-const steps = [
+const steps: QuizStep[] = [
   // 0: Landing (Handled separately but index 0 for flow)
   { type: "landing" }, 
   
@@ -273,7 +290,14 @@ export default function Quiz() {
   }, []);
 
   const handleAnswer = (key: string, value: any) => {
-    setAnswers(prev => ({ ...prev, [key]: value }));
+    setAnswers((prev: QuizAnswers) => ({ ...prev, [key]: value }));
+    
+    // Auto-advance for single choice questions
+    if (currentStep.type === "single") {
+      setTimeout(() => {
+        handleContinue();
+      }, 300);
+    }
   };
 
   const handleContinue = async () => {
@@ -570,6 +594,7 @@ export default function Quiz() {
         disabled={!isStepValid()} 
         loading={createLead.isPending}
         label={stepIndex === steps.length - 1 ? "Generate Plan" : "Continue"}
+        className={currentStep.type === "single" ? "hidden" : ""}
       />
     </Layout>
   );
