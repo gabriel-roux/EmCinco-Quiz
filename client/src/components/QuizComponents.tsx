@@ -165,14 +165,12 @@ interface OptimizedImageProps {
 
 export function OptimizedImage({ src, alt = "", className }: OptimizedImageProps) {
   return (
-    <div className={cn("overflow-hidden", className)}>
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </div>
+    <img
+      src={src}
+      alt={alt}
+      className={cn("object-contain", className)}
+      loading="lazy"
+    />
   );
 }
 

@@ -458,7 +458,7 @@ export default function Quiz() {
                 <OptimizedImage
                   src={currentStep.image as string}
                   alt={currentStep.title}
-                  className="w-full max-w-[280px] mx-auto aspect-square rounded-2xl shadow-lg"
+                  className="w-full max-w-[280px] mx-auto aspect-square"
                 />
               ) : currentStep.icon}
               <h1 className="text-3xl font-heading font-bold">{currentStep.title}</h1>
