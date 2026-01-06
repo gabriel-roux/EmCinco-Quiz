@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from "recharts";
 import { Layout } from "@/components/Layout";
 import { OptionCard, LikertScale, BottomBar, QuestionHeader } from "@/components/QuizComponents";
 import { 
@@ -11,8 +12,8 @@ import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 
 // Import generated images
-import batteryLowImg from "@assets/generated_images/flat_minimal_battery_charging_illustration.png";
-import researchImg from "@assets/generated_images/flat_minimal_academic_logos_illustration.png";
+import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
+import researchImg from "@assets/generated_images/scientific_behavioral_research_logos_illustration.png";
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
@@ -434,6 +435,7 @@ export default function Quiz() {
                       key={opt}
                       label={opt}
                       selected={isSelected}
+                      isMulti
                       onClick={() => {
                         if (isSelected) {
                           handleAnswer(currentStep.id!, current.filter(i => i !== opt));
@@ -534,16 +536,47 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader title={currentStep.title!} />
               
-              {/* Timeline Graph Image */}
-              {currentStep.image && (
-                <div className="w-full max-w-[400px] mx-auto aspect-[4/3] overflow-hidden rounded-2xl mb-6 shadow-sm border border-border">
-                  <img 
-                    src={currentStep.image as string} 
-                    alt="Plan timeline" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
+              <div className="w-full bg-white rounded-2xl p-6 border border-border shadow-sm mb-6 h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart
+                    data={[
+                      { name: "Week 0", value: 20 },
+                      { name: "Week 1", value: 35 },
+                      { name: "Week 2", value: 60 },
+                      { name: "Week 3", value: 85 },
+                      { name: "Week 4", value: 100 },
+                    ]}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient id="colorVal" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#2F53E0" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#2F53E0" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                    <XAxis 
+                      dataKey="name" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: '#94a3b8', fontSize: 12 }}
+                    />
+                    <YAxis hide />
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="value" 
+                      stroke="#2F53E0" 
+                      strokeWidth={3}
+                      fillOpacity={1} 
+                      fill="url(#colorVal)" 
+                      animationDuration={2000}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
               
               <div className="bg-white rounded-2xl p-6 border border-border shadow-sm">
                 <div className="space-y-8 relative">

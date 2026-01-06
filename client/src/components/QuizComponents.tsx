@@ -8,9 +8,10 @@ interface OptionCardProps {
   onClick: () => void;
   icon?: React.ReactNode;
   subtitle?: string;
+  isMulti?: boolean;
 }
 
-export function OptionCard({ label, selected, onClick, icon, subtitle }: OptionCardProps) {
+export function OptionCard({ label, selected, onClick, icon, subtitle, isMulti }: OptionCardProps) {
   return (
     <motion.button
       whileHover={{ y: -2 }}
@@ -23,10 +24,19 @@ export function OptionCard({ label, selected, onClick, icon, subtitle }: OptionC
           : "border-border bg-card hover:border-primary/30 hover:shadow-md"
       )}
     >
-      {selected && (
-        <div className="absolute right-0 top-0 p-1.5 bg-primary rounded-bl-xl">
-          <Check className="w-4 h-4 text-white" />
+      {isMulti ? (
+        <div className={cn(
+          "w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-200",
+          selected ? "bg-primary border-primary" : "bg-white border-border group-hover:border-primary/50"
+        )}>
+          {selected && <Check className="w-4 h-4 text-white" />}
         </div>
+      ) : (
+        selected && (
+          <div className="absolute right-0 top-0 p-1.5 bg-primary rounded-bl-xl">
+            <Check className="w-4 h-4 text-white" />
+          </div>
+        )
       )}
       
       {icon && (
