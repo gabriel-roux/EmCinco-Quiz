@@ -184,7 +184,7 @@ export default function Result() {
         </span>
       </div>
 
-      <main className="max-w-lg mx-auto px-4 pt-8 space-y-8">
+      <main className="max-w-lg mx-auto px-4 pb-8 pt-8 space-y-8">
         <div className="rounded-2xl overflow-hidden">
           <div className="grid grid-cols-2 border-b border-border/30">
             <div className="text-center py-3 text-muted-foreground font-medium text-sm">
@@ -217,56 +217,56 @@ export default function Result() {
             </div>
           </div>
 
-          <div className="flex flex-row gap-4 px-6 pb-6">
-            <div className="flex-1 space-y-4">
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+          <div className="flex flex-row gap-4 px-6 pb-6 items-start">
+            <div className="flex-1 space-y-4 min-w-0">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Estresse Fisico
                 </div>
-                <div className="font-bold text-xs text-foreground truncate">Sobrecarregado</div>
+                <div className="font-bold text-[11px] text-foreground leading-tight">Sobrecarregado</div>
               </div>
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Bateria Corporal
                 </div>
-                <div className="font-bold text-xs text-foreground">Baixa</div>
+                <div className="font-bold text-[11px] text-foreground">Baixa</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
                 </div>
               </div>
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Nivel de Energia
                 </div>
-                <div className="font-bold text-xs text-foreground">Esgotado</div>
+                <div className="font-bold text-[11px] text-foreground">Esgotado</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-2/5 bg-primary rounded-full" />
                 </div>
               </div>
             </div>
-            <div className="flex-1 space-y-4">
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+            <div className="flex-1 space-y-4 min-w-0 text-right">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Estresse Fisico
                 </div>
-                <div className="font-bold text-xs text-primary truncate">Equilibrado</div>
+                <div className="font-bold text-[11px] text-primary leading-tight">Equilibrado</div>
               </div>
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Bateria Corporal
                 </div>
-                <div className="font-bold text-xs text-primary leading-none whitespace-nowrap overflow-hidden text-ellipsis">
+                <div className="font-bold text-[11px] text-primary leading-tight">
                   Recarregada
                 </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
               </div>
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
+              <div className="min-h-[45px]">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Nivel de Energia
                 </div>
-                <div className="font-bold text-xs text-primary">Pico</div>
+                <div className="font-bold text-[11px] text-primary">Pico</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>

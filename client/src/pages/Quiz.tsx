@@ -608,8 +608,8 @@ export default function Quiz() {
                       dataKey="value" 
                       stroke="url(#strokeGradient)" 
                       strokeWidth={4}
-                      fillOpacity={1} 
-                      fill="url(#colorProgress)" 
+                      fillOpacity={0.15} 
+                      fill="url(#strokeGradient)" 
                       animationDuration={1500}
                       dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 5, stroke: 'white' }}
                       activeDot={{ r: 7, stroke: 'hsl(var(--primary))', strokeWidth: 3, fill: 'white' }}
