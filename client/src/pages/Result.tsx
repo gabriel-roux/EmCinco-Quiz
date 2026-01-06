@@ -16,8 +16,8 @@ import { cn } from "@/lib/utils";
 import { useGeneratePlan } from "@/hooks/use-plan";
 import { type PlanResponse } from "@shared/schema";
 import { motion, AnimatePresence } from "framer-motion";
-import tiredPhoto from "@assets/stock_images/tired_stressed_busin_aa80ac39.jpg";
-import happyPhoto from "@assets/stock_images/confident_happy_busi_0a5b6202.jpg";
+import tiredPhoto from "@assets/stock_images/sad_stressed_man_por_d4dca5ae.jpg";
+import happyPhoto from "@assets/stock_images/happy_confident_smil_cda14bad.jpg";
 
 interface FAQItemProps {
   question: string;
