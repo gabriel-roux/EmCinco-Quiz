@@ -662,7 +662,7 @@ export default function Quiz() {
                 placeholder={currentStep.placeholder}
                 value={answers[currentStep.id!] || ""}
                 onChange={(e) => handleAnswer(currentStep.id!, e.target.value)}
-                className="w-full text-2xl p-6 rounded-2xl border-2 border-border focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+                className="w-full text-lg p-4 rounded-xl border-2 border-border focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
                 autoFocus
                 data-testid={`input-${currentStep.id}`}
               />
