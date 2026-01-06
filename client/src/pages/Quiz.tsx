@@ -472,13 +472,45 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader title={currentStep.title!} />
               
-              {currentStep.image && (
-                <OptimizedImage
-                  src={currentStep.image as string}
-                  alt="Resumo do perfil"
-                  className="w-full max-w-[280px] mx-auto aspect-square rounded-2xl shadow-lg mb-6"
-                />
-              )}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-card rounded-2xl p-6 border border-border shadow-sm"
+              >
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-xs text-muted-foreground mb-2 font-medium">Agora</div>
+                    <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <div className="text-4xl">
+                        <svg viewBox="0 0 48 48" className="w-12 h-12">
+                          <circle cx="24" cy="14" r="8" fill="#9ca3af"/>
+                          <ellipse cx="24" cy="38" rx="12" ry="10" fill="#9ca3af"/>
+                          <path d="M20 12 Q18 8 20 6" stroke="#9ca3af" strokeWidth="2" fill="none"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 text-primary">
+                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-5 h-5 -ml-3" />
+                    <ChevronRight className="w-5 h-5 -ml-3" />
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs text-primary mb-2 font-medium">Meta</div>
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <div className="text-4xl">
+                        <svg viewBox="0 0 48 48" className="w-12 h-12">
+                          <circle cx="24" cy="14" r="8" fill="hsl(var(--primary))"/>
+                          <ellipse cx="24" cy="38" rx="12" ry="10" fill="hsl(var(--primary))"/>
+                          <circle cx="22" cy="12" r="1.5" fill="white"/>
+                          <circle cx="26" cy="12" r="1.5" fill="white"/>
+                          <path d="M20 16 Q24 20 28 16" stroke="white" strokeWidth="1.5" fill="none"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
               
               <div className="bg-card rounded-2xl p-6 space-y-6 border border-border shadow-sm">
                 <ProgressBar 
@@ -541,8 +573,14 @@ export default function Quiz() {
                   >
                     <defs>
                       <linearGradient id="colorProgress" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.2}/>
-                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.02}/>
+                        <stop offset="0%" stopColor="#22c55e" stopOpacity={0.3}/>
+                        <stop offset="100%" stopColor="#22c55e" stopOpacity={0.02}/>
+                      </linearGradient>
+                      <linearGradient id="strokeGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="35%" stopColor="#f97316" />
+                        <stop offset="65%" stopColor="#eab308" />
+                        <stop offset="100%" stopColor="#22c55e" />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" opacity={0.5} />
@@ -568,8 +606,8 @@ export default function Quiz() {
                     <Area 
                       type="monotone" 
                       dataKey="value" 
-                      stroke="hsl(var(--primary))" 
-                      strokeWidth={3}
+                      stroke="url(#strokeGradient)" 
+                      strokeWidth={4}
                       fillOpacity={1} 
                       fill="url(#colorProgress)" 
                       animationDuration={1500}
@@ -591,7 +629,7 @@ export default function Quiz() {
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="absolute left-[19px] top-6 bottom-6 w-1 bg-primary/30 rounded-full origin-top" 
+                    className="absolute left-[19px] top-6 bottom-6 w-1 bg-gradient-to-b from-red-500 via-orange-400 via-yellow-400 to-green-500 rounded-full origin-top" 
                   />
                   
                   {[
