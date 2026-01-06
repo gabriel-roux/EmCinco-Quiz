@@ -292,8 +292,8 @@ export default function Quiz() {
   const handleAnswer = (key: string, value: any) => {
     setAnswers((prev: QuizAnswers) => ({ ...prev, [key]: value }));
     
-    // Auto-advance for single choice questions
-    if (currentStep.type === "single") {
+    // Auto-advance for single choice and likert questions
+    if (currentStep.type === "single" || currentStep.type === "likert") {
       setTimeout(() => {
         handleContinue();
       }, 300);
@@ -594,7 +594,7 @@ export default function Quiz() {
         disabled={!isStepValid()} 
         loading={createLead.isPending}
         label={stepIndex === steps.length - 1 ? "Generate Plan" : "Continue"}
-        className={currentStep.type === "single" ? "hidden" : ""}
+        className={["single", "likert"].includes(currentStep.type) ? "hidden" : ""}
       />
     </Layout>
   );
