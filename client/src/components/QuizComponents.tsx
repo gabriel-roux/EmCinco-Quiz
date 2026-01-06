@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, Loader2 } from "lucide-react";
 
 interface OptionCardProps {
   label: string;
@@ -154,5 +155,208 @@ export function QuestionHeader({ title, subtitle, micro }: QuestionHeaderProps) 
         </p>
       )}
     </div>
+  );
+}
+
+interface OptimizedImageProps {
+  src: string;
+  alt?: string;
+  className?: string;
+}
+
+export function OptimizedImage({ src, alt = "", className }: OptimizedImageProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "100px" }
+    );
+
+    const placeholder = document.getElementById(`img-placeholder-${src}`);
+    if (placeholder) observer.observe(placeholder);
+
+    return () => observer.disconnect();
+  }, [src]);
+
+  return (
+    <div 
+      id={`img-placeholder-${src}`}
+      className={cn("relative overflow-hidden", className)}
+    >
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center"
+          >
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="w-8 h-8 text-primary animate-spin" />
+              <span className="text-sm text-muted-foreground font-medium">Loading...</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {isInView && (
+        <motion.img
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 1.05 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          src={src}
+          alt={alt}
+          onLoad={() => setIsLoaded(true)}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      )}
+    </div>
+  );
+}
+
+interface StatCardProps {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+  color?: "primary" | "orange" | "green" | "purple";
+}
+
+export function StatCard({ label, value, icon, color = "primary" }: StatCardProps) {
+  const colorClasses = {
+    primary: "from-primary/10 to-primary/5 border-primary/20",
+    orange: "from-orange-50 to-orange-50/50 border-orange-200 dark:from-orange-900/20 dark:to-orange-900/10 dark:border-orange-800",
+    green: "from-green-50 to-green-50/50 border-green-200 dark:from-green-900/20 dark:to-green-900/10 dark:border-green-800",
+    purple: "from-purple-50 to-purple-50/50 border-purple-200 dark:from-purple-900/20 dark:to-purple-900/10 dark:border-purple-800",
+  };
+
+  const textColorClasses = {
+    primary: "text-primary",
+    orange: "text-orange-600 dark:text-orange-400",
+    green: "text-green-600 dark:text-green-400",
+    purple: "text-purple-600 dark:text-purple-400",
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={cn(
+        "p-4 rounded-xl bg-gradient-to-br border backdrop-blur-sm",
+        colorClasses[color]
+      )}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <div className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1.5">
+            {label}
+          </div>
+          <div className={cn("font-semibold text-base truncate", textColorClasses[color])}>
+            {value}
+          </div>
+        </div>
+        {icon && (
+          <div className={cn("flex-shrink-0", textColorClasses[color])}>
+            {icon}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+interface ProgressBarProps {
+  value: number;
+  label: string;
+  status: string;
+  statusColor?: "orange" | "green" | "red" | "yellow";
+}
+
+export function ProgressBar({ value, label, status, statusColor = "orange" }: ProgressBarProps) {
+  const barColors = {
+    orange: "bg-gradient-to-r from-orange-400 to-orange-500",
+    green: "bg-gradient-to-r from-green-400 to-green-500",
+    red: "bg-gradient-to-r from-red-400 to-red-500",
+    yellow: "bg-gradient-to-r from-yellow-400 to-yellow-500",
+  };
+
+  const textColors = {
+    orange: "text-orange-500",
+    green: "text-green-500",
+    red: "text-red-500",
+    yellow: "text-yellow-500",
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between items-center text-sm font-semibold">
+        <span className="text-foreground">{label}</span>
+        <span className={textColors[statusColor]}>{status}</span>
+      </div>
+      <div className="h-3 bg-muted rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${value}%` }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          className={cn("h-full rounded-full", barColors[statusColor])}
+        />
+      </div>
+    </div>
+  );
+}
+
+interface TimelineItemProps {
+  week: string;
+  text: string;
+  color: "red" | "orange" | "yellow" | "green";
+  index: number;
+}
+
+export function TimelineItem({ week, text, color, index }: TimelineItemProps) {
+  const dotColors = {
+    red: "border-red-500 bg-red-50 dark:bg-red-900/30",
+    orange: "border-orange-500 bg-orange-50 dark:bg-orange-900/30",
+    yellow: "border-yellow-500 bg-yellow-50 dark:bg-yellow-900/30",
+    green: "border-green-500 bg-green-50 dark:bg-green-900/30",
+  };
+
+  const textColors = {
+    red: "text-red-600 dark:text-red-400",
+    orange: "text-orange-600 dark:text-orange-400",
+    yellow: "text-yellow-600 dark:text-yellow-400",
+    green: "text-green-600 dark:text-green-400",
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.15 }}
+      className="flex items-center gap-4 relative z-10"
+    >
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.3, delay: index * 0.15 + 0.1, type: "spring" }}
+        className={cn(
+          "w-10 h-10 rounded-full border-4 flex-shrink-0 flex items-center justify-center shadow-sm",
+          dotColors[color]
+        )}
+      >
+        <span className={cn("text-xs font-bold", textColors[color])}>{index + 1}</span>
+      </motion.div>
+      <div className="flex-1">
+        <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{week}</div>
+        <div className={cn("font-semibold text-lg", textColors[color])}>{text}</div>
+      </div>
+    </motion.div>
   );
 }

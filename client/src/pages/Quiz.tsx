@@ -3,7 +3,8 @@ import { useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from "recharts";
 import { Layout } from "@/components/Layout";
-import { OptionCard, LikertScale, BottomBar, QuestionHeader } from "@/components/QuizComponents";
+import { OptionCard, LikertScale, BottomBar, QuestionHeader, OptimizedImage, StatCard, ProgressBar, TimelineItem } from "@/components/QuizComponents";
+import { Target, Sparkles, Timer, TrendingUp } from "lucide-react";
 import { 
   Laptop, Heart, Clock, Battery, Brain, 
   Smartphone, Coffee, AlertTriangle, CheckCircle, Zap
@@ -490,13 +491,11 @@ export default function Quiz() {
           {currentStep.type === "info" && (
             <div className="text-center space-y-8 py-8">
               {currentStep.visual === "image" ? (
-                <div className="w-full max-w-[280px] mx-auto aspect-square overflow-hidden rounded-2xl">
-                  <img 
-                    src={currentStep.image as string} 
-                    alt={currentStep.title} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <OptimizedImage
+                  src={currentStep.image as string}
+                  alt={currentStep.title}
+                  className="w-full max-w-[280px] mx-auto aspect-square rounded-2xl shadow-lg"
+                />
               ) : currentStep.icon}
               <h1 className="text-3xl font-heading font-bold">{currentStep.title}</h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
@@ -509,46 +508,47 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader title={currentStep.title!} />
               
-              {/* Profile Image */}
               {currentStep.image && (
-                <div className="w-full max-w-[280px] mx-auto aspect-square overflow-hidden rounded-2xl mb-6">
-                  <img 
-                    src={currentStep.image as string} 
-                    alt="Profile summary" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <OptimizedImage
+                  src={currentStep.image as string}
+                  alt="Profile summary"
+                  className="w-full max-w-[280px] mx-auto aspect-square rounded-2xl shadow-lg mb-6"
+                />
               )}
               
-              {/* Fake Generated Profile */}
-              <div className="bg-card rounded-2xl p-6 space-y-6 border border-border">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center text-sm font-semibold">
-                    <span>Learning Battery</span>
-                    <span className="text-orange-500">Low</span>
-                  </div>
-                  <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full w-[30%] bg-orange-500 rounded-full" />
-                  </div>
-                </div>
+              <div className="bg-card rounded-2xl p-6 space-y-6 border border-border shadow-sm">
+                <ProgressBar 
+                  value={30} 
+                  label="Learning Battery" 
+                  status="Low" 
+                  statusColor="orange" 
+                />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-4 bg-white rounded-xl border border-border">
-                    <div className="text-xs text-muted-foreground uppercase font-bold mb-1">Main Blocker</div>
-                    <div className="font-semibold text-primary">Inconsistent Focus</div>
-                  </div>
-                  <div className="p-4 bg-white rounded-xl border border-border">
-                    <div className="text-xs text-muted-foreground uppercase font-bold mb-1">Skill Track</div>
-                    <div className="font-semibold text-primary">{answers.skill_interest || "General Growth"}</div>
-                  </div>
-                  <div className="p-4 bg-white rounded-xl border border-border">
-                    <div className="text-xs text-muted-foreground uppercase font-bold mb-1">Best Format</div>
-                    <div className="font-semibold text-primary">Micro-lessons</div>
-                  </div>
-                  <div className="p-4 bg-white rounded-xl border border-border">
-                    <div className="text-xs text-muted-foreground uppercase font-bold mb-1">Daily Commitment</div>
-                    <div className="font-semibold text-primary">{answers.dedicated_time || "5 min"}</div>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <StatCard 
+                    label="Main Blocker" 
+                    value="Inconsistent Focus" 
+                    icon={<Target className="w-5 h-5" />}
+                    color="orange"
+                  />
+                  <StatCard 
+                    label="Skill Track" 
+                    value={answers.skill_interest || "General Growth"} 
+                    icon={<Sparkles className="w-5 h-5" />}
+                    color="purple"
+                  />
+                  <StatCard 
+                    label="Best Format" 
+                    value="Micro-lessons" 
+                    icon={<Timer className="w-5 h-5" />}
+                    color="primary"
+                  />
+                  <StatCard 
+                    label="Daily Commitment" 
+                    value={answers.dedicated_time || "5 min"} 
+                    icon={<TrendingUp className="w-5 h-5" />}
+                    color="green"
+                  />
                 </div>
               </div>
             </div>
@@ -558,69 +558,99 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader title={currentStep.title!} />
               
-              <div className="w-full bg-white rounded-2xl p-6 border border-border shadow-sm mb-6 h-[300px]">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full bg-gradient-to-br from-card to-card/80 rounded-2xl p-6 border border-border shadow-lg mb-6 h-[280px]"
+              >
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
                     data={[
-                      { name: "Week 0", value: 20 },
-                      { name: "Week 1", value: 35 },
-                      { name: "Week 2", value: 60 },
-                      { name: "Week 3", value: 85 },
-                      { name: "Week 4", value: 100 },
+                      { name: "Now", value: 20, label: "Starting" },
+                      { name: "Week 1", value: 40, label: "Foundation" },
+                      { name: "Week 2", value: 65, label: "Building" },
+                      { name: "Week 3", value: 85, label: "Momentum" },
+                      { name: "Week 4", value: 100, label: "Mastery" },
                     ]}
-                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                    margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
                   >
                     <defs>
-                      <linearGradient id="colorVal" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2F53E0" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#2F53E0" stopOpacity={0}/>
+                      <linearGradient id="colorProgress" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.05}/>
+                      </linearGradient>
+                      <linearGradient id="strokeGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="50%" stopColor="#f97316" />
+                        <stop offset="100%" stopColor="#22c55e" />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" opacity={0.5} />
                     <XAxis 
                       dataKey="name" 
                       axisLine={false} 
                       tickLine={false} 
-                      tick={{ fill: '#94a3b8', fontSize: 12 }}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11, fontWeight: 500 }}
+                      dy={10}
                     />
-                    <YAxis hide />
+                    <YAxis hide domain={[0, 110]} />
                     <Tooltip 
-                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                      contentStyle={{ 
+                        borderRadius: '12px', 
+                        border: '1px solid hsl(var(--border))', 
+                        boxShadow: '0 10px 25px -3px rgb(0 0 0 / 0.15)',
+                        backgroundColor: 'hsl(var(--card))',
+                        padding: '12px 16px'
+                      }}
+                      labelStyle={{ fontWeight: 600, color: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => [`${value}%`, 'Progress']}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="value" 
-                      stroke="#2F53E0" 
-                      strokeWidth={3}
+                      stroke="url(#strokeGradient)" 
+                      strokeWidth={4}
                       fillOpacity={1} 
-                      fill="url(#colorVal)" 
-                      animationDuration={2000}
+                      fill="url(#colorProgress)" 
+                      animationDuration={1500}
+                      dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 5, stroke: 'white' }}
+                      activeDot={{ r: 7, stroke: 'hsl(var(--primary))', strokeWidth: 3, fill: 'white' }}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
-              </div>
+              </motion.div>
               
-              <div className="bg-white rounded-2xl p-6 border border-border shadow-sm">
-                <div className="space-y-8 relative">
-                  {/* Simple CSS-based timeline visualization */}
-                  <div className="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-red-400 via-orange-400 to-green-500" />
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gradient-to-br from-card to-card/80 rounded-2xl p-6 border border-border shadow-lg"
+              >
+                <div className="space-y-6 relative">
+                  <motion.div 
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="absolute left-[19px] top-6 bottom-6 w-1 bg-gradient-to-b from-red-400 via-orange-400 via-yellow-400 to-green-500 rounded-full origin-top" 
+                  />
                   
                   {[
-                    { week: "Week 1", text: "Stop breaking promises", color: "text-red-500" },
-                    { week: "Week 2", text: "Build the habit loop", color: "text-orange-500" },
-                    { week: "Week 3", text: "Momentum phase", color: "text-yellow-600" },
-                    { week: "Week 4", text: "Consistent Growth", color: "text-green-600" }
+                    { week: "Week 1", text: "Stop breaking promises", color: "red" as const },
+                    { week: "Week 2", text: "Build the habit loop", color: "orange" as const },
+                    { week: "Week 3", text: "Momentum phase", color: "yellow" as const },
+                    { week: "Week 4", text: "Consistent Growth", color: "green" as const }
                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-4 relative z-10">
-                      <div className={`w-8 h-8 rounded-full bg-white border-4 ${item.color.replace('text', 'border')} flex-shrink-0`} />
-                      <div>
-                        <div className="text-xs font-bold text-muted-foreground uppercase">{item.week}</div>
-                        <div className={`font-semibold text-lg ${item.color}`}>{item.text}</div>
-                      </div>
-                    </div>
+                    <TimelineItem 
+                      key={idx}
+                      week={item.week}
+                      text={item.text}
+                      color={item.color}
+                      index={idx}
+                    />
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           )}
 
