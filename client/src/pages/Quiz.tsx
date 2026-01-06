@@ -17,6 +17,7 @@ import researchImg from "@assets/generated_images/scientific_behavioral_research
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
+import { ArrowLeft } from "lucide-react";
 
 interface QuizStep {
   id?: string;
