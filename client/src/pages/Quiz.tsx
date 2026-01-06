@@ -352,17 +352,17 @@ export default function Quiz() {
               </button>
             </div>
 
-            <div className="flex items-center justify-center gap-6 pt-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-500" />
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-8 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                 <span>100% Gratuito</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <Clock className="w-4 h-4 text-primary flex-shrink-0" />
                 <span>Leva 1 minuto</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Brain className="w-4 h-4 text-purple-500" />
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <Brain className="w-4 h-4 text-purple-500 flex-shrink-0" />
                 <span>Base cientifica</span>
               </div>
             </div>
