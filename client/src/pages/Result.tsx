@@ -196,7 +196,7 @@ export default function Result() {
           </div>
 
           <div className="flex items-center justify-center p-6 gap-2">
-            <div className="flex-1 max-w-[140px] aspect-[3/4] rounded-xl overflow-hidden shadow-md">
+            <div className="flex-1 max-w-[140px] rounded-xl overflow-hidden">
               <img
                 src={tiredPhoto}
                 alt="Antes"
@@ -208,7 +208,7 @@ export default function Result() {
               <ChevronRight className="w-5 h-5 -ml-3" />
               <ChevronRight className="w-5 h-5 -ml-3" />
             </div>
-            <div className="flex-1 max-w-[140px] aspect-[3/4] rounded-xl overflow-hidden shadow-md border-2 border-primary/10">
+            <div className="flex-1 max-w-[140px] rounded-xl overflow-hidden">
               <img
                 src={happyPhoto}
                 alt="Depois"
@@ -220,54 +220,54 @@ export default function Result() {
           <div className="grid grid-cols-2 gap-4 px-6 pb-6">
             <div className="space-y-4">
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Estresse Fisico
                 </div>
-                <div className="font-bold text-foreground">Sobrecarregado</div>
+                <div className="font-bold text-sm text-foreground">Sobrecarregado</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Bateria Corporal
                 </div>
-                <div className="font-bold text-foreground">Baixa</div>
-                <div className="w-full h-2 bg-muted rounded-full mt-1 overflow-hidden">
+                <div className="font-bold text-sm text-foreground">Baixa</div>
+                <div className="w-full h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
                 </div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Nivel de Energia
                 </div>
-                <div className="font-bold text-foreground">Esgotado</div>
-                <div className="w-full h-2 bg-muted rounded-full mt-1 overflow-hidden">
+                <div className="font-bold text-sm text-foreground">Esgotado</div>
+                <div className="w-full h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-2/5 bg-primary rounded-full" />
                 </div>
               </div>
             </div>
             <div className="space-y-4">
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Estresse Fisico
                 </div>
-                <div className="font-bold text-primary">Equilibrado</div>
+                <div className="font-bold text-sm text-primary">Equilibrado</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Bateria Corporal
                 </div>
-                <div className="font-bold text-primary">
+                <div className="font-bold text-sm text-primary leading-tight">
                   Totalmente recarregada
                 </div>
-                <div className="w-full h-2 bg-muted rounded-full mt-1 overflow-hidden">
+                <div className="w-full h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-1">
+                <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Nivel de Energia
                 </div>
-                <div className="font-bold text-primary">Pico</div>
-                <div className="w-full h-2 bg-muted rounded-full mt-1 overflow-hidden">
+                <div className="font-bold text-sm text-primary">Pico</div>
+                <div className="w-full h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
               </div>
@@ -839,14 +839,19 @@ export default function Result() {
           </div>
           <h4 className="text-xl font-bold">Garantia de 30 Dias</h4>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Acreditamos que nosso plano pode funcionar para voce e que voce vera resultados visiveis em 4 semanas! Estamos prontos para devolver seu dinheiro se voce nao ver resultados visiveis e puder demonstrar que seguiu nosso plano.
+            Acreditamos que nosso plano pode funcionar para voce e que voce vera
+            resultados visiveis em 4 semanas! Estamos prontos para devolver seu
+            dinheiro se voce nao ver resultados visiveis e puder demonstrar que
+            seguiu nosso plano.
           </p>
           <p className="text-xs text-muted-foreground">
             Saiba mais sobre limitacoes aplicaveis em nossos{" "}
-            <span className="underline cursor-pointer">Termos de Assinatura</span>.
+            <span className="underline cursor-pointer">
+              Termos de Assinatura
+            </span>
+            .
           </p>
         </div>
-
       </main>
     </div>
   );
