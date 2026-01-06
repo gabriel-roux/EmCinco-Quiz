@@ -195,20 +195,20 @@ export default function Result() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center p-6 gap-4">
-            <div className="w-32 h-40 rounded-xl overflow-hidden">
+          <div className="flex items-center justify-center p-6 gap-2">
+            <div className="flex-1 max-w-[140px] aspect-[3/4] rounded-xl overflow-hidden shadow-md">
               <img
                 src={tiredPhoto}
                 alt="Antes"
                 className="w-full h-full object-cover grayscale opacity-80"
               />
             </div>
-            <div className="flex text-primary">
+            <div className="flex text-primary/40 flex-shrink-0">
               <ChevronRight className="w-5 h-5" />
               <ChevronRight className="w-5 h-5 -ml-3" />
               <ChevronRight className="w-5 h-5 -ml-3" />
             </div>
-            <div className="w-32 h-40 rounded-xl overflow-hidden">
+            <div className="flex-1 max-w-[140px] aspect-[3/4] rounded-xl overflow-hidden shadow-md border-2 border-primary/10">
               <img
                 src={happyPhoto}
                 alt="Depois"
