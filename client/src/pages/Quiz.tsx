@@ -541,13 +541,8 @@ export default function Quiz() {
                   >
                     <defs>
                       <linearGradient id="colorProgress" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.05}/>
-                      </linearGradient>
-                      <linearGradient id="strokeGradient" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#ef4444" />
-                        <stop offset="50%" stopColor="#f97316" />
-                        <stop offset="100%" stopColor="#22c55e" />
+                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.2}/>
+                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.02}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" opacity={0.5} />
@@ -573,8 +568,8 @@ export default function Quiz() {
                     <Area 
                       type="monotone" 
                       dataKey="value" 
-                      stroke="url(#strokeGradient)" 
-                      strokeWidth={4}
+                      stroke="hsl(var(--primary))" 
+                      strokeWidth={3}
                       fillOpacity={1} 
                       fill="url(#colorProgress)" 
                       animationDuration={1500}
@@ -596,7 +591,7 @@ export default function Quiz() {
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="absolute left-[19px] top-6 bottom-6 w-1 bg-gradient-to-b from-red-400 via-orange-400 via-yellow-400 to-green-500 rounded-full origin-top" 
+                    className="absolute left-[19px] top-6 bottom-6 w-1 bg-primary/30 rounded-full origin-top" 
                   />
                   
                   {[

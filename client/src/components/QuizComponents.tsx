@@ -270,25 +270,11 @@ export function ProgressBar({ value, label, status, statusColor = "orange" }: Pr
 interface TimelineItemProps {
   week: string;
   text: string;
-  color: "red" | "orange" | "yellow" | "green";
+  color?: "red" | "orange" | "yellow" | "green";
   index: number;
 }
 
-export function TimelineItem({ week, text, color, index }: TimelineItemProps) {
-  const dotColors = {
-    red: "border-red-500 bg-red-50 dark:bg-red-900/30",
-    orange: "border-orange-500 bg-orange-50 dark:bg-orange-900/30",
-    yellow: "border-yellow-500 bg-yellow-50 dark:bg-yellow-900/30",
-    green: "border-green-500 bg-green-50 dark:bg-green-900/30",
-  };
-
-  const textColors = {
-    red: "text-red-600 dark:text-red-400",
-    orange: "text-orange-600 dark:text-orange-400",
-    yellow: "text-yellow-600 dark:text-yellow-400",
-    green: "text-green-600 dark:text-green-400",
-  };
-
+export function TimelineItem({ week, text, index }: TimelineItemProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -300,16 +286,13 @@ export function TimelineItem({ week, text, color, index }: TimelineItemProps) {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.3, delay: index * 0.15 + 0.1, type: "spring" }}
-        className={cn(
-          "w-10 h-10 rounded-full border-4 flex-shrink-0 flex items-center justify-center shadow-sm",
-          dotColors[color]
-        )}
+        className="w-10 h-10 rounded-full border-2 border-primary bg-primary/10 flex-shrink-0 flex items-center justify-center shadow-sm"
       >
-        <span className={cn("text-xs font-bold", textColors[color])}>{index + 1}</span>
+        <span className="text-xs font-bold text-primary">{index + 1}</span>
       </motion.div>
       <div className="flex-1">
         <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{week}</div>
-        <div className={cn("font-semibold text-lg", textColors[color])}>{text}</div>
+        <div className="font-semibold text-lg text-foreground">{text}</div>
       </div>
     </motion.div>
   );
