@@ -6,7 +6,7 @@ import { Layout } from "@/components/Layout";
 import { OptionCard, LikertScale, BottomBar, QuestionHeader } from "@/components/QuizComponents";
 import { 
   Laptop, Heart, Clock, Battery, Brain, 
-  Smartphone, Coffee, AlertTriangle, CheckCircle 
+  Smartphone, Coffee, AlertTriangle, CheckCircle, Zap
 } from "lucide-react";
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
@@ -17,7 +17,6 @@ import researchImg from "@assets/generated_images/scientific_behavioral_research
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
-import { ArrowLeft } from "lucide-react";
 
 interface QuizStep {
   id?: string;
@@ -157,7 +156,7 @@ const steps: QuizStep[] = [
     id: "story_1",
     type: "info",
     title: "Your problem isn't laziness.",
-    text: "If learning feels hard, it's usually because your \"daily system\" is broken — distracted attention, unclear goals, and zero feedback. The SkillSprint Plan rebuilds that system in 5 minutes a day.",
+    text: "If learning feels hard, it's usually because your \"daily system\" is broken — distracted attention, unclear goals, and zero feedback. QUICKHABIT rebuilds that system in 5 minutes a day.",
     visual: "image",
     image: batteryLowImg
   },
@@ -242,7 +241,7 @@ const steps: QuizStep[] = [
   {
     id: "commitment_time",
     type: "single",
-    question: "How much time can you dedicate daily to your SkillSprint?",
+    question: "How much time can you dedicate daily to your QUICKHABIT plan?",
     options: ["5 min", "10 min", "15 min", "20 min"]
   },
   
@@ -259,7 +258,7 @@ const steps: QuizStep[] = [
     id: "email_capture",
     type: "input",
     inputType: "email",
-    question: "Enter your email to get your personalized SkillSprint Plan",
+    question: "Enter your email to get your personalized QUICKHABIT Plan",
     placeholder: "name@example.com",
     note: "We respect your privacy. No spam."
   },
@@ -319,8 +318,8 @@ export default function Quiz() {
         });
         
         // Pass collected data via localStorage to avoid URL params limits
-        localStorage.setItem("skillSprint_answers", JSON.stringify(answers));
-        localStorage.setItem("skillSprint_name", name);
+        localStorage.setItem("quickhabit_answers", JSON.stringify(answers));
+        localStorage.setItem("quickhabit_name", name);
         
         setLocation("/processing");
       } catch (error) {
@@ -333,54 +332,76 @@ export default function Quiz() {
     }
   };
 
+  const handleBack = () => {
+    if (stepIndex > 1) {
+      setStepIndex(prev => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Render Landing (Step 0)
   if (stepIndex === 0) {
     return (
-      <Layout hideHeader>
-        <div className="flex flex-col items-center text-center space-y-8 animate-in fade-in duration-700">
-          <div className="space-y-4 max-w-xl">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest mb-2">
-              1-min quiz
-            </div>
-            <h1 className="text-4xl md:text-6xl font-heading font-extrabold text-foreground tracking-tight">
-              SkillSprint™ <span className="text-primary">PLAN</span>
-            </h1>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+          <div className="max-w-2xl w-full text-center space-y-8 animate-in fade-in duration-700">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest">
+                <Zap className="w-4 h-4" />
+                Free 1-min Assessment
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl font-heading font-black text-foreground tracking-tight leading-[1.1]">
+                QUICK<span className="text-primary">HABIT</span>
+              </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-              Find out what’s blocking your learning — and get a 5-minute daily plan.
+              Discover your learning blockers and get a personalized 4-week plan in just 5 minutes a day.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4 w-full max-w-2xl mt-8">
-            <button
-              onClick={() => {
-                handleAnswer("goal", "Career");
-                setStepIndex(1);
-              }}
-              className="group p-8 bg-white border border-border rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 text-left"
-            >
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                <Laptop className="w-8 h-8 text-primary group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">I want to learn for Career</h3>
-              <p className="text-muted-foreground">Grow income, skills, and professional value</p>
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <button
+                onClick={() => {
+                  handleAnswer("goal", "Career");
+                  setStepIndex(1);
+                }}
+                className="group relative px-8 py-5 bg-primary text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
+                data-testid="button-start-career"
+              >
+                <Laptop className="w-6 h-6" />
+                I want to grow my Career
+              </button>
 
-            <button
-              onClick={() => {
-                handleAnswer("goal", "Life");
-                setStepIndex(1);
-              }}
-              className="group p-8 bg-white border border-border rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 text-left"
-            >
-              <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-rose-500 group-hover:text-white transition-colors">
-                <Heart className="w-8 h-8 text-rose-500 group-hover:text-white" />
+              <button
+                onClick={() => {
+                  handleAnswer("goal", "Life");
+                  setStepIndex(1);
+                }}
+                className="group relative px-8 py-5 bg-white text-foreground border-2 border-border rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl hover:border-rose-300 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
+                data-testid="button-start-life"
+              >
+                <Heart className="w-6 h-6 text-rose-500" />
+                I want to improve my Life
+              </button>
+            </div>
+
+            <div className="flex items-center justify-center gap-6 pt-8 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-500" />
+                <span>100% Free</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">I want to learn for Life</h3>
-              <p className="text-muted-foreground">Hobbies, languages, personal growth, and joy</p>
-            </button>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span>Takes 1 minute</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Brain className="w-4 h-4 text-purple-500" />
+                <span>Science-backed</span>
+              </div>
+            </div>
           </div>
         </div>
-      </Layout>
+      </div>
     );
   }
 
@@ -394,7 +415,7 @@ export default function Quiz() {
   };
 
   return (
-    <Layout progress={progress}>
+    <Layout progress={progress} showBack={stepIndex > 1} onBack={handleBack}>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep.id || stepIndex}

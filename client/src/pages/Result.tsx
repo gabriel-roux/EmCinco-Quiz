@@ -29,8 +29,8 @@ export default function Result() {
 
   useEffect(() => {
     // Fetch plan in background
-    const savedAnswers = localStorage.getItem("skillSprint_answers");
-    const savedName = localStorage.getItem("skillSprint_name");
+    const savedAnswers = localStorage.getItem("quickhabit_answers");
+    const savedName = localStorage.getItem("quickhabit_name");
     
     if (savedAnswers && savedName && !planData) {
       generatePlan.mutateAsync({
@@ -56,7 +56,7 @@ export default function Result() {
             Ready
           </div>
           <h1 className="text-3xl md:text-5xl font-heading font-extrabold leading-tight">
-            Your SkillSprint Plan is <span className="text-primary">Ready!</span>
+            Your QUICKHABIT Plan is <span className="text-primary">Ready!</span>
           </h1>
           <p className="text-lg text-muted-foreground">
             Based on your answers, here is your personalized path.
@@ -114,7 +114,7 @@ export default function Result() {
             </ul>
           </div>
           <div className="p-6 rounded-2xl bg-green-50 border border-green-100">
-            <h3 className="font-bold text-green-800 mb-4">SkillSprint Goal</h3>
+            <h3 className="font-bold text-green-800 mb-4">QUICKHABIT Goal</h3>
             <ul className="space-y-3 text-sm text-green-700">
               <li className="flex gap-2"><Check className="w-4 h-4" /> 5-min Habit</li>
               <li className="flex gap-2"><Check className="w-4 h-4" /> Laser Focus</li>

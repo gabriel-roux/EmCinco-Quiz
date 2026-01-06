@@ -19,7 +19,7 @@ export default function Processing() {
     "Analyzing your learning blockers...",
     "Calibrating difficulty level...",
     "Designing your 5-minute daily missions...",
-    "Finalizing your SkillSprint Plan..."
+    "Finalizing your QUICKHABIT Plan..."
   ];
 
   return (

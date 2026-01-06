@@ -1,8 +1,15 @@
-# SkillSprint Quiz Application
+# QUICKHABIT Quiz Application
 
 ## Overview
 
-SkillSprint is a high-conversion quiz application designed to diagnose users' learning blockers and generate personalized 4-week skill development plans. The app follows a "Ruut/Noom/BetterMe" style quiz flow with gamification elements, progress tracking, and AI-powered plan generation. Users complete approximately 25-30 interactive quiz screens, then receive a personalized profile and weekly learning plan.
+QUICKHABIT is a high-conversion quiz application designed to diagnose users' learning blockers and generate personalized 4-week skill development plans. The app follows a "Ruut/Noom/BetterMe" style quiz flow with gamification elements, progress tracking, and AI-powered plan generation. Users complete approximately 25-30 interactive quiz screens, then receive a personalized profile and weekly learning plan.
+
+## Recent Changes
+- **Rebranding**: Changed from "SkillSprint" to "QUICKHABIT" throughout the entire application
+- **Layout**: Content is now top-aligned below the header instead of centered
+- **Navigation**: Added back button functionality to navigate between quiz questions  
+- **Container Sizing**: Standardized container width (max-w-xl) across all quiz screens
+- **Intro Screen**: Redesigned landing page with gradient background, improved CTAs, and trust indicators
 
 ## User Preferences
 
