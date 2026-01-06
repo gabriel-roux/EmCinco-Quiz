@@ -30,12 +30,7 @@ export function Layout({ children, progress, hideHeader = false, onBack, showBac
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
               )}
-              <Link href="/" className="font-heading font-bold text-xl text-primary flex items-center gap-2">
-                <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                </div>
+              <Link href="/" className="font-heading font-bold text-xl text-primary">
                 QUICKHABIT
               </Link>
             </div>

@@ -1,0 +1,41 @@
+Aqui está um prompt bem estruturado e completo que você pode copiar e colar diretamente no ChatGPT, Grok, Claude ou qualquer outro modelo de IA para pedir melhorias no quiz do seu QuickHabit. Ele inclui contexto, as dores que você quer atacar mais forte, o tom desejado e referência às telas atuais (incluindo a nova tela de resumo do perfil).
+
+Prompt para melhorar o quiz:
+Você é um especialista em copywriting para produtos digitais de produtividade e hábitos, com foco em micro-SaaS mobile. Meu app se chama QuickHabit: é um quiz rápido (1-2 minutos) que identifica os principais bloqueios de aprendizado e consistência do usuário e, no final, entrega um plano personalizado de 4 semanas com micro-hábitos de apenas 5 minutos por dia.
+O objetivo principal do quiz é:
+
+Cair matando na dor do usuário logo nas primeiras telas (falta de consistência, distração, sobrecarga mental, preguiça de aprender coisas novas, sensação de "piloto automático").
+Ser extremamente interativo, conversacional e empático – como se o app estivesse falando diretamente com a pessoa.
+Gerar alta taxa de conversão para o plano pago no final.
+
+Já tenho um fluxo de quiz funcionando, mas quero reformular todas as perguntas e textos para ficarem mais impactantes, emocionais e persuasivos. O tom deve ser direto, honesto, um pouco provocador (sem ser agressivo), e usar linguagem cotidiana brasileira.
+Aqui estão as telas atuais do quiz (em ordem aproximada):
+
+Tela inicial: "Descubra seus bloqueios de aprendizado e receba um plano personalizado de 4 semanas em apenas 5 minutos por dia." Com opções "Quero crescer na Carreira" ou "Quero melhorar minha Vida".
+"Seja honesto: o que geralmente acontece quando você tenta aprender algo novo?"
+Opções: Começo forte... depois sumo / Penso demais e nunca começo / Começo mas me distraio / Sou consistente, mas lento / Nem sei o que aprender
+"Eu tenho potencial – só não consigo manter a consistência." (escala 1-5 de concordância)
+"Você tem dificuldade em focar mesmo em tarefas fáceis?" (Quase sempre / Frequentemente / Raramente / Quase nunca)
+"Você se sente mentalmente ‘enevoado’ durante o dia?" (mesmas opções de frequência)
+"Você se sente travado escolhendo o que aprender primeiro?" (mesmas opções)
+"Sinto que meus dias funcionam no piloto automático." (escala 1-5 de concordância)
+"Como você descreveria seu dia típico?"
+Opções: Sempre ocupado / sempre correndo / Ocupado mas administrável / Calmo mas sem foco / Caótico e imprevisível
+Tela explicativa: "Seu problema não é preguiça." + explicação sobre sistema diário quebrado e micro-hábitos de 5 min.
+Telas sobre ciência comportamental e motor adaptativo.
+Tela final de resumo do perfil (veja imagem anexada): Mostra transformação "Agora → Meta", Bateria de Aprendizado (Baixa/Média/Alta), Principal Bloqueio (ex: Foco Inconsistente), Trilha de Habilidade (ex: Mente e Corpo), Melhor Formato (ex: Micro-lições), Compromisso Diário (ex: 5 minutos de micro-aula).
+
+Tarefa:
+Reescreva todo o fluxo do quiz (todas as perguntas, textos e opções de resposta) para:
+
+Bater mais forte na dor logo nas primeiras 3 telas.
+Usar linguagem mais emocional, conversacional e relatable (ex: "Você também sente isso?", "Sério, me conta a verdade…").
+Fazer as opções de resposta mais específicas e "dolorosas" para o usuário se identificar imediatamente.
+Manter o tom científico e confiável nas telas explicativas, mas mais humano.
+Preparar bem para a tela de resumo do perfil, reforçando os bloqueios identificados.
+Sugerir textos para a tela de resumo do perfil que valorizem o diagnóstico e criem urgência para o plano personalizado.
+
+Por favor, entregue o fluxo completo reescrito, tela por tela, com título/pergunta principal, texto de apoio (se houver) e opções exatas de resposta.
+
+Esse prompt é direto, dá todo o contexto necessário e guia a IA para entregar exatamente o que você precisa: um quiz novo, mais persuasivo e com copy de alto impacto.
+Se quiser, posso ajustar o prompt ou já gerar a versão reformulada do quiz completo pra você aqui mesmo! 😄
