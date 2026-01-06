@@ -1,0 +1,559 @@
+Boa. Vou te entregar um **plano copiável pro Replit** no mesmo “ritmo” do Ruut: **progress bar**, perguntas curtinhas, telas de “story” (com ilustração), multi-select, Likert 1–5, captura de e-mail/nome, “resumo do perfil”, gráfico de progresso e **paywall/CTA** (no seu caso: *baixar o app / começar o trial / entrar na lista*).
+
+A ideia aqui é: você não vende “quiz”, você vende **um diagnóstico + um plano de 5 min/dia** com cara de ciência/IA.
+
+---
+
+# 0) Branding do seu quiz (pra ficar apelativo)
+
+**Nome do quiz:** `SkillSprint™ Plan`
+**Promise:** “Descubra seu bloqueador nº1 e receba um plano diário de 5 minutos pra aprender uma habilidade — sem depender de motivação.”
+
+**Tom:** direto, “leve ameaça do tempo passando”, e “carinho com tapa” (sem ser agressivo).
+
+**Cores (clone do estilo):**
+
+* Fundo: #FFFFFF
+* Texto: #0B1020 (quase preto)
+* Primária botão / highlights: #2F53E0 (azul)
+* Cinza cards: #F7F8FC
+* Bordas: #E7EAF3
+
+**Componentes fixos em todas as telas:**
+
+* Topo: “My profile” ou “SkillSprint”
+* Progress bar (4 segmentos ou contínua)
+* Card com respostas (radio/checkbox)
+* Botão fixo embaixo: `CONTINUE` (disabled até selecionar)
+
+---
+
+# 1) Estrutura técnica (o que você manda pro Replit)
+
+**Stack sugerida:** Vite + React + TS + Tailwind
+**Arquitetura limpa do quiz:**
+
+* `src/quiz/steps.ts` → lista de telas (texto, tipo, opções, imagem)
+* `src/quiz/scoring.ts` → regras de pontuação e cálculo do perfil
+* `src/pages/Quiz.tsx` → engine do quiz (render por step.type)
+* `src/pages/Result.tsx` → resumo + CTA
+* `src/components/Progress.tsx`, `OptionCard.tsx`, `Likert.tsx`, `EmailCapture.tsx`
+
+**Tipos de tela (igual ao Ruut):**
+
+* `gender_cards` (2 cards com imagem)
+* `single_choice` (radio)
+* `multi_choice` (checkbox)
+* `likert_1_5` (quadrados 1–5)
+* `info_illustration` (texto + ilustração)
+* `social_proof` (número grande + imagem)
+* `email_capture` (input)
+* `name_capture` (input)
+* `profile_summary` (score + cards)
+* `plan_preview` (gráfico + timeline)
+* `cta_paywall` (plano + timer + CTA)
+
+---
+
+# 2) O quiz completo (25 perguntas/telas) — adaptado pro seu app
+
+> **Observação estratégica:** o Ruut alterna “pergunta simples” com “tela de narrativa” pra reduzir cansaço. Eu repliquei o ritmo.
+
+## STEP 0 — Landing (gender_cards)
+
+**Título:** `SkillSprint™ PLAN`
+**Sub:** `Find out what’s blocking your learning — and get a 5-minute daily plan.`
+**Micro:** `1-min quiz`
+
+**Respostas (cards):**
+
+* `I want to learn for Career`
+* `I want to learn for Life`
+
+✅ *Por quê isso funciona:* troca gênero/idade por algo que define intenção. E você já segmenta copy.
+
+**Imagem (para cada card):**
+
+* **Card 1 (Career):** ilustração estilo flat minimalista: pessoa em pé com notebook aberto, gráfico simples subindo ao fundo, cores suaves (azul/cinza), fundo branco.
+* **Card 2 (Life):** ilustração estilo flat minimalista: pessoa segurando livro/violão (símbolo genérico de hobby), com ícones pequenos de “brain/heart”, cores suaves, fundo branco.
+
+---
+
+## STEP 1 — Age (single_choice)
+
+**Pergunta:** `What’s your age?`
+
+* 13–17 *(se você não quiser menor, remove)*
+* 18–24
+* 25–34
+* 35–44
+* 45–54
+* 55+
+
+---
+
+## STEP 2 — Hook (single_choice)
+
+**Pergunta:** `Be honest: what usually happens when you try to learn something new?`
+
+* `I start strong… then disappear`
+* `I overthink and never start`
+* `I start but I get distracted`
+* `I’m consistent, but slow`
+* `I don’t even know what to learn`
+
+---
+
+## STEP 3 — Likert (likert_1_5)
+
+**Frase grande:** `"I have the potential — I just can't stay consistent."`
+**Sub:** `Do you agree with the statement above?`
+
+---
+
+## STEP 4 — Focus (single_choice)
+
+**Pergunta:** `Do you struggle to focus even on easy tasks?`
+
+* Almost always
+* Often
+* Rarely
+* Almost never
+
+---
+
+## STEP 5 — Mental fog (single_choice)
+
+**Pergunta:** `Do you feel mentally “foggy” during the day?`
+
+* Almost always
+* Often
+* Rarely
+* Almost never
+
+---
+
+## STEP 6 — Decision fatigue (single_choice)
+
+**Pergunta:** `Do you feel stuck choosing what to learn first?`
+
+* Almost always
+* Often
+* Rarely
+* Almost never
+
+---
+
+## STEP 7 — Likert (likert_1_5)
+
+**Frase:** `"I feel like my days run on autopilot."`
+
+---
+
+## STEP 8 — Typical day (single_choice)
+
+**Pergunta:** `How would you describe your typical day?`
+
+* `Always busy / always rushing`
+* `Busy but manageable`
+* `Calm but unfocused`
+* `Chaotic and unpredictable`
+
+---
+
+## STEP 9 — Screen time (single_choice)
+
+**Pergunta:** `How often does your phone steal your attention?`
+
+* `All the time`
+* `Often`
+* `Sometimes`
+* `Rarely`
+
+---
+
+## STEP 10 — Learning time (single_choice)
+
+**Pergunta:** `How much time can you реально dedicate per day?`
+
+* `2 min/day`
+* `5 min/day` *(recomendado)*
+* `10 min/day`
+* `15 min/day`
+
+---
+
+## STEP 11 — Eating habits analog (single_choice)
+
+(Equivalente “chaotic eating habits”, mas pro seu app)
+**Pergunta:** `Have your routines been chaotic lately?`
+
+* Yes, a lot
+* A little
+* Not really
+* No, I'm structured
+
+---
+
+## STEP 12 — Motivation pain (multi_choice)
+
+**Pergunta:** `What do you want to fix first? (choose all that apply)`
+
+* `Discipline`
+* `Focus`
+* `Confidence`
+* `Consistency`
+* `Money / Career growth`
+* `Creativity`
+* `Anxiety / Overthinking`
+* `Energy`
+
+---
+
+## STEP 13 — Story illustration (info_illustration)
+
+**Título:** `Your problem isn't laziness.`
+**Texto:**
+`If learning feels hard, it's usually because your "daily system" is broken — distracted attention, unclear goals, and zero feedback.`
+`The SkillSprint Plan rebuilds that system in 5 minutes a day.`
+
+**Imagem (ilustração):**
+
+* Pessoa curvada olhando pro celular com “bateria baixa” flutuando (ícone de bateria 10%).
+* Estilo flat minimalista, fundo branco, cores azul/cinza, sombra suave no chão.
+* Nada de realismo, nada de 3D.
+
+---
+
+## STEP 14 — Life impact (multi_choice)
+
+**Pergunta:** `What suffers the most when you don't learn? (choose all that apply)`
+
+* Work performance
+* Confidence
+* Money / Opportunities
+* Relationships
+* Mental health
+* Creativity
+* Motivation
+* Other
+
+---
+
+## STEP 15 — Skill type (single_choice)
+
+**Pergunta:** `What kind of skills excite you most?`
+
+* `Tech / AI`
+* `Communication / Social`
+* `Business / Money`
+* `Creative (design/writing/video)`
+* `Mind & Body (habits, focus)`
+* `Languages`
+
+---
+
+## STEP 16 — Learning style (single_choice)
+
+**Pergunta:** `How do you learn best?`
+
+* `Micro-lessons (fast)`
+* `Step-by-step challenges`
+* `Short reading`
+* `Practice tasks`
+* `Mix of everything`
+
+---
+
+## STEP 17 — Quit habits (multi_choice) (clone da tela “habits you'd like to quit?”)
+
+**Pergunta:** `Which habits are holding you back? (choose all that apply)`
+
+* `Late nights`
+* `Excessive screen time`
+* `Binge scrolling`
+* `Skipping workouts`
+* `Sugar / junk food`
+* `Procrastination`
+* `Overthinking`
+* `None (I’m disciplined, just busy)`
+
+---
+
+## STEP 18 — Authority (info_illustration)
+
+(Equivalente aos logos Stanford/Cambridge/Harvard, mas sem mentir “instituições” específicas)
+**Título:** `Built on behavioral science.`
+**Texto:** `Your plan uses proven principles: habit stacking, friction design, and micro-commitments.`
+**Cards (sem logos reais):**
+
+* `Behavioral Science`
+* `Skill Acquisition`
+* `Habit Engineering`
+
+**Imagem:** (não precisa) apenas cards tipográficos.
+
+---
+
+## STEP 19 — Professional referral (single_choice)
+
+**Pergunta:** `Have you tried habit apps before?`
+
+* `Yes, but I quit`
+* `Yes, I still use one`
+* `No`
+* `I build products / I'm a pro`
+
+---
+
+## STEP 20 — Expert review style (info_illustration)
+
+**Título:** `Your plan is generated by an adaptive engine.`
+**Texto:**
+`It chooses a skill track and a daily mission based on your answers — then adjusts as you improve.`
+
+**Imagem:**
+
+* Silhueta humana em cinza claro no centro.
+* Ao redor, “bubbles” com tags: `Focus`, `Discipline`, `Skill`, `Time`, `Motivation`, `Clarity`, `Feedback`.
+* Estilo flat, minimal, fundo branco.
+
+---
+
+## STEP 21 — Future improvements (multi_choice)
+
+**Pergunta:** `How will your life improve if you fix this? (choose all that apply)`
+
+* Better performance at work
+* More money / opportunities
+* Stronger confidence
+* Clearer focus
+* Less anxiety
+* More creativity
+* More discipline
+* Other
+
+---
+
+## STEP 22 — Profile summary (profile_summary)
+
+**Título:** `Summary of your Profile`
+**Métrica principal:** `Learning Battery` (Low/Medium/High)
+**Barra:** 0–100 com marcador “You — XX%”
+
+**Cards de resumo (4):**
+
+* `Main Blocker: ____`
+* `Skill Track: ____`
+* `Best Format: ____`
+* `Daily Commitment: ____`
+
+**Imagem:**
+
+* Foto-style? Não. Faz igual: um “avatar” ilustrado.
+* **Avatar Low:** pessoa com postura cansada, olhos semi fechados, camiseta cinza.
+* **Avatar High:** pessoa ereta confiante, camiseta azul, sorriso leve.
+* Estilo “semi-ilustrado” (mas sem parecer foto real), fundo branco.
+
+---
+
+## STEP 23 — Time dedication (single_choice)
+
+**Pergunta:** `How much time can you dedicate daily to your SkillSprint?`
+
+* 5 min/day
+* 10 min/day
+* 15 min/day
+* 20 min/day
+
+---
+
+## STEP 24 — Plan timeline chart (plan_preview)
+
+**Título:** `The last learning plan you'll ever need`
+**Sub:** `We predict you'll reach "high consistency" in 4 weeks.`
+
+**Gráfico (igual):**
+
+* Curva indo do vermelho → amarelo → verde.
+* Pontos:
+
+  * Week 1: `You stop breaking promises to yourself`
+  * Week 2: `You build the habit loop`
+  * Week 3: `You start feeling momentum`
+  * Week 4: `You become consistent`
+
+**Imagem:** é o próprio gráfico (SVG).
+
+---
+
+## STEP 25 — Email capture (email_capture)
+
+**Título:** `Enter your email to get your personalized SkillSprint Plan`
+**Input:** Email
+**Nota:** `We respect your privacy. No spam — only your plan + missions.`
+
+---
+
+## STEP 26 — Name capture (name_capture)
+
+**Título:** `What's your name?`
+**Input:** Name
+
+---
+
+## STEP 27 — “Plan is ready” (info_illustration)
+
+**Título:** `Your Personalized SkillSprint Plan is ready`
+**Sub:** `We'll work together to reach your goal`
+
+**Imagem (gráfico mini):**
+
+* Curva com “Now” e “After 4 weeks”, igual.
+
+---
+
+## STEP 28 — Before/After (info_illustration)
+
+**Layout:** duas colunas “Now” vs “Your Goal”
+
+* Now: `Overloaded / Distracted / Low clarity`
+* Goal: `Focused / Consistent / Progress daily`
+
+**Imagem:**
+
+* Avatar “Now” cansado (cinza)
+* Avatar “Goal” confiante (azul)
+* Setas `>>>` no meio
+
+---
+
+## STEP 29 — CTA / Paywall (cta_paywall)
+
+Aqui você adapta pro seu modelo (app de skills). Sugestão:
+
+**Título:** `Your SkillSprint Plan is Ready!`
+**Box promo:** `Launch bonus applied` + timer 10:00
+
+**Plan options (radio cards):**
+
+* `7-Day Trial` — `$0 today` (recomendado)
+* `Monthly` — `$X / month`
+* `Yearly` — `$Y / year` (melhor custo/dia)
+
+**CTA:** `START MY PLAN`
+
+**Seção “Our goals” (checklist):**
+
+* You learn daily without motivation
+* You build focus in 5 minutes
+* You gain a real skill in 30 days
+* You stop procrastinating
+* You feel proud again
+
+**Logos “As featured in”**
+✅ Use genérico ou **não use** (pra não dar ruim). Pode ser:
+
+* “Trusted by creators & builders”
+* “Used in 50+ countries” (se for verdade; se não, deixa neutro)
+
+---
+
+# 3) Os 6 “perfis” do resultado (pra parecer IA de verdade)
+
+Você vai sempre entregar:
+
+* **Main Blocker** (1)
+* **Secondary Blocker** (1)
+* **Skill Track** (1–2)
+* **Daily mission template** (7 dias)
+
+### Perfis (exatamente o que aparece no summary)
+
+1. **The Distracted Sprinter** (celular sequestra)
+2. **The Overthinker** (paralisa na escolha)
+3. **The Burnt-Out High-Achiever** (energia baixa, dia corrido)
+4. **The Inconsistent Starter** (começa e para)
+5. **The Busy Optimizer** (consistente mas quer ROI)
+6. **The Creative Drifter** (muita ideia, pouco acabamento)
+
+---
+
+# 4) Como você descreve as IMAGENS no Replit (pronto pra virar assets)
+
+Você tem 2 opções:
+
+### Opção A (mais rápida e leve): usar SVGs no próprio código
+
+Você pede pro Replit gerar/colar SVG simples (flat).
+
+### Opção B (mais bonita): usar imagens PNG geradas e colocar em `/public/illustrations`
+
+Aí cada step que tem imagem aponta pra:
+`/illustrations/step-13-battery.png`, etc.
+
+Aqui vai a lista das telas com imagem + descrição EXATA:
+
+1. **STEP 0 (2 cards)**
+
+* `career-card.png`: pessoa com notebook + gráfico subindo, estilo flat minimal, azul/cinza, fundo branco.
+* `life-card.png`: pessoa com livro/violão + ícones pequenos “brain/heart”, estilo flat minimal, azul/cinza, fundo branco.
+
+2. **STEP 13 (bateria baixa)**
+
+* `battery-drained.png`: personagem curvado olhando pro celular, balão com ícone de bateria 10% vermelho, sombra suave no chão, flat minimal, fundo branco.
+
+3. **STEP 20 (silhueta + tags)**
+
+* `human-tags.png`: silhueta humana cinza claro ao centro, bolhas arredondadas ao redor com labels: Focus, Discipline, Skill, Time, Motivation, Clarity, Feedback. Minimal, fundo branco.
+
+4. **STEP 22 (avatar summary)**
+
+* `avatar-low.png`: avatar ilustrado masculino/neutro cansado, camiseta cinza, expressão abatida, fundo branco.
+* `avatar-high.png`: avatar ilustrado confiante, camiseta azul, braços cruzados, sorriso leve, fundo branco.
+
+5. **STEP 27 (chart small)**
+
+* `mini-chart.png`: curva em gradiente vermelho→verde, marcador “Now” no começo e “After 4 weeks” no final, fundo branco.
+
+6. **STEP 28 (before after)**
+
+* `before-after.png`: dois avatares lado a lado (cansado cinza vs confiante azul) com setas “>>>” no meio, fundo branco.
+
+*(O resto é UI pura.)*
+
+---
+
+# 5) Copy pronta (frases “apelativas” sem virar adolescente edgy)
+
+Você quer frases que doem, mas que a pessoa concorda:
+
+* “Você não precisa de mais motivação. Precisa de um sistema.”
+* “Seu cérebro não é fraco. Só está sobrecarregado.”
+* “Você não é inconsistente. Você está sem feedback.”
+* “Se você só fizer 5 minutos… você ainda vence.”
+* “O tempo vai passar de qualquer forma. Melhor passar melhor.”
+
+Use 1 dessas a cada 4–5 telas como subtítulo.
+
+---
+
+# 6) Entrega final pro Replit (o que você manda pro dev / Cursor / você mesmo)
+
+Copie e cole esse “contrato”:
+
+**Checklist de implementação**
+
+* Engine de steps com render por tipo
+* Progress bar (currentStep / totalSteps)
+* Estado global `answers`
+* Regras de `scoring` → `profile`
+* Result pages: `profile_summary`, `plan_preview`, `cta_paywall`
+* Assets em `/public/illustrations/*` conforme lista
+* Validação: `CONTINUE` só libera se selecionou
+* Multi-select com “pills” selecionadas (borda azul + check)
+* Likert quadrado 1–5 (selecionado fica azul)
+
+---
+
+Se você quiser, eu te mando agora **o arquivo `steps.ts` pronto em JSON/TS** com TODAS essas telas já formatadas (incluindo `imageSrc`, `title`, `subtitle`, `options`, `type`, `scoringTags`) + um `scoring.ts` com a lógica dos 6 perfis. Aí você literalmente só cola no Replit e roda.

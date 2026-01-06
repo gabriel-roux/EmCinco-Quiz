@@ -1,0 +1,144 @@
+Você é um engenheiro de software sênior + product designer especialista em UX de quizzes de alta conversão
+(estilo Ruut, Noom, BetterMe), com foco em gamificação, psicologia comportamental e retenção.
+
+Seu objetivo é construir um QUIZ COMPLETO, interativo e altamente apelativo para um aplicativo de SKILLS,
+onde o usuário aprende uma habilidade nova todos os dias em apenas 5 minutos.
+
+⚠️ IMPORTANTE
+- NÃO é um quiz genérico
+- É um DIAGNÓSTICO + PLANO PERSONALIZADO
+- O tom deve ser premium, direto, humano e persuasivo (sem parecer marketing barato)
+- Tudo deve estar em PORTUGUÊS (PT-BR)
+- A experiência deve parecer “inteligente”, “personalizada” e “baseada em ciência”
+
+---
+
+## CONTEXTO DO PRODUTO
+App de habilidades diárias:
+• Aprenda uma habilidade nova em 5 minutos por dia
+• Foco em consistência, foco, disciplina, clareza e progresso real
+• Público: 18–45 anos, pessoas inteligentes, ocupadas, frustradas por não manter hábitos
+
+---
+
+## OBJETIVO DO QUIZ
+1. Fazer o usuário se identificar emocionalmente
+2. Diagnosticar o BLOQUEADOR PRINCIPAL do aprendizado
+3. Gerar a sensação de “caralho, isso sou eu”
+4. Entregar um RESUMO DE PERFIL + PLANO DE 4 SEMANAS
+5. Levar para CTA final: começar o plano / baixar o app / trial
+
+---
+
+## ESTRUTURA OBRIGATÓRIA DO QUIZ
+Crie aproximadamente **25 a 30 telas**, seguindo este ritmo:
+
+### Tipos de telas (misturar para não cansar)
+- Escolha única (radio)
+- Múltipla escolha (checkbox)
+- Escala 1–5 (Likert)
+- Tela narrativa com ilustração
+- Prova social
+- Resumo visual de perfil
+- Gráfico de progresso futuro
+- Captura de e-mail
+- CTA final
+
+### Elementos fixos em todas as telas
+- Barra de progresso no topo
+- Botão fixo “CONTINUAR” (desativado até responder)
+- Micro-feedback visual ao responder (animação leve)
+
+---
+
+## GAMIFICAÇÃO (OBRIGATÓRIA)
+Implemente conceitualmente:
+- XP por resposta (+10 XP por tela)
+- Mensagens como:
+  • “+20 XP”
+  • “Você está indo mais rápido que 82% das pessoas”
+- Sensação de avanço (“perfil sendo montado…”)
+- Confete ou destaque visual no resultado final
+
+---
+
+## PERFIS (VOCÊ DEVE CRIAR E USAR)
+O quiz deve classificar o usuário em 1 perfil principal:
+
+1. O Distraído (celular sequestra foco)
+2. O Inconsistente (começa e para)
+3. O Sobrecarregado (tempo e energia baixos)
+4. O Overthinker (pensa demais, executa pouco)
+5. O Estratégico (quer ROI e clareza)
+6. O Criativo Perdido (muitas ideias, pouco avanço)
+
+Cada resposta deve contribuir para esse score.
+
+---
+
+## CONTEÚDO DO QUIZ (VOCÊ DEVE ESCREVER TUDO)
+Crie:
+- Todas as PERGUNTAS
+- Todas as OPÇÕES DE RESPOSTA
+- Todos os TEXTOS DE TRANSIÇÃO
+- Todas as FRASES DE IMPACTO
+- Todos os TÍTULOS E SUBTÍTULOS
+
+Exemplos de tom esperado:
+• “Você não é preguiçoso. Seu sistema está quebrado.”
+• “Aprender não falha por falta de vontade, falha por excesso de fricção.”
+• “5 minutos por dia vencem 0 minutos perfeitos.”
+
+---
+
+## TELAS COM ILUSTRAÇÃO (DESCREVER IMAGEM EM TEXTO)
+Sempre que houver imagem, descreva ASSIM:
+- Estilo visual (flat minimalista, fundo branco)
+- Personagem (postura, emoção)
+- Cores predominantes
+- Elementos simbólicos (bateria baixa, gráfico, setas, etc.)
+
+Exemplo:
+“Ilustração flat minimalista de uma pessoa levemente curvada olhando para o celular, com um ícone de bateria vermelha em 10% acima da cabeça. Fundo branco, tons de azul e cinza.”
+
+---
+
+## RESULTADO FINAL (OBRIGATÓRIO)
+O quiz DEVE terminar com:
+
+### 1. Resumo do Perfil
+- Nome do perfil
+- “Bateria de Aprendizado” (baixa / média / alta)
+- Principais bloqueadores
+- Estilo ideal de aprendizado
+- Tempo diário recomendado
+
+### 2. Gráfico de Evolução (4 semanas)
+- Agora → Semana 4
+- Curva crescente (vermelho → verde)
+- Frases por semana
+
+### 3. Antes vs Depois
+- Agora: confuso, sem consistência
+- Depois: focado, confiante, em progresso
+
+### 4. CTA FINAL
+Texto forte para:
+- “Começar meu plano”
+- “Ativar meu SkillSprint”
+- “Baixar o app agora”
+
+---
+
+## FORMATO DA RESPOSTA
+Entregue o resultado organizado em:
+1. Visão geral do fluxo
+2. Lista das telas em ordem (STEP 1, STEP 2…)
+3. Conteúdo completo de cada tela
+4. Descrição das imagens quando houver
+5. Explicação rápida da lógica de pontuação
+
+⚠️ NÃO escreva código
+⚠️ NÃO simplifique
+⚠️ NÃO pule etapas
+⚠️ Pense como um produto que precisa converter
