@@ -153,16 +153,16 @@ export default function Result() {
 
   const testimonials = [
     {
-      name: "Amanda S.",
-      text: "Estou seguindo o plano QUICKHABIT há alguns meses, e a diferença é dia e noite. Eu costumava começar mil coisas e não terminar nenhuma. Agora tenho uma trilha clara, fico focada e finalmente sinto que estou evoluindo de verdade.",
+      name: "Ricardo M.",
+      text: "Aprendi a montar apresentações de impacto em 30 dias usando o método XP5. Antes eu levava horas e o resultado era medíocre. Hoje recebo elogios em todas as reuniões.",
     },
     {
-      name: "Bruno R.",
-      text: "O QUICKHABIT me ajudou a entender por que eu procrastinava tanto. As missões diárias de 5 minutos tornaram fácil criar consistência, e é algo que realmente quero fazer todos os dias.",
+      name: "Mariana L.",
+      text: "O QUICKHABIT me ajudou a dominar análise de dados em tempo recorde. As missões diárias de 5 minutos tornaram o aprendizado algo natural na minha rotina puxada.",
     },
     {
-      name: "Tila W.",
-      text: "Um amigo me recomendou o QUICKHABIT, e estou muito feliz por ter ouvido. O que se destacou foi como o plano é fácil de seguir. Sem enrolação, apenas estratégias práticas que se encaixam na minha rotina.",
+      name: "João P.",
+      text: "Finalmente consegui ser constante nos estudos de inglês. Em 4 semanas meu vocabulário dobrou e perdi o medo de falar em reuniões internacionais.",
     },
   ];
 
@@ -180,7 +180,7 @@ export default function Result() {
       <div className="sticky top-0 z-50 bg-[#1a1a2e] text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <Zap className="w-4 h-4 text-yellow-400 fill-yellow-400" />
         <span>
-          Bônus de lançamento reservado por {time.mins}:{time.secs}
+          Oferta de Lançamento: Os primeiros 500 usuários ganham acesso vitalício à Comunidade Mastermind. Expira em {time.mins}:{time.secs}
         </span>
       </div>
 
@@ -512,7 +512,7 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMECAR MEU PLANO
+              COMECAR MEU DESAFIO
             </button>
           </div>
         </div>
@@ -826,7 +826,7 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMECAR MEU PLANO
+              COMECAR MEU DESAFIO
             </button>
           </div>
         </div>
