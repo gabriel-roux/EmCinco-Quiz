@@ -180,7 +180,7 @@ const steps: QuizStep[] = [
     id: "story_1",
     type: "info",
     title: "Seu problema não é preguiça.",
-    text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O método XP5™ reconstrói esse sistema em apenas 5 minutos por dia.",
+    text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O nosso método reconstrói esse sistema em apenas 5 minutos por dia.",
     visual: "image",
     image: batteryLowImg,
   },
@@ -299,7 +299,7 @@ const steps: QuizStep[] = [
     id: "profile_summary",
     type: "summary",
     title: "Análise de Perfil Concluída",
-    text: "Você precisa de micro-hábitos consistentes. Seu plano priorizará missões curtas para evitar sobrecarga e manter você avançando todos os dias.",
+    text: "Seu maior problema é a falta de consistência e não a falta de capacidade. Seu plano priorizará missões curtas diárias para evitar sobrecarga e manter você avançando todos os dias.",
     image: profileImg,
   },
 
