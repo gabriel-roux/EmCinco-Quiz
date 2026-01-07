@@ -112,8 +112,8 @@ const steps: QuizStep[] = [
   {
     id: "routine_chaos",
     type: "single",
-    question: "Suas rotinas estao caoticas ultimamente?",
-    options: ["Sim, muito", "Um pouco", "Nao muito", "Nao, sou organizado"]
+    question: "Como você se sente em relação ao seu progresso atual?",
+    options: ["Estou estagnado e sem direção", "Começo muitas coisas, mas não termino", "Sinto que poderia render muito mais", "Estou satisfeito, mas quero otimizar"]
   },
   
   {
@@ -193,10 +193,18 @@ const steps: QuizStep[] = [
   },
   
   {
+    id: "habit_stacking_info",
+    type: "info",
+    title: "Sua jornada de 4 semanas está sendo preparada.",
+    text: "Analisamos suas respostas e estamos desenhando uma trilha que elimina a procrastinação e foca no que realmente importa para você.",
+    visual: "image",
+    image: profileImg
+  },
+  {
     id: "profile_summary",
     type: "summary",
-    title: "Analisando seu Perfil...",
-    text: "Com base nas suas respostas, identificamos que seu principal bloqueio é a falta de clareza nas metas diárias e você se beneficiará de missões curtas de 5 minutos por dia.",
+    title: "Análise de Perfil Concluída",
+    text: "Identificamos que seu foco principal deve ser a construção de micro-hábitos consistentes. Seu plano priorizará missões de 5 minutos para evitar a sobrecarga mental.",
     image: profileImg
   },
   

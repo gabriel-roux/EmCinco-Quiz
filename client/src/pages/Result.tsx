@@ -144,11 +144,11 @@ export default function Result() {
   ];
 
   const comparisonItems = [
-    "Aprendizado diário",
-    "Foco consistente",
-    "Clareza mental",
-    "Alta motivação",
-    "Progresso visível",
+    "Foco inabalável",
+    "Consistência diária",
+    "Clareza de metas",
+    "Evolução contínua",
+    "Resultados práticos",
   ];
 
   const testimonials = [
