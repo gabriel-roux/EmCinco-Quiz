@@ -70,24 +70,10 @@ const steps: QuizStep[] = [
   },
   
   {
-    id: "focus_struggle",
+    id: "focus_blockers",
     type: "single",
-    question: "Voce tem dificuldade em focar mesmo em tarefas faceis?",
-    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
-  },
-  
-  {
-    id: "mental_fog",
-    type: "single",
-    question: "Voce se sente mentalmente 'enevoado' durante o dia?",
-    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
-  },
-  
-  {
-    id: "decision_fatigue",
-    type: "single",
-    question: "Voce se sente travado escolhendo o que aprender primeiro?",
-    options: ["Quase sempre", "Frequentemente", "Raramente", "Quase nunca"]
+    question: "Qual o seu maior bloqueio mental hoje?",
+    options: ["Dificuldade em manter foco", "Mente sempre dispersa", "Não sei por onde começar", "Falta de energia mental"]
   },
   
   {
@@ -157,14 +143,14 @@ const steps: QuizStep[] = [
     id: "skill_interest",
     type: "single",
     question: "Que tipo de habilidades te animam mais?",
-    options: ["Tech/IA", "Comunicacao", "Negocios", "Criativo", "Mente e Corpo", "Idiomas"]
+    options: ["Tecnologia e IA", "Comunicação", "Negócios", "Criatividade", "Mente e Corpo", "Idiomas"]
   },
   
   {
     id: "learning_style",
     type: "single",
     question: "Como voce aprende melhor?",
-    options: ["Micro-licoes", "Passo a passo", "Leitura", "Pratica", "Mix de tudo"]
+    options: ["Microlições rápidas", "Passo a passo", "Leitura", "Prática", "Mix de tudo"]
   },
   
   {
@@ -177,8 +163,8 @@ const steps: QuizStep[] = [
   {
     id: "authority_info",
     type: "info",
-    title: "Baseado em ciencia comportamental.",
-    text: "Seu plano usa principios comprovados: empilhamento de habitos, design de friccao e micro-compromissos.",
+    title: "Baseado em ciência comportamental.",
+    text: "Seu plano usa princípios comprovados por Harvard e Stanford: empilhamento de hábitos (conectar novo hábito a um existente), design de fricção (tornar o certo fácil) e micro-compromissos (começar tão pequeno que é impossível falhar).",
     visual: "image",
     image: researchImg
   },
@@ -193,8 +179,8 @@ const steps: QuizStep[] = [
   {
     id: "expert_review",
     type: "info",
-    title: "Seu plano e gerado por um motor adaptativo.",
-    text: "Ele escolhe uma trilha de habilidades e uma missao diaria baseada nas suas respostas - e se ajusta conforme voce evolui.",
+    title: "Missões diárias personalizadas para você.",
+    text: "Com base nas suas respostas, geramos uma trilha de aprendizado única com missões de 5 minutos que se adaptam ao seu progresso. Sem decisões, sem esforço - só seguir o plano.",
     visual: "image",
     image: engineImg
   },

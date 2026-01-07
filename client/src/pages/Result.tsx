@@ -144,35 +144,35 @@ export default function Result() {
   ];
 
   const comparisonItems = [
-    "Acordar renovado",
-    "Energia estavel",
-    "Foco preciso",
-    "Alta motivacao",
-    "Recuperacao forte",
+    "Aprendizado diário",
+    "Foco consistente",
+    "Clareza mental",
+    "Alta motivação",
+    "Progresso visível",
   ];
 
   const testimonials = [
     {
       name: "Amanda S.",
-      text: "Estou seguindo o plano QUICKHABIT ha alguns meses, e a diferenca e dia e noite. Eu costumava me sentir constantemente cansada e dispersa. Agora acordo com energia, fico focada o dia todo e finalmente sinto que estou no controle da minha rotina.",
+      text: "Estou seguindo o plano QUICKHABIT há alguns meses, e a diferença é dia e noite. Eu costumava começar mil coisas e não terminar nenhuma. Agora tenho uma trilha clara, fico focada e finalmente sinto que estou evoluindo de verdade.",
     },
     {
       name: "Bruno R.",
-      text: "O QUICKHABIT me ajudou a entender por que eu estava constantemente esgotado e mentalmente nublado. Os planos tornaram facil melhorar meu sono e energia, e e algo que realmente quero fazer todos os dias.",
+      text: "O QUICKHABIT me ajudou a entender por que eu procrastinava tanto. As missões diárias de 5 minutos tornaram fácil criar consistência, e é algo que realmente quero fazer todos os dias.",
     },
     {
       name: "Tila W.",
-      text: "Meu coach me recomendou o QUICKHABIT, e estou muito feliz por ter ouvido. O que se destacou foi como o plano e facil de seguir. Sem enrolacao, apenas estrategias praticas que se encaixam na minha vida.",
+      text: "Um amigo me recomendou o QUICKHABIT, e estou muito feliz por ter ouvido. O que se destacou foi como o plano é fácil de seguir. Sem enrolação, apenas estratégias práticas que se encaixam na minha rotina.",
     },
   ];
 
   const goals = [
-    "Voce acorda se sentindo verdadeiramente descansado e recarregado",
-    "Sua energia permanece estavel da manha a noite",
-    "Voce nao e mais desacelerado por nevoa mental ou fadiga",
-    "Voce se sente claro, focado e pronto para performar",
-    "Seu descanso se torna profundo, consistente e revigorante",
-    "Voce passa o dia com alta confianca e motivacao",
+    "Você desenvolve novas habilidades em apenas 5 minutos por dia",
+    "Sua consistência se torna automática e sem esforço",
+    "Você não é mais paralisado por indecisão ou procrastinação",
+    "Você se sente focado, confiante e pronto para evoluir",
+    "Seu aprendizado se torna fluido, diário e prazeroso",
+    "Você passa o dia com clareza mental e motivação constante",
   ];
 
   return (
@@ -180,7 +180,7 @@ export default function Result() {
       <div className="sticky top-0 z-50 bg-[#1a1a2e] text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <Zap className="w-4 h-4 text-yellow-400 fill-yellow-400" />
         <span>
-          Bonus de lancamento reservado por {time.mins}:{time.secs}
+          Bônus de lançamento reservado por {time.mins}:{time.secs}
         </span>
       </div>
 
@@ -221,24 +221,24 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Estresse Fisico
+                  Foco Mental
                 </div>
-                <div className="font-bold text-[11px] text-foreground leading-tight">Sobrecarregado</div>
+                <div className="font-bold text-[11px] text-foreground leading-tight">Disperso</div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Bateria Corporal
+                  Aprendizado
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Baixa</div>
+                <div className="font-bold text-[11px] text-foreground">Travado</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
                 </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Nivel de Energia
+                  Consistência
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Esgotado</div>
+                <div className="font-bold text-[11px] text-foreground">Irregular</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-2/5 bg-primary rounded-full" />
                 </div>
@@ -247,16 +247,16 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0 text-right">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Estresse Fisico
+                  Foco Mental
                 </div>
-                <div className="font-bold text-[11px] text-primary leading-tight">Equilibrado</div>
+                <div className="font-bold text-[11px] text-primary leading-tight">Afiado</div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Bateria Corporal
+                  Aprendizado
                 </div>
                 <div className="font-bold text-[11px] text-primary leading-tight">
-                  Recarregada
+                  Fluindo
                 </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
@@ -264,9 +264,9 @@ export default function Result() {
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Nivel de Energia
+                  Consistência
                 </div>
-                <div className="font-bold text-[11px] text-primary">Pico</div>
+                <div className="font-bold text-[11px] text-primary">Diária</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
@@ -315,7 +315,7 @@ export default function Result() {
 
         <div className="text-center space-y-4">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Seu Plano de Recuperacao Personalizado esta{" "}
+            Seu Plano de Desenvolvimento está{" "}
             <span className="text-primary">Pronto!</span>
           </h1>
         </div>
@@ -326,7 +326,7 @@ export default function Result() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Codigo Promocional Aplicado
+              Código Promocional Aplicado
             </span>
           </div>
 
@@ -351,16 +351,16 @@ export default function Result() {
             <Target className="w-5 h-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground">
-                Sinais fisicos
+                Desafio principal
               </div>
-              <div className="font-semibold">Baixa energia</div>
+              <div className="font-semibold">Foco e disciplina</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground">
-                Recuperacao alvo
+                Meta de progresso
               </div>
               <div className="font-semibold">94%</div>
             </div>
@@ -629,7 +629,7 @@ export default function Result() {
 
         <div className="text-center space-y-4">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Seu Plano de Recuperacao Personalizado esta{" "}
+            Seu Plano de Desenvolvimento está{" "}
             <span className="text-primary">Pronto!</span>
           </h1>
         </div>
@@ -640,7 +640,7 @@ export default function Result() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Codigo Promocional Aplicado
+              Código Promocional Aplicado
             </span>
           </div>
 
@@ -665,16 +665,16 @@ export default function Result() {
             <Target className="w-5 h-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground">
-                Sinais fisicos
+                Desafio principal
               </div>
-              <div className="font-semibold">Baixa energia</div>
+              <div className="font-semibold">Foco e disciplina</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground">
-                Recuperacao alvo
+                Meta de progresso
               </div>
               <div className="font-semibold">94%</div>
             </div>
