@@ -37,6 +37,7 @@ import researchImg from "@assets/generated_images/scientific_behavioral_research
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
+import cartoonLearningImg from "@assets/generated_images/cartoon_of_person_learning_happily..png";
 
 interface QuizStep {
   id?: string;
@@ -248,7 +249,7 @@ const steps: QuizStep[] = [
     title: "Fundamentado em neurociência. ",
     text: "O XP5™ combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
     visual: "image",
-    image: researchImg,
+    image: cartoonLearningImg,
   },
 
   {

@@ -180,7 +180,8 @@ export default function Result() {
       <div className="sticky top-0 z-50 bg-[#1a1a2e] text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <Zap className="w-4 h-4 text-yellow-400 fill-yellow-400" />
         <span>
-          Oferta de Lançamento: Os primeiros 500 usuários ganham acesso vitalício à Comunidade Mastermind. Expira em {time.mins}:{time.secs}
+          Os primeiros 500 usuários ganham acesso vitalício à Comunidade
+          Mastermind. Expira em {time.mins}:{time.secs}
         </span>
       </div>
 
@@ -223,13 +224,17 @@ export default function Result() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Nível de Foco
                 </div>
-                <div className="font-bold text-[11px] text-foreground leading-tight">Disperso</div>
+                <div className="font-bold text-[11px] text-foreground leading-tight">
+                  Disperso
+                </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Consistência
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Travada</div>
+                <div className="font-bold text-[11px] text-foreground">
+                  Travada
+                </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
                 </div>
@@ -238,7 +243,9 @@ export default function Result() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Clareza Mental
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Irregular</div>
+                <div className="font-bold text-[11px] text-foreground">
+                  Irregular
+                </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-2/5 bg-primary rounded-full" />
                 </div>
@@ -249,7 +256,9 @@ export default function Result() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
                   Nível de Foco
                 </div>
-                <div className="font-bold text-[11px] text-primary leading-tight">Afiado</div>
+                <div className="font-bold text-[11px] text-primary leading-tight">
+                  Afiado
+                </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
