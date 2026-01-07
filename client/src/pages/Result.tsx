@@ -221,22 +221,22 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Foco Mental
+                  Nível de Foco
                 </div>
                 <div className="font-bold text-[11px] text-foreground leading-tight">Disperso</div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Aprendizado
+                  Consistência
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Travado</div>
+                <div className="font-bold text-[11px] text-foreground">Travada</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
                 </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Consistência
+                  Clareza Mental
                 </div>
                 <div className="font-bold text-[11px] text-foreground">Irregular</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
@@ -247,13 +247,13 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0 text-right">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Foco Mental
+                  Nível de Foco
                 </div>
                 <div className="font-bold text-[11px] text-primary leading-tight">Afiado</div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Aprendizado
+                  Consistência
                 </div>
                 <div className="font-bold text-[11px] text-primary leading-tight">
                   Fluindo
@@ -264,9 +264,9 @@ export default function Result() {
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Consistência
+                  Clareza Mental
                 </div>
-                <div className="font-bold text-[11px] text-primary">Diária</div>
+                <div className="font-bold text-[11px] text-primary">Pico</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>

@@ -72,8 +72,8 @@ const steps: QuizStep[] = [
   {
     id: "focus_blockers",
     type: "single",
-    question: "Qual o seu maior bloqueio mental hoje?",
-    options: ["Dificuldade em manter foco", "Mente sempre dispersa", "Não sei por onde começar", "Falta de energia mental"]
+    question: "Qual o seu maior desafio com foco e produtividade hoje?",
+    options: ["Dificuldade em manter foco prolongado", "Mente sempre dispersa ou 'enevoada'", "Procrastinação e falta de clareza", "Fadiga mental ao final do dia"]
   },
   
   {
@@ -105,8 +105,8 @@ const steps: QuizStep[] = [
   {
     id: "dedicated_time",
     type: "single",
-    question: "Quanto tempo voce pode dedicar por dia de verdade?",
-    options: ["2 min", "5 min (recomendado)", "10 min", "15 min"]
+    question: "Quanto tempo você pode dedicar por dia para evoluir?",
+    options: ["2 min", "5 min (Recomendado)", "10 min", "15 min"]
   },
   
   {
@@ -135,8 +135,8 @@ const steps: QuizStep[] = [
   {
     id: "suffering_area",
     type: "multi",
-    question: "O que mais sofre quando voce nao aprende?",
-    options: ["Trabalho", "Confianca", "Dinheiro", "Relacionamentos", "Saude mental", "Criatividade", "Motivacao"]
+    question: "O que mais sofre quando sua consistência falha?",
+    options: ["Carreira e Promoções", "Confiança Pessoal", "Renda e Finanças", "Relacionamentos", "Saúde Mental", "Criatividade", "Motivação"]
   },
   
   {
@@ -172,8 +172,8 @@ const steps: QuizStep[] = [
   {
     id: "app_experience",
     type: "single",
-    question: "Voce ja tentou apps de habitos antes?",
-    options: ["Sim, mas desisti", "Sim, ainda uso", "Nao, sou um expert"]
+    question: "Você já tentou outros métodos de produtividade antes?",
+    options: ["Sim, mas desisti", "Sim, ainda uso alguns", "Não, estou começando agora"]
   },
   
   {
@@ -195,7 +195,8 @@ const steps: QuizStep[] = [
   {
     id: "profile_summary",
     type: "summary",
-    title: "Resumo do seu Perfil",
+    title: "Analisando seu Perfil...",
+    text: "Com base nas suas respostas, identificamos que seu principal bloqueio é a falta de clareza nas metas diárias e você se beneficiará de missões curtas de 5 minutos por dia.",
     image: profileImg
   },
   
