@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
 import OpenAI from "openai";
+import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -103,6 +104,49 @@ export async function registerRoutes(
     } catch (err) {
       console.error("AI Generation Error:", err);
       res.status(500).json({ message: "Failed to generate plan" });
+    }
+  });
+
+  // Stripe config endpoint
+  app.get("/api/stripe/config", async (_req, res) => {
+    try {
+      const publishableKey = await getStripePublishableKey();
+      res.json({ publishableKey });
+    } catch (err) {
+      console.error("Stripe config error:", err);
+      res.status(500).json({ message: "Failed to get Stripe config" });
+    }
+  });
+
+  // Create payment intent
+  app.post("/api/stripe/create-payment-intent", async (req, res) => {
+    try {
+      const { planId } = req.body;
+      
+      const prices: Record<string, number> = {
+        "1week": 1050,
+        "4week": 1999,
+        "12week": 3499,
+      };
+
+      const amount = prices[planId] || 1999;
+      
+      const stripe = await getUncachableStripeClient();
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: "brl",
+        automatic_payment_methods: {
+          enabled: true,
+        },
+        metadata: {
+          planId,
+        },
+      });
+
+      res.json({ clientSecret: paymentIntent.client_secret });
+    } catch (err) {
+      console.error("Payment intent error:", err);
+      res.status(500).json({ message: "Failed to create payment intent" });
     }
   });
 

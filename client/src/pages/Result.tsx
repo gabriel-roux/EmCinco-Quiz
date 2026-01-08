@@ -18,6 +18,8 @@ import { type PlanResponse } from "@shared/schema";
 import { motion, AnimatePresence } from "framer-motion";
 import tiredPhoto from "@assets/image_1767730709233.png";
 import happyPhoto from "@assets/image_1767730696591.png";
+import CheckoutModal from "@/components/CheckoutModal";
+import ExitPopup from "@/components/ExitPopup";
 
 interface FAQItemProps {
   question: string;
@@ -84,8 +86,15 @@ export default function Result() {
   const [planData, setPlanData] = useState<PlanResponse | null>(null);
   const [openFAQ, setOpenFAQ] = useState<number | null>(0);
   const generatePlan = useGeneratePlan();
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [showExitPopup, setShowExitPopup] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(600);
+
+  const handleExitIntent = () => {
+    setShowCheckout(false);
+    setShowExitPopup(true);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -520,6 +529,7 @@ export default function Result() {
 
           <div className="space-y-4 pt-3 pb-8">
             <button
+              onClick={() => setShowCheckout(true)}
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
@@ -834,6 +844,7 @@ export default function Result() {
 
           <div className="space-y-4 pt-3">
             <button
+              onClick={() => setShowCheckout(true)}
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
@@ -864,6 +875,19 @@ export default function Result() {
           </p>
         </div>
       </main>
+
+      <CheckoutModal
+        isOpen={showCheckout}
+        onClose={() => setShowCheckout(false)}
+        selectedPlan={selectedPlan}
+        onExitIntent={handleExitIntent}
+      />
+
+      <ExitPopup
+        isOpen={showExitPopup}
+        onClose={() => setShowExitPopup(false)}
+        onContinue={() => setShowExitPopup(false)}
+      />
     </div>
   );
 }

@@ -7,6 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Quiz from "@/pages/Quiz";
 import Processing from "@/pages/Processing";
 import Result from "@/pages/Result";
+import ResultFinal from "@/pages/ResultFinal";
+import Success from "@/pages/Success";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -15,6 +17,8 @@ function Router() {
       <Route path="/" component={Quiz} />
       <Route path="/processing" component={Processing} />
       <Route path="/result" component={Result} />
+      <Route path="/result-final" component={ResultFinal} />
+      <Route path="/success" component={Success} />
       {/* Quiz handles its own internal routing via state, but we route /quiz back to home to reset if needed */}
       <Route path="/quiz">
         {() => <Quiz />}
