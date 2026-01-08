@@ -65,7 +65,7 @@ export default function Processing() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       <div className="text-center space-y-2 mb-8">
-        <h1 className="text-2xl font-heading font-bold text-foreground">QUICKHABIT</h1>
+        <h1 className="text-2xl font-heading font-bold text-foreground">FOCO5</h1>
       </div>
 
       <div className="relative w-56 h-56 mb-8">
@@ -101,7 +101,7 @@ export default function Processing() {
       <div className="text-center space-y-2 mb-10">
         <p className="text-lg text-muted-foreground">Criando seu Plano de Recuperacao</p>
         <p className="text-2xl font-bold text-primary">Mais de 500.000 pessoas</p>
-        <p className="text-muted-foreground">escolheram o QUICKHABIT</p>
+        <p className="text-muted-foreground">escolheram o FOCO5</p>
       </div>
 
       <div className="w-full max-w-md">

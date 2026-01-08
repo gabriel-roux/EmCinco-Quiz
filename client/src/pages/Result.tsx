@@ -122,14 +122,14 @@ export default function Result() {
 
   const faqs = [
     {
-      question: "Por que a abordagem QUICKHABIT funciona?",
+      question: "Por que a abordagem FOCO5 funciona?",
       answer:
         "Nosso plano ajuda voce a construir habitos de forma mais profunda, com mais energia e foco. Combinamos tecnicas comprovadas de mudanca comportamental com orientacao personalizada. Voce recebe instrucoes passo a passo e rotinas que levam apenas 5 minutos por dia.",
     },
     {
       question: "Como este plano pode me ajudar?",
       answer:
-        "O QUICKHABIT foi desenvolvido para eliminar a fadiga de decisao e criar momentum consistente. Voce vai notar mais clareza mental, energia estavel e progresso visivel em suas metas.",
+        "O FOCO5 foi desenvolvido para eliminar a fadiga de decisao e criar momentum consistente. Voce vai notar mais clareza mental, energia estavel e progresso visivel em suas metas.",
     },
     {
       question: "Quando vou comecar a sentir os efeitos?",
@@ -158,7 +158,7 @@ export default function Result() {
     },
     {
       name: "Mariana L.",
-      text: "O QUICKHABIT me ajudou a dominar análise de dados em tempo recorde. As missões diárias de 5 minutos tornaram o aprendizado algo natural na minha rotina puxada.",
+      text: "O FOCO5 me ajudou a dominar análise de dados em tempo recorde. As missões diárias de 5 minutos tornaram o aprendizado algo natural na minha rotina puxada.",
     },
     {
       name: "João P.",
@@ -304,7 +304,7 @@ export default function Result() {
           </div>
           <div className="p-5 rounded-2xl bg-green-50 dark:bg-green-950/30 border border-green-100 dark:border-green-900">
             <h3 className="font-bold text-green-700 dark:text-green-400 mb-3 text-sm">
-              Meta QUICKHABIT
+              Meta FOCO5
             </h3>
             <ul className="space-y-2.5 text-sm text-green-600 dark:text-green-300">
               <li className="flex items-start gap-2">
