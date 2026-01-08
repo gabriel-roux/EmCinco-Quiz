@@ -247,7 +247,7 @@ const steps: QuizStep[] = [
     id: "authority_info",
     type: "info",
     title: "Fundamentado em neurociência. ",
-    text: "O XP5™ combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
+    text: "Nossa IA combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
     visual: "image",
     image: cartoonLearningImg,
   },
@@ -439,7 +439,7 @@ export default function Quiz() {
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span>Método XP5™</span>
+                <span>Aprenda novas habilidades</span>
               </div>
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <Clock className="w-4 h-4 text-primary flex-shrink-0" />
@@ -658,12 +658,12 @@ export default function Quiz() {
                   />
                   <StatCard
                     label="Melhor Formato"
-                    value="Micro-licoes"
+                    value="Micro-lições"
                     icon={<Timer className="w-5 h-5" />}
                     color="primary"
                   />
                   <StatCard
-                    label="Compromisso Diario"
+                    label="Compromisso Diário"
                     value={answers.dedicated_time || "5 min"}
                     icon={<TrendingUp className="w-5 h-5" />}
                     color="green"

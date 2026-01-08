@@ -139,7 +139,7 @@ export default function Result() {
     {
       question: "E baseado em ciencia?",
       answer:
-        "Sim! O QUICKHABIT e baseado em pesquisas de psicologia comportamental, neurociencia e formacao de habitos de instituicoes como Stanford, MIT e Harvard.",
+        "Sim! O EmCinco e baseado em pesquisas de psicologia comportamental, neurociencia e formacao de habitos de instituicoes como Stanford, MIT e Harvard.",
     },
   ];
 
@@ -154,7 +154,7 @@ export default function Result() {
   const testimonials = [
     {
       name: "Ricardo M.",
-      text: "Aprendi a montar apresentações de impacto em 30 dias usando o método XP5. Antes eu levava horas e o resultado era medíocre. Hoje recebo elogios em todas as reuniões.",
+      text: "Aprendi a falar em publico em 30 dias. Antes eu levava horas e o resultado era medíocre. Hoje recebo elogios em todas as reuniões.",
     },
     {
       name: "Mariana L.",
@@ -177,11 +177,13 @@ export default function Result() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="sticky top-0 z-50 bg-[#1a1a2e] text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
-        <Zap className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+      <div className="sticky top-0 z-50 bg-red-600 text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <span>
           Os primeiros 500 usuários ganham acesso vitalício à Comunidade
-          Mastermind. Expira em {time.mins}:{time.secs}
+          Mastermind.{" "}
+          <b>
+            Expira em {time.mins}:{time.secs}
+          </b>
         </span>
       </div>
 
@@ -342,7 +344,7 @@ export default function Result() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium">quickhabit_jan26</span>
+              <span className="font-medium">emcinco_jan26</span>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
@@ -582,7 +584,7 @@ export default function Result() {
 
         <div className="space-y-4">
           <h3 className="text-2xl font-bold text-center font-heading text-foreground">
-            Alcance seu pico com QUICKHABIT
+            Alcance seu pico com EmCinco
           </h3>
           <div className="overflow-hidden rounded-2xl border border-border">
             <div className="grid grid-cols-3 bg-muted/50 text-center text-xs font-semibold py-3">
@@ -590,12 +592,12 @@ export default function Result() {
               <div className="text-muted-foreground">
                 Sem
                 <br />
-                QUICKHABIT
+                EmCinco
               </div>
               <div className="text-teal-600 dark:text-teal-400">
                 Usando
                 <br />
-                QUICKHABIT
+                EmCinco
               </div>
             </div>
             {comparisonItems.map((item, idx) => (
@@ -627,7 +629,7 @@ export default function Result() {
 
         <div className="space-y-4">
           <h3 className="text-2xl font-bold text-center font-heading">
-            O que as pessoas estao dizendo sobre o QUICKHABIT
+            O que as pessoas estao dizendo sobre o EmCinco
           </h3>
           <div className="space-y-4">
             {testimonials.map((t, idx) => (
@@ -656,7 +658,7 @@ export default function Result() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium">quickhabit_jan26</span>
+              <span className="font-medium">emcinco_jan26</span>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
