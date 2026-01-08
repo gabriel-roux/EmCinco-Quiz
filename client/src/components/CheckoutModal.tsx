@@ -11,7 +11,7 @@ import {
   ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
 import { cn } from "@/lib/utils";
-import { trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
+import { trackAddPaymentInfo, trackPurchase, sendServerEvent } from "@/lib/facebookPixel";
 
 interface Plan {
   id: string;
@@ -134,6 +134,19 @@ function CheckoutForm({
       console.error(error);
       setIsProcessing(false);
     } else {
+      // Payment confirmed, trigger Purchase event
+      const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
+      trackPurchase(priceValue, [plan.id]);
+      
+      const storedAnswers = localStorage.getItem("quickhabit_answers");
+      let email = "";
+      if (storedAnswers) {
+        try {
+          email = JSON.parse(storedAnswers).email || "";
+        } catch (e) {}
+      }
+      sendServerEvent("Purchase", { email }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
+
       // If no error and no redirect happened, manually navigate
       window.location.href = "/success";
     }

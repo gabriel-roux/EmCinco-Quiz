@@ -9,28 +9,6 @@ import { trackPurchase, sendServerEvent } from "@/lib/facebookPixel";
 export default function Success() {
   const name = localStorage.getItem("quickhabit_name") || "Guerreiro(a)";
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paymentIntent = urlParams.get("payment_intent");
-    
-    if (paymentIntent) {
-      trackPurchase(19.99, ["emcinco_plan"]);
-      
-      const storedAnswers = localStorage.getItem("quickhabit_answers");
-      let email = "";
-      if (storedAnswers) {
-        try {
-          email = JSON.parse(storedAnswers).email || "";
-        } catch (e) {}
-      }
-      
-      sendServerEvent("Purchase", 
-        { email, firstName: name }, 
-        { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] }
-      );
-    }
-  }, [name]);
-
   return (
     <div className="min-h-screen bg-background flex flex-col items-center pt-12 px-4 pb-12">
       <motion.div
