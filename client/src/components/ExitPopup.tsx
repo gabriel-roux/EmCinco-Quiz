@@ -28,11 +28,11 @@ export default function ExitPopup({ isOpen, onClose, onContinue }: ExitPopupProp
             onClick={onClose}
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[60] bg-background rounded-2xl p-6 max-w-md mx-auto shadow-2xl"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] bg-background rounded-2xl p-6 w-[calc(100%-2rem)] max-w-md shadow-2xl"
           >
             <div className="text-center space-y-4">
               <h2 className="text-2xl font-heading font-bold">

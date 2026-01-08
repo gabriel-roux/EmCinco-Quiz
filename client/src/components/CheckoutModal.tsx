@@ -76,7 +76,17 @@ const finalOfferPlans: Record<string, Plan> = {
   },
 };
 
-function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Plan; onClose: () => void; onExitIntent: () => void; isFinalOffer: boolean }) {
+function CheckoutForm({
+  plan,
+  onClose,
+  onExitIntent,
+  isFinalOffer,
+}: {
+  plan: Plan;
+  onClose: () => void;
+  onExitIntent: () => void;
+  isFinalOffer: boolean;
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethod, setPaymentMethod] = useState<"fast" | "card">("fast");
@@ -111,8 +121,8 @@ function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Pla
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between p-4 border-b border-border">
+    <div className="flex flex-col h-full max-h-[90vh]">
+      <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-border">
         <button
           onClick={handleClose}
           className="p-2 -m-2"
@@ -124,18 +134,21 @@ function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Pla
         <div className="w-5" />
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4">
         <div className="space-y-2">
           <div className="flex justify-between">
             <span className="text-muted-foreground">{plan.name}</span>
-            <span className="text-muted-foreground line-through">{plan.originalPrice}</span>
+            <span className="text-muted-foreground line-through">
+              {plan.originalPrice}
+            </span>
           </div>
           <div className="flex justify-between text-green-600">
             <span>Desconto oferta introdutória</span>
             <span>-{discount}</span>
           </div>
           <div className="bg-muted/50 rounded-lg px-3 py-2 text-center text-sm text-muted-foreground">
-            Código promocional aplicado: <span className="font-medium">{promoCode}</span>
+            Código promocional aplicado:{" "}
+            <span className="font-medium">{promoCode}</span>
           </div>
         </div>
 
@@ -151,82 +164,12 @@ function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Pla
 
         <div className="space-y-3">
           <button
-            onClick={() => setPaymentMethod("fast")}
-            className={cn(
-              "w-full p-4 rounded-xl border-2 transition-all",
-              paymentMethod === "fast"
-                ? "border-primary bg-primary/5"
-                : "border-border"
-            )}
-            data-testid="button-fast-payment"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                  paymentMethod === "fast" ? "border-primary bg-primary" : "border-muted-foreground/30"
-                )}
-              >
-                {paymentMethod === "fast" && <Check className="w-3 h-3 text-white" />}
-              </div>
-              <span className="font-medium">Pagamento rápido</span>
-              <div className="flex items-center gap-2 ml-auto">
-                <div className="w-8 h-5 bg-black rounded flex items-center justify-center">
-                  <Apple className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-xs font-medium">Pay</span>
-              </div>
-            </div>
-          </button>
-
-          {paymentMethod === "fast" && (
-            <div className="space-y-3 animate-in fade-in slide-in-from-top-2">
-              <p className="text-center text-sm text-muted-foreground">
-                A forma mais segura e rápida de pagar
-              </p>
-              <ExpressCheckoutElement
-                onReady={({ availablePaymentMethods }) => {
-                  if (availablePaymentMethods) {
-                    setExpressCheckoutReady(true);
-                  }
-                }}
-                onConfirm={async () => {
-                  if (!stripe || !elements) return;
-                  const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                      return_url: `${window.location.origin}/success`,
-                    },
-                  });
-                  if (error) console.error(error);
-                }}
-                options={{
-                  buttonHeight: 50,
-                  paymentMethods: {
-                    applePay: "auto",
-                    googlePay: "auto",
-                    link: "never",
-                  },
-                }}
-              />
-              {!expressCheckoutReady && (
-                <div className="space-y-2">
-                  <div className="h-12 bg-black rounded-lg flex items-center justify-center gap-2">
-                    <Apple className="w-5 h-5 text-white" />
-                    <span className="text-white font-medium">Pay</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          <button
             onClick={() => setPaymentMethod("card")}
             className={cn(
               "w-full p-4 rounded-xl border-2 transition-all",
               paymentMethod === "card"
                 ? "border-primary bg-primary/5"
-                : "border-border"
+                : "border-border",
             )}
             data-testid="button-card-payment"
           >
@@ -234,10 +177,14 @@ function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Pla
               <div
                 className={cn(
                   "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                  paymentMethod === "card" ? "border-primary bg-primary" : "border-muted-foreground/30"
+                  paymentMethod === "card"
+                    ? "border-primary bg-primary"
+                    : "border-muted-foreground/30",
                 )}
               >
-                {paymentMethod === "card" && <Check className="w-3 h-3 text-white" />}
+                {paymentMethod === "card" && (
+                  <Check className="w-3 h-3 text-white" />
+                )}
               </div>
               <span className="font-medium">Cartão de crédito</span>
               <div className="flex items-center gap-1 ml-auto">
@@ -249,13 +196,16 @@ function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Pla
           </button>
 
           {paymentMethod === "card" && (
-            <form onSubmit={handleSubmit} className="space-y-4 animate-in fade-in slide-in-from-top-2">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 animate-in fade-in slide-in-from-top-2"
+            >
               <div className="flex items-center justify-center gap-2 py-2">
                 <SiVisa className="w-10 h-6 text-blue-600" />
                 <SiMastercard className="w-8 h-6" />
                 <SiAmericanexpress className="w-8 h-6 text-blue-500" />
               </div>
-              
+
               <PaymentElement
                 options={{
                   layout: "tabs",
@@ -293,6 +243,7 @@ export default function CheckoutModal({
 
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       fetch("/api/stripe/config")
         .then((res) => res.json())
         .then((data) => {
@@ -308,7 +259,12 @@ export default function CheckoutModal({
         .then((data) => {
           setClientSecret(data.clientSecret);
         });
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen, selectedPlan, isFinalOffer]);
 
   return (
@@ -327,7 +283,7 @@ export default function CheckoutModal({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 bg-background rounded-t-3xl max-h-[90vh] flex flex-col"
+            className="fixed inset-x-0 bottom-0 z-50 bg-background rounded-t-3xl max-h-[90vh] flex flex-col overflow-hidden"
           >
             {stripePromise && clientSecret ? (
               <Elements
@@ -343,7 +299,12 @@ export default function CheckoutModal({
                   },
                 }}
               >
-                <CheckoutForm plan={plan} onClose={onClose} onExitIntent={onExitIntent} isFinalOffer={isFinalOffer} />
+                <CheckoutForm
+                  plan={plan}
+                  onClose={onClose}
+                  onExitIntent={onExitIntent}
+                  isFinalOffer={isFinalOffer}
+                />
               </Elements>
             ) : (
               <div className="flex items-center justify-center h-64">
