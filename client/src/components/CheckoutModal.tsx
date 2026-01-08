@@ -105,6 +105,7 @@ function CheckoutForm({
 
     const { error } = await stripe.confirmPayment({
       elements,
+      redirect: "if_required",
       confirmParams: {
         return_url: `${window.location.origin}/success`,
       },
@@ -113,6 +114,9 @@ function CheckoutForm({
     if (error) {
       console.error(error);
       setIsProcessing(false);
+    } else {
+      // If no error and no redirect happened, manually navigate
+      window.location.href = "/success";
     }
   };
 
@@ -311,6 +315,8 @@ export default function CheckoutModal({
                     },
                   },
                   loader: "auto",
+                }}
+                {...({
                   defaultValues: {
                     billingDetails: {
                       email: (() => {
@@ -326,7 +332,7 @@ export default function CheckoutModal({
                       name: localStorage.getItem("quickhabit_name") || "",
                     }
                   }
-                }}
+                } as any)}
               >
                 <CheckoutForm
                   plan={plan}

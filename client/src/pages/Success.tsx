@@ -1,64 +1,100 @@
-import { Check, Rocket, Mail, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { CheckCircle2, ArrowRight, Download, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Success() {
+  const name = localStorage.getItem("quickhabit_name") || "Guerreiro(a)";
+
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex flex-col items-center pt-12 px-4 pb-12">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md w-full text-center space-y-8"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", damping: 15, stiffness: 200 }}
+        className="mb-8"
       >
-        <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto">
-          <Check className="w-10 h-10 text-white" />
+        <div className="bg-primary/10 p-4 rounded-full">
+          <CheckCircle2 className="w-20 h-20 text-primary" />
         </div>
+      </motion.div>
 
-        <div className="space-y-4">
-          <h1 className="text-3xl font-heading font-bold text-foreground">
-            Pagamento Confirmado!
-          </h1>
-          <p className="text-muted-foreground">
-            Parabéns! Você acaba de dar o primeiro passo para transformar seus hábitos de aprendizado.
-          </p>
-        </div>
+      <div className="text-center space-y-4 max-w-md mx-auto mb-12">
+        <motion.h1 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="text-4xl font-heading font-bold text-foreground"
+        >
+          Parabéns, {name}!
+        </motion.h1>
+        <motion.p 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="text-xl text-muted-foreground"
+        >
+          Seu acesso vitalício ao EmCinco e à Comunidade Mastermind foi confirmado com sucesso.
+        </motion.p>
+      </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <Mail className="w-5 h-5 text-primary" />
-            </div>
-            <div className="text-left">
-              <div className="font-semibold">Confira seu email</div>
-              <div className="text-sm text-muted-foreground">
-                Enviamos suas credenciais de acesso
+      <div className="grid gap-6 w-full max-w-xl">
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-6 flex items-start gap-4">
+              <div className="bg-primary p-2 rounded-lg text-white">
+                <Calendar className="w-6 h-6" />
               </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <Rocket className="w-5 h-5 text-primary" />
-            </div>
-            <div className="text-left">
-              <div className="font-semibold">Comece agora</div>
-              <div className="text-sm text-muted-foreground">
-                Sua primeira missão já está disponível
+              <div className="space-y-1">
+                <h3 className="font-bold text-lg">Seu Plano está Pronto</h3>
+                <p className="text-sm text-muted-foreground">
+                  As suas primeiras 4 semanas de missões personalizadas já foram geradas com base no seu perfil.
+                </p>
               </div>
-            </div>
-          </div>
-        </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-        <div className="space-y-3">
-          <Button className="w-full py-6 text-lg font-bold" data-testid="button-access-plan">
-            ACESSAR MEU PLANO
-            <ArrowRight className="w-5 h-5 ml-2" />
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Card>
+            <CardContent className="p-6 flex items-start gap-4">
+              <div className="bg-blue-500 p-2 rounded-lg text-white">
+                <Download className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-bold text-lg">Próximos Passos</h3>
+                <p className="text-sm text-muted-foreground">
+                  Enviamos um e-mail com o seu guia de boas-vindas e o link de acesso exclusivo à nossa comunidade privada.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12 w-full max-w-md space-y-4"
+      >
+        <Link href="/">
+          <Button className="w-full py-8 text-xl font-bold rounded-2xl shadow-xl hover-elevate">
+            ACESSAR MEU PLANO AGORA
+            <ArrowRight className="ml-2 w-6 h-6" />
           </Button>
-          
-          <p className="text-xs text-muted-foreground">
-            Você receberá um email com todas as instruções de acesso
-          </p>
-        </div>
+        </Link>
+        <p className="text-center text-sm text-muted-foreground">
+          Você será redirecionado para o seu dashboard pessoal.
+        </p>
       </motion.div>
     </div>
   );

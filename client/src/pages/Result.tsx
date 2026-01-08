@@ -133,22 +133,22 @@ export default function Result() {
     {
       question: "Por que a abordagem EmCinco funciona?",
       answer:
-        "Nosso plano ajuda voce a construir habitos de forma mais profunda, com mais energia e foco. Combinamos tecnicas comprovadas de mudanca comportamental com orientacao personalizada. Voce recebe instrucoes passo a passo e rotinas que levam apenas 5 minutos por dia.",
+        "Nosso plano ajuda você a construir habitos de forma mais profunda, com mais energia e foco. Combinamos tecnicas comprovadas de mudança comportamental com orientação personalizada. Você recebe instruções passo a passo e rotinas que levam apenas 5 minutos por dia.",
     },
     {
       question: "Como este plano pode me ajudar?",
       answer:
-        "O EmCinco foi desenvolvido para eliminar a fadiga de decisao e criar momentum consistente. Voce vai notar mais clareza mental, energia estavel e progresso visivel em suas metas.",
+        "O EmCinco foi desenvolvido para eliminar a fadiga de decisão e criar momentum consistente. Você vai notar mais clareza mental, energia estavel e progresso visível em suas metas.",
     },
     {
-      question: "Quando vou comecar a sentir os efeitos?",
+      question: "Quando vou começar a sentir os efeitos?",
       answer:
-        "A maioria dos usuarios relata mudancas notaveis na primeira semana. Os maiores beneficios aparecem apos 21 dias de pratica consistente.",
+        "A maioria dos usuarios relata mudancas notáveis na primeira semana. Os maiores benefícios aparecem após 21 dias de prática consistente.",
     },
     {
-      question: "E baseado em ciencia?",
+      question: "E baseado em ciência?",
       answer:
-        "Sim! O EmCinco e baseado em pesquisas de psicologia comportamental, neurociencia e formacao de habitos de instituicoes como Stanford, MIT e Harvard.",
+        "Sim! O EmCinco e baseado em pesquisas de psicologia comportamental, neurociência e formação de habitos de instituições como Stanford, MIT e Harvard.",
     },
   ];
 
@@ -533,7 +533,7 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMECAR MEU DESAFIO
+              COMEÇAR MEU DESAFIO
             </button>
           </div>
         </div>
@@ -848,7 +848,7 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMECAR MEU DESAFIO
+              COMEÇAR MEU DESAFIO
             </button>
           </div>
         </div>
