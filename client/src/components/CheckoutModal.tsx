@@ -11,7 +11,7 @@ import {
   ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
 import { cn } from "@/lib/utils";
-import { trackInitiateCheckout, trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
+import { trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
 
 interface Plan {
   id: string;
@@ -100,21 +100,6 @@ function CheckoutForm({
 
   useEffect(() => {
     const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
-    trackInitiateCheckout(priceValue, [plan.id]);
-    
-    const storedAnswers = localStorage.getItem("quickhabit_answers");
-    let email = "";
-    if (storedAnswers) {
-      try {
-        email = JSON.parse(storedAnswers).email || "";
-      } catch (e) {}
-    }
-    sendServerEvent("InitiateCheckout", { email }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
-  }, [plan.id, plan.discountedPrice]);
-
-  const handleCardPaymentSelect = () => {
-    setPaymentMethod("card");
-    const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
     trackAddPaymentInfo(priceValue);
     
     const storedAnswers = localStorage.getItem("quickhabit_answers");
@@ -125,6 +110,10 @@ function CheckoutForm({
       } catch (e) {}
     }
     sendServerEvent("AddPaymentInfo", { email }, { value: priceValue, currency: "BRL" });
+  }, [plan.id, plan.discountedPrice]);
+
+  const handleCardPaymentSelect = () => {
+    setPaymentMethod("card");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

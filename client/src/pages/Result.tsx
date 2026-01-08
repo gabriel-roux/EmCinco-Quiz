@@ -20,7 +20,7 @@ import tiredPhoto from "@assets/image_1767730709233.png";
 import happyPhoto from "@assets/image_1767730696591.png";
 import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
-import { trackViewContent, trackInitiateCheckout, sendServerEvent } from "@/lib/facebookPixel";
+import { trackInitiateCheckout, sendServerEvent } from "@/lib/facebookPixel";
 
 interface FAQItemProps {
   question: string;
@@ -105,7 +105,7 @@ export default function Result() {
   }, []);
 
   useEffect(() => {
-    trackViewContent("Result Page - Pricing", 19.99);
+    trackInitiateCheckout(19.99, ["emcinco_plan"]);
     const storedAnswers = localStorage.getItem("quickhabit_answers");
     let email = "";
     if (storedAnswers) {
@@ -113,7 +113,7 @@ export default function Result() {
         email = JSON.parse(storedAnswers).email || "";
       } catch (e) {}
     }
-    sendServerEvent("ViewContent", { email }, { contentName: "Result Page - Pricing", value: 19.99, currency: "BRL" });
+    sendServerEvent("InitiateCheckout", { email }, { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] });
   }, []);
 
   const formatTime = (seconds: number) => {
