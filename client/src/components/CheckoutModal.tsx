@@ -244,6 +244,19 @@ export default function CheckoutModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      
+      const storedAnswers = localStorage.getItem("quickhabit_answers");
+      const storedName = localStorage.getItem("quickhabit_name");
+      let email = "";
+      if (storedAnswers) {
+        try {
+          const answers = JSON.parse(storedAnswers);
+          email = answers.email || "";
+        } catch (e) {
+          console.error("Error parsing stored answers", e);
+        }
+      }
+
       fetch("/api/stripe/config")
         .then((res) => res.json())
         .then((data) => {
@@ -297,6 +310,22 @@ export default function CheckoutModal({
                       borderRadius: "8px",
                     },
                   },
+                  loader: "auto",
+                  defaultValues: {
+                    billingDetails: {
+                      email: (() => {
+                        const storedAnswers = localStorage.getItem("quickhabit_answers");
+                        if (storedAnswers) {
+                          try {
+                            const answers = JSON.parse(storedAnswers);
+                            return answers.email || "";
+                          } catch (e) {}
+                        }
+                        return "";
+                      })(),
+                      name: localStorage.getItem("quickhabit_name") || "",
+                    }
+                  }
                 }}
               >
                 <CheckoutForm
