@@ -121,15 +121,26 @@ export async function registerRoutes(
   // Create payment intent
   app.post("/api/stripe/create-payment-intent", async (req, res) => {
     try {
-      const { planId } = req.body;
+      const { planId, isFinalOffer } = req.body;
       
-      const prices: Record<string, number> = {
+      const validPlans = ["1week", "4week", "12week"];
+      if (!validPlans.includes(planId)) {
+        return res.status(400).json({ message: "Invalid plan selected" });
+      }
+      
+      const regularPrices: Record<string, number> = {
         "1week": 1050,
         "4week": 1999,
         "12week": 3499,
       };
+      
+      const finalOfferPrices: Record<string, number> = {
+        "1week": 262,
+        "4week": 499,
+        "12week": 874,
+      };
 
-      const amount = prices[planId] || 1999;
+      const amount = isFinalOffer ? finalOfferPrices[planId] : regularPrices[planId];
       
       const stripe = await getUncachableStripeClient();
       const paymentIntent = await stripe.paymentIntents.create({

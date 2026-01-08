@@ -432,6 +432,7 @@ export default function ResultFinal() {
         onClose={() => setShowCheckout(false)}
         selectedPlan={selectedPlan}
         onExitIntent={handleExitIntent}
+        isFinalOffer={true}
       />
 
       <ExitPopup

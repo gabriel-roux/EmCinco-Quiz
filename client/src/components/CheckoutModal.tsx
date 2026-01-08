@@ -25,9 +25,10 @@ interface CheckoutModalProps {
   onClose: () => void;
   selectedPlan: "1week" | "4week" | "12week";
   onExitIntent: () => void;
+  isFinalOffer?: boolean;
 }
 
-const plans: Record<string, Plan> = {
+const regularPlans: Record<string, Plan> = {
   "1week": {
     id: "1week",
     name: "Plano 1 Semana",
@@ -51,15 +52,40 @@ const plans: Record<string, Plan> = {
   },
 };
 
-function CheckoutForm({ plan, onClose, onExitIntent }: { plan: Plan; onClose: () => void; onExitIntent: () => void }) {
+const finalOfferPlans: Record<string, Plan> = {
+  "1week": {
+    id: "1week",
+    name: "Plano 1 Semana",
+    originalPrice: "R$49,99",
+    discountedPrice: "R$2,62",
+    pricePerDay: "R$0,37",
+  },
+  "4week": {
+    id: "4week",
+    name: "Plano 4 Semanas",
+    originalPrice: "R$49,99",
+    discountedPrice: "R$4,99",
+    pricePerDay: "R$0,17",
+  },
+  "12week": {
+    id: "12week",
+    name: "Plano 12 Semanas",
+    originalPrice: "R$99,99",
+    discountedPrice: "R$8,74",
+    pricePerDay: "R$0,10",
+  },
+};
+
+function CheckoutForm({ plan, onClose, onExitIntent, isFinalOffer }: { plan: Plan; onClose: () => void; onExitIntent: () => void; isFinalOffer: boolean }) {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentMethod, setPaymentMethod] = useState<"fast" | "card">("fast");
   const [isProcessing, setIsProcessing] = useState(false);
   const [expressCheckoutReady, setExpressCheckoutReady] = useState(false);
 
-  const discount = "R$30,00";
-  const discountPercent = "60%";
+  const discount = isFinalOffer ? "R$45,00" : "R$30,00";
+  const discountPercent = isFinalOffer ? "75%" : "60%";
+  const promoCode = isFinalOffer ? "emcinco_final" : "emcinco_jan26";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,7 +135,7 @@ function CheckoutForm({ plan, onClose, onExitIntent }: { plan: Plan; onClose: ()
             <span>-{discount}</span>
           </div>
           <div className="bg-muted/50 rounded-lg px-3 py-2 text-center text-sm text-muted-foreground">
-            Código promocional aplicado: <span className="font-medium">emcinco_jan26</span>
+            Código promocional aplicado: <span className="font-medium">{promoCode}</span>
           </div>
         </div>
 
@@ -258,9 +284,11 @@ export default function CheckoutModal({
   onClose,
   selectedPlan,
   onExitIntent,
+  isFinalOffer = false,
 }: CheckoutModalProps) {
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const plans = isFinalOffer ? finalOfferPlans : regularPlans;
   const plan = plans[selectedPlan];
 
   useEffect(() => {
@@ -274,14 +302,14 @@ export default function CheckoutModal({
       fetch("/api/stripe/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId: selectedPlan }),
+        body: JSON.stringify({ planId: selectedPlan, isFinalOffer }),
       })
         .then((res) => res.json())
         .then((data) => {
           setClientSecret(data.clientSecret);
         });
     }
-  }, [isOpen, selectedPlan]);
+  }, [isOpen, selectedPlan, isFinalOffer]);
 
   return (
     <AnimatePresence>
@@ -315,7 +343,7 @@ export default function CheckoutModal({
                   },
                 }}
               >
-                <CheckoutForm plan={plan} onClose={onClose} onExitIntent={onExitIntent} />
+                <CheckoutForm plan={plan} onClose={onClose} onExitIntent={onExitIntent} isFinalOffer={isFinalOffer} />
               </Elements>
             ) : (
               <div className="flex items-center justify-center h-64">
