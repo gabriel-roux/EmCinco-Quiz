@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoImage from "@assets/generated_images/emcinco_logo_icon_design.png";
 
 interface LayoutProps {
   children: ReactNode;
@@ -31,9 +30,8 @@ export function Layout({ children, progress, hideHeader = false, onBack, showBac
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
               )}
-              <Link href="/" className="flex items-center gap-2">
-                <img src={logoImage} alt="EmCinco" className="w-8 h-8" />
-                <span className="font-heading font-bold text-xl text-primary">EmCinco</span>
+              <Link href="/" className="font-heading font-bold text-xl text-primary">
+                EmCinco
               </Link>
             </div>
             
