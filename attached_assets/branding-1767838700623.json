@@ -1,0 +1,111 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "-apple-system",
+      "count": 53
+    },
+    {
+      "family": "BlinkMacSystemFont",
+      "count": 53
+    },
+    {
+      "family": "Arial",
+      "count": 53
+    },
+    {
+      "family": "Helvetica",
+      "count": 53
+    },
+    {
+      "family": "sans-serif",
+      "count": 53
+    },
+    {
+      "family": "Graphik LCG Web",
+      "count": 39
+    },
+    {
+      "family": "Graphik Arabic Web Regular",
+      "count": 39
+    },
+    {
+      "family": "Helvetica Neue",
+      "count": 39
+    },
+    {
+      "family": "Lucida Grande",
+      "count": 39
+    },
+    {
+      "family": "Roboto",
+      "count": 14
+    }
+  ],
+  "colors": {
+    "primary": "#385898",
+    "accent": "#1877F2",
+    "background": "#FFFFFF",
+    "textPrimary": "#4B4F56",
+    "link": "#1877F2"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "-apple-system",
+      "heading": "Graphik LCG Web"
+    },
+    "fontStacks": {
+      "body": [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Roboto",
+        "Arial",
+        "Helvetica",
+        "sans-serif"
+      ],
+      "heading": [
+        "Graphik LCG Web",
+        "Graphik Arabic Web Regular",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Helvetica Neue",
+        "Helvetica",
+        "Arial",
+        "Lucida Grande",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Graphik LCG Web",
+        "Graphik Arabic Web Regular",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Helvetica Neue",
+        "Helvetica",
+        "Arial",
+        "Lucida Grande",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "42px",
+      "h2": "20px",
+      "body": "14px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "3px"
+  },
+  "components": {},
+  "images": {
+    "logo": null,
+    "favicon": "File saved at: attached_assets/favicon.ico",
+    "ogImage": null
+  },
+  "__framework_hints": [],
+  "confidence": {
+    "buttons": 0,
+    "colors": 0,
+    "overall": 0
+  }
+}
