@@ -74,7 +74,9 @@ function Testimonial({ name, text }: TestimonialProps) {
 }
 
 export default function ResultFinal() {
-  const [selectedPlan, setSelectedPlan] = useState<"1week" | "4week" | "12week">("4week");
+  const [selectedPlan, setSelectedPlan] = useState<
+    "1week" | "4week" | "12week"
+  >("4week");
   const [openFAQ, setOpenFAQ] = useState<number | null>(0);
   const [showCheckout, setShowCheckout] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
@@ -137,7 +139,9 @@ export default function ResultFinal() {
           <div className="bg-white text-green-600 rounded-lg px-3 py-1 text-sm font-bold">
             75% OFF
           </div>
-          <span className="font-medium">Desconto adicional de 75% aplicado!</span>
+          <span className="font-medium">
+            Desconto adicional de 75% aplicado!
+          </span>
         </div>
       </div>
 
@@ -180,13 +184,17 @@ export default function ResultFinal() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Estresse Físico
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Sobrecarregado</div>
+                <div className="font-bold text-[11px] text-foreground">
+                  Sobrecarregado
+                </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Bateria do Corpo
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Baixa</div>
+                <div className="font-bold text-[11px] text-foreground">
+                  Baixa
+                </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-red-500 rounded-full" />
                 </div>
@@ -195,7 +203,9 @@ export default function ResultFinal() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Nível de Energia
                 </div>
-                <div className="font-bold text-[11px] text-foreground">Esgotado</div>
+                <div className="font-bold text-[11px] text-foreground">
+                  Esgotado
+                </div>
               </div>
             </div>
             <div className="flex-1 space-y-4 min-w-0 text-right">
@@ -203,13 +213,17 @@ export default function ResultFinal() {
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Estresse Físico
                 </div>
-                <div className="font-bold text-[11px] text-primary">Equilibrado</div>
+                <div className="font-bold text-[11px] text-primary">
+                  Equilibrado
+                </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5">
                   Bateria do Corpo
                 </div>
-                <div className="font-bold text-[11px] text-primary">Totalmente recarregada</div>
+                <div className="font-bold text-[11px] text-primary">
+                  Totalmente recarregada
+                </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
@@ -243,7 +257,9 @@ export default function ResultFinal() {
 
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground line-through">emcinco_jan26</span>
+              <span className="text-xs text-muted-foreground line-through">
+                emcinco_jan26
+              </span>
               <div className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-primary" />
                 <span className="font-medium">emcinco_final</span>
@@ -264,14 +280,18 @@ export default function ResultFinal() {
           <div className="flex items-center gap-2">
             <Target className="w-5 h-5 text-primary" />
             <div>
-              <div className="text-xs text-muted-foreground">Sinais físicos</div>
+              <div className="text-xs text-muted-foreground">
+                Sinais físicos
+              </div>
               <div className="font-semibold">Queda de cabelo</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-primary" />
             <div>
-              <div className="text-xs text-muted-foreground">Meta de recuperação</div>
+              <div className="text-xs text-muted-foreground">
+                Meta de recuperação
+              </div>
               <div className="font-semibold">94%</div>
             </div>
           </div>
@@ -284,7 +304,7 @@ export default function ResultFinal() {
               "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
               selectedPlan === "1week"
                 ? "border-primary bg-primary/5"
-                : "border-border bg-card"
+                : "border-border bg-card",
             )}
             data-testid="plan-1week-final"
           >
@@ -294,7 +314,7 @@ export default function ResultFinal() {
                   "w-5 h-5 rounded-full border-2 flex items-center justify-center",
                   selectedPlan === "1week"
                     ? "border-primary"
-                    : "border-muted-foreground/30"
+                    : "border-muted-foreground/30",
                 )}
               >
                 {selectedPlan === "1week" && (
@@ -325,7 +345,7 @@ export default function ResultFinal() {
                 "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
                 selectedPlan === "4week"
                   ? "border-primary bg-primary/15"
-                  : "border-border bg-card"
+                  : "border-border bg-card",
               )}
               data-testid="plan-4week-final"
             >
@@ -335,7 +355,7 @@ export default function ResultFinal() {
                     "w-5 h-5 rounded-full border-2 flex items-center justify-center",
                     selectedPlan === "4week"
                       ? "border-primary bg-primary"
-                      : "border-muted-foreground/30"
+                      : "border-muted-foreground/30",
                   )}
                 >
                   {selectedPlan === "4week" && (
@@ -343,14 +363,18 @@ export default function ResultFinal() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="font-bold text-black dark:text-foreground">Plano 4 Semanas</div>
+                  <div className="font-bold text-black dark:text-foreground">
+                    Plano 4 Semanas
+                  </div>
                   <div className="text-sm">
                     <span className="line-through text-red-500">R$49,99</span>{" "}
                     <span className="text-green-600 font-bold">R$4,99</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-lg text-black dark:text-foreground">R$0,17</div>
+                  <div className="font-bold text-lg text-black dark:text-foreground">
+                    R$0,17
+                  </div>
                   <div className="text-xs text-muted-foreground">por dia</div>
                 </div>
               </div>
@@ -363,7 +387,7 @@ export default function ResultFinal() {
               "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
               selectedPlan === "12week"
                 ? "border-primary bg-primary/5"
-                : "border-border bg-card"
+                : "border-border bg-card",
             )}
             data-testid="plan-12week-final"
           >
@@ -373,7 +397,7 @@ export default function ResultFinal() {
                   "w-5 h-5 rounded-full border-2 flex items-center justify-center",
                   selectedPlan === "12week"
                     ? "border-primary"
-                    : "border-muted-foreground/30"
+                    : "border-muted-foreground/30",
                 )}
               >
                 {selectedPlan === "12week" && (
@@ -400,7 +424,7 @@ export default function ResultFinal() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan-final"
             >
-              COMECAR MEU DESAFIO - 75% OFF
+              COMEÇAR MEU DESAFIO - 75% OFF
             </button>
           </div>
         </div>
