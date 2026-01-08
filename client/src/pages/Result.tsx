@@ -20,6 +20,7 @@ import tiredPhoto from "@assets/image_1767730709233.png";
 import happyPhoto from "@assets/image_1767730696591.png";
 import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
+import { trackViewContent, trackInitiateCheckout, sendServerEvent } from "@/lib/facebookPixel";
 
 interface FAQItemProps {
   question: string;
@@ -101,6 +102,18 @@ export default function Result() {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    trackViewContent("Result Page - Pricing", 19.99);
+    const storedAnswers = localStorage.getItem("quickhabit_answers");
+    let email = "";
+    if (storedAnswers) {
+      try {
+        email = JSON.parse(storedAnswers).email || "";
+      } catch (e) {}
+    }
+    sendServerEvent("ViewContent", { email }, { contentName: "Result Page - Pricing", value: 19.99, currency: "BRL" });
   }, []);
 
   const formatTime = (seconds: number) => {

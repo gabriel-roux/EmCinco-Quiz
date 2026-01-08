@@ -11,6 +11,7 @@ import {
   ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
 import { cn } from "@/lib/utils";
+import { trackInitiateCheckout, trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
 
 interface Plan {
   id: string;
@@ -97,6 +98,35 @@ function CheckoutForm({
   const discountPercent = isFinalOffer ? "75%" : "60%";
   const promoCode = isFinalOffer ? "emcinco_final" : "emcinco_jan26";
 
+  useEffect(() => {
+    const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
+    trackInitiateCheckout(priceValue, [plan.id]);
+    
+    const storedAnswers = localStorage.getItem("quickhabit_answers");
+    let email = "";
+    if (storedAnswers) {
+      try {
+        email = JSON.parse(storedAnswers).email || "";
+      } catch (e) {}
+    }
+    sendServerEvent("InitiateCheckout", { email }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
+  }, [plan.id, plan.discountedPrice]);
+
+  const handleCardPaymentSelect = () => {
+    setPaymentMethod("card");
+    const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
+    trackAddPaymentInfo(priceValue);
+    
+    const storedAnswers = localStorage.getItem("quickhabit_answers");
+    let email = "";
+    if (storedAnswers) {
+      try {
+        email = JSON.parse(storedAnswers).email || "";
+      } catch (e) {}
+    }
+    sendServerEvent("AddPaymentInfo", { email }, { value: priceValue, currency: "BRL" });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) return;
@@ -168,7 +198,7 @@ function CheckoutForm({
 
         <div className="space-y-3">
           <button
-            onClick={() => setPaymentMethod("card")}
+            onClick={handleCardPaymentSelect}
             className={cn(
               "w-full p-4 rounded-xl border-2 transition-all",
               paymentMethod === "card"

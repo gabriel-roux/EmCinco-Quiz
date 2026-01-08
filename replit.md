@@ -5,6 +5,10 @@
 EmCinco is a high-conversion quiz application designed to diagnose users' learning blockers and generate personalized 4-week skill development plans. The app follows a "Ruut/Noom/BetterMe" style quiz flow with gamification elements, progress tracking, and AI-powered plan generation. Users complete approximately 25-30 interactive quiz screens, then receive a personalized profile and weekly learning plan.
 
 ## Recent Changes
+- **Facebook Pixel & CAPI**: Integrated Meta Pixel (browser-side) and Conversions API (server-side) for tracking ViewContent, InitiateCheckout, AddPaymentInfo, and Purchase events
+- **Checkout Improvements**: Pre-fill email/name from quiz in Stripe checkout, fixed scroll issues in modal
+- **Exit Popup**: Fixed centering with flexbox and backdrop blur
+- **Success Page**: New success page with personalized congratulations and next steps
 - **Rebranding**: Changed from "FOCO5" to "EmCinco" throughout the entire application
 - **Layout**: Content is now top-aligned below the header instead of centered
 - **Navigation**: Added back button functionality to navigate between quiz questions  
@@ -64,6 +68,12 @@ The `shared/` directory contains code used by both frontend and backend:
 ### AI Services
 - **OpenAI API** - Plan generation using GPT models
 - Configured via Replit AI Integrations (`AI_INTEGRATIONS_OPENAI_API_KEY`, `AI_INTEGRATIONS_OPENAI_BASE_URL`)
+
+### Facebook/Meta Tracking
+- **Meta Pixel** - Browser-side tracking initialized in App.tsx (`VITE_FB_PIXEL_ID`)
+- **Conversions API** - Server-side event tracking via `/api/facebook/event` endpoint
+- Events tracked: ViewContent, InitiateCheckout, AddPaymentInfo, Purchase
+- Secrets: `FB_PIXEL_ID`, `FB_ACCESS_TOKEN`
 
 ### UI Component Libraries
 - **shadcn/ui** - Pre-built accessible components (Radix UI primitives)

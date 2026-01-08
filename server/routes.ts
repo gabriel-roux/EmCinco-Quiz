@@ -5,6 +5,7 @@ import { api } from "@shared/routes";
 import { z } from "zod";
 import OpenAI from "openai";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
+import { sendFacebookEvent, type FacebookEventName } from "./facebookCapi";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -115,6 +116,43 @@ export async function registerRoutes(
     } catch (err) {
       console.error("Stripe config error:", err);
       res.status(500).json({ message: "Failed to get Stripe config" });
+    }
+  });
+
+  // Facebook CAPI event endpoint
+  app.post("/api/facebook/event", async (req, res) => {
+    try {
+      const { eventName, eventSourceUrl, userData, customData } = req.body;
+      
+      const validEvents: FacebookEventName[] = [
+        "ViewContent",
+        "InitiateCheckout", 
+        "AddPaymentInfo",
+        "Purchase",
+        "Lead"
+      ];
+      
+      if (!validEvents.includes(eventName)) {
+        return res.status(400).json({ message: "Invalid event name" });
+      }
+
+      const enrichedUserData = {
+        ...userData,
+        clientIpAddress: req.ip || req.headers["x-forwarded-for"] || "",
+        clientUserAgent: req.headers["user-agent"] || "",
+      };
+
+      const result = await sendFacebookEvent(
+        eventName,
+        eventSourceUrl,
+        enrichedUserData,
+        customData
+      );
+
+      res.json(result);
+    } catch (err) {
+      console.error("Facebook event error:", err);
+      res.status(500).json({ message: "Failed to send Facebook event" });
     }
   });
 
