@@ -69,6 +69,11 @@ The `shared/` directory contains code used by both frontend and backend:
 - **OpenAI API** - Plan generation using GPT models
 - Configured via Replit AI Integrations (`AI_INTEGRATIONS_OPENAI_API_KEY`, `AI_INTEGRATIONS_OPENAI_BASE_URL`)
 
+### Stripe Payments
+- **Stripe API** - Payment processing using manual API keys (not Replit connector)
+- Secrets: `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`
+- Note: User declined Replit Stripe connector, using manual keys instead
+
 ### Facebook/Meta Tracking
 - **Meta Pixel** - Browser-side tracking initialized in App.tsx (`VITE_FB_PIXEL_ID`)
 - **Conversions API** - Server-side event tracking via `/api/facebook/event` endpoint
