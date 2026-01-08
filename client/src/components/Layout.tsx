@@ -31,7 +31,7 @@ export function Layout({ children, progress, hideHeader = false, onBack, showBac
                 </Button>
               )}
               <Link href="/" className="font-heading font-bold text-xl text-primary">
-                FOCO5
+                EmCinco
               </Link>
             </div>
             

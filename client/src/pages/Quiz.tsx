@@ -308,7 +308,7 @@ const steps: QuizStep[] = [
     id: "commitment_time",
     type: "single",
     question:
-      "Quanto tempo você quer dedicar diariamente ao seu plano FOCO5?",
+      "Quanto tempo você quer dedicar diariamente ao seu plano EmCinco?",
     options: ["5 min", "10 min", "15 min", "20 min"],
   },
 
@@ -413,7 +413,7 @@ export default function Quiz() {
               </div>
 
               <h1 className="text-5xl md:text-7xl font-heading font-black text-foreground tracking-tight leading-[1.1]">
-                FOCO<span className="text-primary">5</span>
+                Em<span className="text-primary">Cinco</span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
                 Aprenda novas habilidades em apenas 5 minutos por dia. Descubra
