@@ -129,12 +129,12 @@ const steps: QuizStep[] = [
   {
     id: "typical_day",
     type: "single",
-    question: "Como você descreveria um dia típico na sua vida?",
+    question: "Como você descreveria um dia típico da sua rotina?",
     options: [
-      "Sempre corrido, sem tempo para nada",
-      "Ocupado, mas administrável",
-      "Calmo, porém sem foco",
-      "Caótico e imprevisível",
+      "⏰ Sempre corrido, sem tempo pra nada",
+      "📋 Ocupado, mas administrável",
+      "😕 Calmo, porém sem foco",
+      "🌪️ Caótico e imprevisível",
     ],
   },
 
