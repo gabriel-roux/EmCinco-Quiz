@@ -237,13 +237,13 @@ const steps: QuizStep[] = [
   {
     id: "learning_style",
     type: "single",
-    question: "Como você aprende melhor?",
+    question: "Qual formato de aprendizado funciona melhor para você?",
     options: [
-      "Microlições rápidas",
-      "Passo a passo",
-      "Leitura",
-      "Prática",
-      "Um pouco de tudo",
+      "⚡ Microlições rápidas e diretas",
+      "🪜 Passo a passo, bem estruturado",
+      "📚 Leitura no meu ritmo",
+      "🧪 Aprender na prática, fazendo",
+      "🔀 Um pouco de tudo",
     ],
   },
 
