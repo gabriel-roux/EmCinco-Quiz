@@ -102,7 +102,7 @@ function CheckoutForm({
     const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
     trackAddPaymentInfo(priceValue);
     
-    const storedAnswers = localStorage.getItem("quickhabit_answers");
+    const storedAnswers = localStorage.getItem("emcinco_answers");
     let email = "";
     if (storedAnswers) {
       try {
@@ -138,7 +138,7 @@ function CheckoutForm({
       const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
       trackPurchase(priceValue, [plan.id]);
       
-      const storedAnswers = localStorage.getItem("quickhabit_answers");
+      const storedAnswers = localStorage.getItem("emcinco_answers");
       let email = "";
       if (storedAnswers) {
         try {
@@ -281,8 +281,8 @@ export default function CheckoutModal({
     if (isOpen) {
       document.body.style.overflow = "hidden";
       
-      const storedAnswers = localStorage.getItem("quickhabit_answers");
-      const storedName = localStorage.getItem("quickhabit_name");
+      const storedAnswers = localStorage.getItem("emcinco_answers");
+      const storedName = localStorage.getItem("emcinco_name");
       let email = "";
       if (storedAnswers) {
         try {
@@ -352,7 +352,7 @@ export default function CheckoutModal({
                   defaultValues: {
                     billingDetails: {
                       email: (() => {
-                        const storedAnswers = localStorage.getItem("quickhabit_answers");
+                        const storedAnswers = localStorage.getItem("emcinco_answers");
                         if (storedAnswers) {
                           try {
                             const answers = JSON.parse(storedAnswers);
@@ -361,7 +361,7 @@ export default function CheckoutModal({
                         }
                         return "";
                       })(),
-                      name: localStorage.getItem("quickhabit_name") || "",
+                      name: localStorage.getItem("emcinco_name") || "",
                     }
                   }
                 } as any)}

@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { trackPurchase, sendServerEvent } from "@/lib/facebookPixel";
 
 export default function Success() {
-  const name = localStorage.getItem("quickhabit_name") || "Guerreiro(a)";
+  const name = localStorage.getItem("emcinco_name") || "Guerreiro(a)";
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center pt-12 px-4 pb-12">

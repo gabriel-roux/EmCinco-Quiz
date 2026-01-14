@@ -379,8 +379,8 @@ export default function Quiz() {
           quizData: answers,
         });
 
-        localStorage.setItem("quickhabit_answers", JSON.stringify(answers));
-        localStorage.setItem("quickhabit_name", name);
+        localStorage.setItem("emcinco_answers", JSON.stringify(answers));
+        localStorage.setItem("emcinco_name", name);
 
         setLocation("/processing");
       } catch (error) {

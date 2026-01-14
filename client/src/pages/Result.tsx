@@ -106,7 +106,7 @@ export default function Result() {
 
   useEffect(() => {
     trackInitiateCheckout(19.99, ["emcinco_plan"]);
-    const storedAnswers = localStorage.getItem("quickhabit_answers");
+    const storedAnswers = localStorage.getItem("emcinco_answers");
     let email = "";
     if (storedAnswers) {
       try {
@@ -126,8 +126,8 @@ export default function Result() {
   };
 
   useEffect(() => {
-    const savedAnswers = localStorage.getItem("quickhabit_answers");
-    const savedName = localStorage.getItem("quickhabit_name");
+    const savedAnswers = localStorage.getItem("emcinco_answers");
+    const savedName = localStorage.getItem("emcinco_name");
 
     if (savedAnswers && savedName && !planData) {
       generatePlan
