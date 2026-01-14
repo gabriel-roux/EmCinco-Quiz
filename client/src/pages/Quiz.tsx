@@ -68,8 +68,14 @@ const steps: QuizStep[] = [
   {
     id: "age",
     type: "single",
-    question: "Qual é a sua idade?",
-    options: ["18–24", "25–34", "35–44", "45–54", "55+"],
+    question: "Qual é a sua faixa etária?",
+    options: [
+      "18–24 anos",
+      "25–34 anos",
+      "35–44 anos",
+      "45–54 anos",
+      "55 anos ou mais",
+    ],
   },
 
   {
