@@ -359,14 +359,14 @@ export default function Result() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Código Promocional Aplicado
+              Perfeito! Seu código promocional foi aplicado. 🎉
             </span>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium">emcinco_jan26</span>
+              <span className="font-medium uppercase">emcinco_500</span>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
@@ -674,14 +674,14 @@ export default function Result() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Código Promocional Aplicado
+              Perfeito! Seu código promocional foi aplicado. 🎉
             </span>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium">emcinco_jan26</span>
+              <span className="font-medium uppercase">emcinco_500</span>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
