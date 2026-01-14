@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, Loader2 } from "lucide-react";
 
 interface OptionCardProps {
   label: string;
@@ -303,5 +304,90 @@ export function TimelineItem({ week, text, color, index }: TimelineItemProps) {
         <div className="font-semibold text-lg text-foreground">{text}</div>
       </div>
     </motion.div>
+  );
+}
+
+export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="w-full max-w-xl mx-auto py-8 px-4">
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-center justify-center min-h-[400px] space-y-6"
+          >
+            <Loader2 className="w-12 h-12 text-primary animate-spin" />
+            <p className="text-xl font-medium text-muted-foreground animate-pulse">
+              Analisando suas respostas...
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-card rounded-3xl p-8 md:p-10 border border-border shadow-xl space-y-8"
+          >
+            <div className="space-y-6">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground leading-tight">
+                Pronto. Já entendemos seu perfil. ✅
+              </h2>
+              
+              <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
+                <motion.p
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  Pelas suas respostas, dá pra ver que o problema não é falta de vontade ou capacidade.
+                </motion.p>
+                
+                <motion.p
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  O maior desafio hoje é encontrar tempo, manter o foco e seguir um método que realmente caiba na sua rotina.
+                </motion.p>
+                
+                <motion.p
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  Isso é mais comum do que parece. Muita gente inteligente e dedicada passa exatamente por isso.
+                </motion.p>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-border space-y-4">
+              <p className="font-semibold text-foreground text-lg italic">
+                "É por isso que a próxima pergunta é tão importante:"
+              </p>
+              <p className="text-primary font-bold text-xl">
+                Diga quanto tempo por dia você realmente consegue separar para evoluir.
+              </p>
+            </div>
+
+            <button
+              onClick={onContinue}
+              className="w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              Continuar <ChevronRight className="w-6 h-6" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

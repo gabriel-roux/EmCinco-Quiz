@@ -20,6 +20,7 @@ import {
   StatCard,
   ProgressBar,
   TimelineItem,
+  DiagnosisStep,
 } from "@/components/QuizComponents";
 import SocialProof from "@/components/SocialProof";
 import {
@@ -492,6 +493,10 @@ export default function Quiz() {
           transition={{ duration: 0.3 }}
           className="w-full max-w-xl mx-auto"
         >
+          {currentStep.type === "diagnosis" && (
+            <DiagnosisStep onContinue={handleContinue} />
+          )}
+
           {currentStep.type === "single" && (
             <div className="space-y-6">
               <QuestionHeader title={currentStep.question!} />
