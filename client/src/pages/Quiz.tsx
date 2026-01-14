@@ -33,6 +33,7 @@ import { Laptop, Clock, Brain, CheckCircle, Zap } from "lucide-react";
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 
+import newLogo from "@assets/LOGO-EMCINCO_1768418486475.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
 import researchImg from "@assets/generated_images/scientific_behavioral_research_logos_illustration.png";
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
@@ -413,9 +414,9 @@ export default function Quiz() {
                 Avaliação de 1 min
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-heading font-black text-foreground tracking-tight leading-[1.1]">
-                Em<span className="text-primary">Cinco</span>
-              </h1>
+              <div className="flex justify-center mb-4">
+                <img src={newLogo} alt="EmCinco Logo" className="h-16 w-auto" />
+              </div>
               <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
                 Aprenda novas habilidades em apenas 5 minutos por dia. Descubra
                 agora se voce tem potencial para dominar qualquer habilidade em
