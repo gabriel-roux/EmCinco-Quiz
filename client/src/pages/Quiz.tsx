@@ -275,11 +275,11 @@ const steps: QuizStep[] = [
   {
     id: "app_experience",
     type: "single",
-    question: "Você já tentou outros métodos de produtividade?",
+    question: "Você já tentou melhorar sua produtividade com outros métodos?",
     options: [
-      "Sim, mas desisti",
-      "Sim, ainda uso alguns",
-      "Não, estou começando agora",
+      "😕 Sim, mas acabei desistindo",
+      "🙂 Sim, e ainda uso alguns",
+      "🌱 Não, estou começando agora",
     ],
   },
 
