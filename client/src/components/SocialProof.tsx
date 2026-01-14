@@ -53,23 +53,23 @@ export default function SocialProof() {
   );
 
   return (
-    <div className="w-full flex justify-center py-4">
-      <div className="bg-[#EEF4FF] rounded-2xl px-6 py-4 flex items-center justify-center gap-6 text-[13px] md:text-sm font-medium border border-blue-100/50 shadow-sm animate-in fade-in zoom-in duration-500">
+    <div className="w-full flex justify-center py-4 px-2">
+      <div className="bg-[#EEF4FF] rounded-2xl px-6 py-4 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-sm font-medium border border-blue-100/50 shadow-sm animate-in fade-in zoom-in duration-500 w-full max-w-sm md:max-w-none">
         {/* Left Block */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-muted-foreground whitespace-nowrap">Pessoas que já descobriram seu perfil</span>
+        <div className="flex flex-col items-center gap-1 w-full md:w-auto">
+          <span className="text-muted-foreground text-center md:text-left text-xs md:text-sm whitespace-normal md:whitespace-nowrap">Pessoas que já descobriram seu perfil</span>
           <div className="flex items-center gap-2">
             {avatarStack}
             <span className="font-bold text-foreground tracking-tight">+847</span>
           </div>
         </div>
 
-        {/* Separator */}
-        <div className="h-8 w-[1px] bg-blue-200/60" />
+        {/* Separator - Horizontal for mobile, Vertical for desktop */}
+        <div className="h-[1px] md:h-8 w-full md:w-[1px] bg-blue-200/60" />
 
         {/* Right Block */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-muted-foreground whitespace-nowrap">Descobrindo agora</span>
+        <div className="flex flex-col items-center gap-1 w-full md:w-auto">
+          <span className="text-muted-foreground text-center md:text-left text-xs md:text-sm whitespace-normal md:whitespace-nowrap">Descobrindo agora</span>
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2 overflow-hidden">
               {[1, 2, 3].map((i) => (
