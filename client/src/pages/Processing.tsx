@@ -100,8 +100,8 @@ export default function Processing() {
 
       <div className="text-center space-y-2 mb-10">
         <p className="text-lg text-muted-foreground">Criando seu Plano de Recuperacao</p>
-        <p className="text-2xl font-bold text-primary">Mais de 500.000 pessoas</p>
-        <p className="text-muted-foreground">escolheram o EmCinco</p>
+        <p className="text-2xl font-bold text-primary">Mais de 9.000 pessoas</p>
+        <p className="text-muted-foreground font-medium">escolheram o emcinco</p>
       </div>
 
       <div className="w-full max-w-md">
