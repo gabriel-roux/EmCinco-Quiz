@@ -175,16 +175,16 @@ export default function Result() {
 
   const testimonials = [
     {
-      name: "Ricardo M.",
-      text: "Aprendi a falar em publico em 30 dias. Antes eu levava horas e o resultado era medíocre. Hoje recebo elogios em todas as reuniões.",
+      name: "Eduardo Vasconcelos",
+      text: "Antes eu começava vários cursos e abandonava na segunda semana. Com o EmCinco, consegui manter consistência pela primeira vez. Em pouco mais de um mês já estava aplicando conceitos de tecnologia no meu trabalho.",
     },
     {
-      name: "Mariana L.",
-      text: "O EmCinco me ajudou a dominar análise de dados em tempo recorde. As missões diárias de 5 minutos tornaram o aprendizado algo natural na minha rotina puxada.",
+      name: "Camila Nogueira",
+      text: "Eu sempre achei que aprender algo novo exigia muito tempo livre (que eu não tenho). Os 5 minutos por dia mudaram completamente isso. Hoje estudar faz parte da minha rotina, como escovar os dentes.",
     },
     {
-      name: "João P.",
-      text: "Finalmente consegui ser constante nos estudos de inglês. Em 4 semanas meu vocabulário dobrou e perdi o medo de falar em reuniões internacionais.",
+      name: "Felipe Arantes",
+      text: "O maior ganho pra mim foi a clareza. Parei de pular de conteúdo em conteúdo sem direção. Agora sigo um caminho estruturado e vejo progresso real toda semana.",
     },
   ];
 
