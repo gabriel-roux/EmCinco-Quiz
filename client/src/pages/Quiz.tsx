@@ -141,8 +141,14 @@ const steps: QuizStep[] = [
   {
     id: "screen_distraction",
     type: "single",
-    question: "Com que frequência o celular rouba a sua atenção?",
-    options: ["O tempo todo", "Frequentemente", "Às vezes", "Raramente"],
+    question:
+      "Com que frequência o seu celular acaba roubando sua atenção, mesmo quando você quer se concentrar?",
+    options: [
+      "📱 Quase o tempo todo",
+      "😓 Várias vezes ao dia",
+      "😐 Algumas vezes",
+      "😌 Quase nunca",
+    ],
   },
 
   {
