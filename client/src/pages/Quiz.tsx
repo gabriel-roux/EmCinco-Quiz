@@ -76,13 +76,13 @@ const steps: QuizStep[] = [
     id: "struggle",
     type: "single",
     question:
-      "Sinceramente... o que geralmente acontece quando você tenta aprender algo novo?",
+      "Seja sincero: o que costuma acontecer quando você tenta aprender algo novo?",
     options: [
-      "Começo, mas me distraio fácil",
-      "Penso demais e nunca começo",
-      "Sou consistente, mas ando devagar",
-      "Nem sei por onde começar",
-      "Não tenho tempo para aprender",
+      "😵 Começo animado, mas me distraio fácil",
+      "🤯 Penso demais… e acabo nem começando",
+      "🐢 Sou consistente, mas evoluo muito devagar",
+      "🧭 Fico perdido, não sei por onde começar",
+      "⏰ Simplesmente não tenho tempo",
     ],
   },
 
