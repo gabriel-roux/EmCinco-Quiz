@@ -160,12 +160,12 @@ const steps: QuizStep[] = [
   {
     id: "dedicated_time",
     type: "single",
-    question: "Quanto tempo por dia você pode dedicar para evoluir?",
+    question: "Sendo realista: quanto tempo por dia você consegue dedicar para evoluir?",
     options: [
-      "2 minutos",
-      "5 minutos (Recomendado)",
-      "10 minutos",
-      "15 minutos",
+      "⏱️ 2 minutos",
+      "⭐ 5 minutos (ideal para a sua rotina)",
+      "⏳ 10 minutos",
+      "🕒 15 minutos ou mais",
     ],
   },
 
