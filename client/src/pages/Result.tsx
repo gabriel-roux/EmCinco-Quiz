@@ -531,14 +531,7 @@ export default function Result() {
             </div>
           </button>
 
-          <p className="text-xs text-muted-foreground text-center leading-relaxed px-2">
-            Ao continuar, voce concorda que se nao cancelar antes do final das{" "}
-            <strong>4 semanas</strong> da oferta introdutoria, sera cobrado
-            automaticamente o valor total de{" "}
-            <strong>R$49,99 a cada 4 semanas</strong> ate cancelar. Saiba mais
-            sobre cancelamento e politica de reembolso em{" "}
-            <span className="underline">Termos de Assinatura</span>.
-          </p>
+
 
           <div className="space-y-4 pt-3 pb-8">
             <button
@@ -846,14 +839,7 @@ export default function Result() {
             </div>
           </button>
 
-          <p className="text-xs text-muted-foreground text-center leading-relaxed px-2">
-            Ao continuar, voce concorda que se nao cancelar antes do final das{" "}
-            <strong>4 semanas</strong> da oferta introdutoria, sera cobrado
-            automaticamente o valor total de{" "}
-            <strong>R$49,99 a cada 4 semanas</strong> ate cancelar. Saiba mais
-            sobre cancelamento e politica de reembolso em{" "}
-            <span className="underline">Termos de Assinatura</span>.
-          </p>
+
 
           <div className="space-y-4 pt-3">
             <button
