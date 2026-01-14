@@ -110,12 +110,12 @@ const steps: QuizStep[] = [
     id: "focus_blockers",
     type: "single",
     question:
-      "Hoje em dia, qual é o seu maior desafio de foco e produtividade?",
+      "Hoje em dia, qual é o seu maior desafio com foco e produtividade?",
     options: [
-      "Dificuldade em manter foco por longos períodos",
-      "Mente dispersa ou me distraio fácil",
-      "Procrastinação e falta de clareza",
-      "Fadiga mental no fim do dia",
+      "😵 Dificuldade em manter o foco por muito tempo",
+      "🧠 Minha mente se dispersa fácil",
+      "⏳ Procrastino e fico sem clareza do que fazer",
+      "🔋 Chego mentalmente esgotado no fim do dia",
     ],
   },
 
