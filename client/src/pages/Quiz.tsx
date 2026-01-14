@@ -21,6 +21,7 @@ import {
   ProgressBar,
   TimelineItem,
 } from "@/components/QuizComponents";
+import SocialProof from "@/components/SocialProof";
 import {
   Target,
   Sparkles,
@@ -421,6 +422,8 @@ export default function Quiz() {
                 4 semanas.
               </p>
             </div>
+
+            <SocialProof />
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <button
