@@ -378,13 +378,6 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
                 Diga quanto tempo por dia você realmente consegue separar para evoluir.
               </p>
             </div>
-
-            <button
-              onClick={onContinue}
-              className="w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
-            >
-              Continuar <ChevronRight className="w-6 h-6" />
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

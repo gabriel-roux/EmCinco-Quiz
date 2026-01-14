@@ -884,7 +884,7 @@ export default function Quiz() {
         loading={createLead.isPending}
         label={stepIndex === steps.length - 1 ? "Gerar Plano" : "Continuar"}
         className={
-          ["single", "likert"].includes(currentStep.type) ? "hidden" : ""
+          ["single", "likert"].includes(currentStep.type) && currentStep.type !== "diagnosis" ? "hidden" : ""
         }
       />
     </Layout>
