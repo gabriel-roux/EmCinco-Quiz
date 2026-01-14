@@ -223,14 +223,14 @@ const steps: QuizStep[] = [
   {
     id: "skill_interest",
     type: "single",
-    question: "Que tipo de habilidade te interessa mais?",
+    question: "Que tipo de habilidade você mais gostaria de desenvolver agora?",
     options: [
-      "Tecnologia e IA",
-      "Comunicação",
-      "Negócios",
-      "Criatividade",
-      "Mente e Corpo",
-      "Idiomas",
+      "💻 Tecnologia e IA",
+      "🗣️ Comunicação",
+      "💼 Negócios",
+      "🎨 Criatividade",
+      "🧠 Mente e corpo",
+      "🌍 Idiomas",
     ],
   },
 
