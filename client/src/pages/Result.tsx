@@ -201,10 +201,10 @@ export default function Result() {
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-red-600 text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <span>
-          Os primeiros 500 usuários ganham acesso vitalício à Comunidade
-          Mastermind.{" "}
+          Estamos liberando o acesso vitalício para os primeiros 500 usuários fundadores.{" "}
+          ⏳{" "}
           <b>
-            Expira em {time.mins}:{time.secs}
+            Encerra em {time.mins}:{time.secs}
           </b>
         </span>
       </div>
