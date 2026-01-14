@@ -172,12 +172,12 @@ const steps: QuizStep[] = [
   {
     id: "routine_chaos",
     type: "single",
-    question: "Como você se sente em relação ao seu progresso atual?",
+    question: "Como você se sente em relação ao seu progresso hoje?",
     options: [
-      "Estou estagnado e sem direção",
-      "Começo muitas coisas e não termino",
-      "Sinto que poderia render muito mais",
-      "Estou bem, mas quero melhorar",
+      "😕 Me sinto estagnado e sem direção",
+      "🔄 Começo muitas coisas, mas não termino",
+      "📉 Sei que poderia render muito mais",
+      "🙂 Estou bem, mas quero melhorar",
     ],
   },
 
