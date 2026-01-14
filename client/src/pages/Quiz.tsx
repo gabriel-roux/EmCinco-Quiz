@@ -479,6 +479,7 @@ export default function Quiz() {
   }
 
   const isStepValid = () => {
+    if (currentStep.type === "diagnosis") return true;
     const val = answers[currentStep.id!];
     if (currentStep.type === "multi")
       return Array.isArray(val) && val.length > 0;
