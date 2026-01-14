@@ -121,6 +121,11 @@ const steps: QuizStep[] = [
   },
 
   {
+    id: "diagnosis_rapid",
+    type: "diagnosis",
+  },
+
+  {
     id: "autopilot_likert",
     type: "likert",
     statement: "Sinto que meus dias acontecem no piloto automático.",
