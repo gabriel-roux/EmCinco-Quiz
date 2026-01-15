@@ -238,11 +238,62 @@ export default function ResultFinal() {
           </div>
         </div>
 
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-3">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Seu Plano de Recuperação Personalizado está{" "}
-            <span className="text-primary">Pronto!</span>
+            Esta é sua{" "}
+            <span className="text-red-500">última chance</span>
+            {" "}de transformar sua rotina por apenas{" "}
+            <span className="text-primary">R$4,99</span>
           </h1>
+          <p className="text-muted-foreground text-sm">
+            75% OFF aplicado automaticamente. Oferta válida apenas agora.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {testimonials.map((t, idx) => (
+            <Testimonial key={idx} name={t.name} text={t.text} />
+          ))}
+        </div>
+
+        <div className="text-center text-sm text-muted-foreground">
+          +3.812 pessoas usando o método EmCinco™ para destravar foco e consistência.
+        </div>
+
+        <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
+          <h3 className="font-bold text-lg text-center">O que você recebe HOJE:</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Seu plano personalizado de 4 semanas</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>1 desafio novo todos os dias (apenas 5 min)</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Acompanhamento de progresso automático</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Relatórios semanais de evolução</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-4 text-center">
+          <span className="text-amber-700 dark:text-amber-400 font-medium">
+            Vagas limitadas para o plano de 4 semanas. Restam <span className="font-bold">3</span> acessos.
+          </span>
         </div>
 
         <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 flex-col gap-3">
@@ -251,7 +302,7 @@ export default function ResultFinal() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Código Promocional Aplicado
+              Desconto FINAL de 75% aplicado!
             </span>
           </div>
 
@@ -276,32 +327,11 @@ export default function ResultFinal() {
           </div>
         </div>
 
-        <div className="flex items-center justify-around">
-          <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Sinais físicos
-              </div>
-              <div className="font-semibold">Queda de cabelo</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Meta de recuperação
-              </div>
-              <div className="font-semibold">94%</div>
-            </div>
-          </div>
-        </div>
-
         <div className="space-y-4">
           <button
             onClick={() => setSelectedPlan("1week")}
             className={cn(
-              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
+              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200 opacity-60",
               selectedPlan === "1week"
                 ? "border-primary bg-primary/5"
                 : "border-border bg-card",
@@ -324,12 +354,11 @@ export default function ResultFinal() {
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$49,99</span>{" "}
-                  <span className="text-green-600 font-bold">R$2,62</span>
+                  R$49,99
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$0,37</div>
+                <div className="font-bold text-lg">R$7,14</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
@@ -418,21 +447,42 @@ export default function ResultFinal() {
             </div>
           </button>
 
-          <div className="space-y-4 pt-3 pb-8">
+          <div className="space-y-4 pt-3">
             <button
               onClick={() => setShowCheckout(true)}
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan-final"
             >
-              COMEÇAR MEU DESAFIO - 75% OFF
+              COMEÇAR AGORA — QUERO MUDAR MEU HÁBITO
             </button>
-          </div>
-        </div>
 
-        <div className="space-y-4">
-          {testimonials.map((t, idx) => (
-            <Testimonial key={idx} name={t.name} text={t.text} />
-          ))}
+            <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="font-bold text-green-700 dark:text-green-400">Garantia de 30 dias</span>
+              </div>
+              <p className="text-sm text-green-600 dark:text-green-400">
+                Se você não sentir progresso real, devolvemos 100% do seu dinheiro.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+              <div className="flex items-center gap-1">
+                <Check className="w-4 h-4" />
+                <span>Pagamento seguro</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Check className="w-4 h-4" />
+                <span>Sem assinatura oculta</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Check className="w-4 h-4" />
+                <span>Cancelamento fácil</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-2">

@@ -347,319 +347,74 @@ export default function Result() {
           </div>
         </div>
 
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-3">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Seu Plano de Desenvolvimento está{" "}
-            <span className="text-primary">Pronto!</span>
+            Aqui está o que está{" "}
+            <span className="text-red-500">sabotando sua evolução</span>
+            {" "}— e como corrigir isso nos próximos{" "}
+            <span className="text-primary">5 minutos</span>
           </h1>
-        </div>
-
-        <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 flex-col gap-3">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
-              <Check className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-semibold text-green-700 dark:text-green-400">
-              Perfeito! Seu código promocional foi aplicado. 🎉
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium uppercase">emcinco_500</span>
-            </div>
-            <div className="text-right">
-              <span className="text-2xl font-bold text-green-600">
-                {time.mins}:{time.secs}
-              </span>
-              <div className="text-xs text-muted-foreground">
-                minutos segundos
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-around">
-          <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Desafio principal
-              </div>
-              <div className="font-semibold">Foco e disciplina</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Meta de progresso
-              </div>
-              <div className="font-semibold">94%</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <button
-            onClick={() => setSelectedPlan("1week")}
-            className={cn(
-              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
-              selectedPlan === "1week"
-                ? "border-primary bg-primary/5"
-                : "border-border bg-card",
-            )}
-            data-testid="plan-1week"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                  selectedPlan === "1week"
-                    ? "border-primary"
-                    : "border-muted-foreground/30",
-                )}
-              >
-                {selectedPlan === "1week" && (
-                  <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-                )}
-              </div>
-              <div className="flex-1">
-                <div className="font-bold">Plano 1 Semana</div>
-                <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$49,99</span> R$10,50
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold text-lg">R$1,50</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
-              </div>
-            </div>
-          </button>
-
-          <div className="relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider z-10">
-              Mais Popular
-            </div>
-            <button
-              onClick={() => setSelectedPlan("4week")}
-              className={cn(
-                "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
-                selectedPlan === "4week"
-                  ? "border-primary bg-primary/15 text-white"
-                  : "border-border bg-card",
-              )}
-              data-testid="plan-4week"
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className={cn(
-                    "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                    selectedPlan === "4week"
-                      ? "border-primary bg-primary"
-                      : "border-muted-foreground/30",
-                  )}
-                >
-                  {selectedPlan === "4week" && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold text-black">Plano 4 Semanas</div>
-                  <div
-                    className={cn(
-                      "text-sm",
-                      selectedPlan === "4week"
-                        ? "text-black/80"
-                        : "text-muted-foreground",
-                    )}
-                  >
-                    <span className="line-through text-red-500">R$49,99</span>{" "}
-                    R$19,99
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold text-lg text-black">R$0,71</div>
-                  <div
-                    className={cn(
-                      "text-xs",
-                      selectedPlan === "4week"
-                        ? "text-black/80"
-                        : "text-muted-foreground",
-                    )}
-                  >
-                    por dia
-                  </div>
-                </div>
-              </div>
-            </button>
-          </div>
-
-          <button
-            onClick={() => setSelectedPlan("12week")}
-            className={cn(
-              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
-              selectedPlan === "12week"
-                ? "border-primary bg-primary/5"
-                : "border-border bg-card",
-            )}
-            data-testid="plan-12week"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                  selectedPlan === "12week"
-                    ? "border-primary"
-                    : "border-muted-foreground/30",
-                )}
-              >
-                {selectedPlan === "12week" && (
-                  <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-                )}
-              </div>
-              <div className="flex-1">
-                <div className="font-bold">Plano 12 Semanas</div>
-                <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$99,99</span> R$34,99
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-bold text-lg">R$0,41</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
-              </div>
-            </div>
-          </button>
-
-
-
-          <div className="space-y-4 pt-3 pb-8">
-            <button
-              onClick={() => setShowCheckout(true)}
-              className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
-              data-testid="button-start-plan"
-            >
-              COMEÇAR MEU DESAFIO
-            </button>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <h3 className="text-2xl font-bold text-center font-heading">
-            Nossos Objetivos
-          </h3>
-          <div className="space-y-4">
-            {goals.map((goal, idx) => (
-              <div key={idx} className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Check className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                </div>
-                <span className="text-foreground">{goal}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-muted/50 rounded-2xl p-6 text-center space-y-4">
-          <h3 className="text-lg font-semibold text-muted-foreground">
-            Como visto em
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <span className="text-xl font-bold text-muted-foreground/60">
-              USA TODAY
-            </span>
-            <span className="text-2xl font-black italic text-muted-foreground/60">
-              Vox
-            </span>
-            <span className="text-xl font-bold text-muted-foreground/60">
-              Forbes
-            </span>
-            <span className="text-lg font-black text-muted-foreground/60 tracking-tight">
-              NEW YORK POST
-            </span>
-            <span className="text-lg font-semibold text-muted-foreground/60">
-              well+good
-            </span>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold text-center font-heading mb-4">
-            Perguntas Frequentes
-          </h3>
-          {faqs.map((faq, idx) => (
-            <FAQItem
-              key={idx}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openFAQ === idx}
-              onToggle={() => setOpenFAQ(openFAQ === idx ? null : idx)}
-            />
-          ))}
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-center font-heading text-foreground">
-            Alcance seu pico com EmCinco
-          </h3>
-          <div className="overflow-hidden rounded-2xl border border-border">
-            <div className="grid grid-cols-3 bg-muted/50 text-center text-xs font-semibold py-3">
-              <div></div>
-              <div className="text-muted-foreground">
-                Sem
-                <br />
-                EmCinco
-              </div>
-              <div className="text-teal-600 dark:text-teal-400">
-                Usando
-                <br />
-                EmCinco
-              </div>
-            </div>
-            {comparisonItems.map((item, idx) => (
-              <div
-                key={idx}
-                className={cn(
-                  "grid grid-cols-3 items-center py-4 px-4",
-                  idx % 2 === 0 ? "bg-card" : "bg-muted/30",
-                )}
-              >
-                <div className="text-sm font-medium">{item}</div>
-                <div className="flex justify-center">
-                  <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                    <X className="w-4 h-4 text-gray-400" />
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <div className="w-7 h-7 rounded-full bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-teal-500" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-muted-foreground text-center">
-            *resultados individuais podem variar
+          <p className="text-muted-foreground text-sm">
+            Você recebe um plano completo por menos do preço de um café — porque nosso objetivo é fazer você criar o hábito primeiro.
           </p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-center font-heading">
-            O que as pessoas estao dizendo sobre o EmCinco
-          </h3>
-          <div className="space-y-4">
-            {testimonials.map((t, idx) => (
-              <Testimonial key={idx} name={t.name} text={t.text} />
-            ))}
-          </div>
+          {testimonials.map((t, idx) => (
+            <Testimonial key={idx} name={t.name} text={t.text} />
+          ))}
         </div>
 
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Seu Plano de Desenvolvimento está{" "}
-            <span className="text-primary">Pronto!</span>
-          </h1>
+        <div className="text-center text-sm text-muted-foreground">
+          +3.812 pessoas usando o método EmCinco™ para destravar foco e consistência.
+        </div>
+
+        <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
+          <h3 className="font-bold text-lg text-center">O que você recebe HOJE:</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Seu plano personalizado de 4 semanas</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>1 desafio novo todos os dias (apenas 5 min)</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Acompanhamento de progresso automático</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Relatórios semanais de evolução</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Acesso ao painel privado</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Suporte por e-mail</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-4 text-center">
+          <span className="text-amber-700 dark:text-amber-400 font-medium">
+            Vagas limitadas para o plano de 4 semanas. Restam <span className="font-bold">7</span> acessos.
+          </span>
         </div>
 
         <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 flex-col gap-3">
@@ -668,14 +423,14 @@ export default function Result() {
               <Check className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-green-700 dark:text-green-400">
-              Perfeito! Seu código promocional foi aplicado. 🎉
+              Código promocional aplicado!
             </span>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium uppercase">emcinco_500</span>
+              <span className="font-medium uppercase">emcinco_jan26</span>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
@@ -688,32 +443,11 @@ export default function Result() {
           </div>
         </div>
 
-        <div className="flex items-center justify-around">
-          <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Desafio principal
-              </div>
-              <div className="font-semibold">Foco e disciplina</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-primary" />
-            <div>
-              <div className="text-xs text-muted-foreground">
-                Meta de progresso
-              </div>
-              <div className="font-semibold">94%</div>
-            </div>
-          </div>
-        </div>
-
         <div className="space-y-4">
           <button
             onClick={() => setSelectedPlan("1week")}
             className={cn(
-              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
+              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200 opacity-60",
               selectedPlan === "1week"
                 ? "border-primary bg-primary/5"
                 : "border-border bg-card",
@@ -736,11 +470,11 @@ export default function Result() {
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$49,99</span> R$10,50
+                  R$49,99
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$1,50</div>
+                <div className="font-bold text-lg">R$7,14</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
@@ -848,30 +582,93 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMEÇAR MEU DESAFIO
+              COMEÇAR AGORA — QUERO MUDAR MEU HÁBITO
             </button>
+
+            <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <ShieldCheck className="w-6 h-6 text-green-600" />
+                <span className="font-bold text-green-700 dark:text-green-400">Garantia de 30 dias</span>
+              </div>
+              <p className="text-sm text-green-600 dark:text-green-400">
+                Se você não sentir progresso real, devolvemos 100% do seu dinheiro.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+              <div className="flex items-center gap-1">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Pagamento seguro</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Check className="w-4 h-4" />
+                <span>Sem assinatura oculta</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Check className="w-4 h-4" />
+                <span>Cancelamento fácil</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="bg-muted/50 rounded-2xl p-6 text-center space-y-3 mb-8">
-          <div className="flex justify-center">
-            <div className="w-10 h-10 rounded-full bg-[#1a1a2e] flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-white" />
+        <div className="space-y-2">
+          <h3 className="text-2xl font-bold text-center font-heading mb-4">
+            Perguntas Frequentes
+          </h3>
+          {faqs.map((faq, idx) => (
+            <FAQItem
+              key={idx}
+              question={faq.question}
+              answer={faq.answer}
+              isOpen={openFAQ === idx}
+              onToggle={() => setOpenFAQ(openFAQ === idx ? null : idx)}
+            />
+          ))}
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-center font-heading text-foreground">
+            Alcance seu pico com EmCinco
+          </h3>
+          <div className="overflow-hidden rounded-2xl border border-border">
+            <div className="grid grid-cols-3 bg-muted/50 text-center text-xs font-semibold py-3">
+              <div></div>
+              <div className="text-muted-foreground">
+                Sem
+                <br />
+                EmCinco
+              </div>
+              <div className="text-teal-600 dark:text-teal-400">
+                Usando
+                <br />
+                EmCinco
+              </div>
             </div>
+            {comparisonItems.map((item, idx) => (
+              <div
+                key={idx}
+                className={cn(
+                  "grid grid-cols-3 items-center py-4 px-4",
+                  idx % 2 === 0 ? "bg-card" : "bg-muted/30",
+                )}
+              >
+                <div className="text-sm font-medium">{item}</div>
+                <div className="flex justify-center">
+                  <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <X className="w-4 h-4 text-gray-400" />
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <div className="w-7 h-7 rounded-full bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center">
+                    <Check className="w-4 h-4 text-teal-500" />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <h4 className="text-xl font-bold">Garantia de 30 Dias</h4>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Acreditamos que nosso plano pode funcionar para voce e que voce vera
-            resultados visiveis em 4 semanas! Estamos prontos para devolver seu
-            dinheiro se voce nao ver resultados visiveis e puder demonstrar que
-            seguiu nosso plano.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Saiba mais sobre limitacoes aplicaveis em nossos{" "}
-            <span className="underline cursor-pointer">
-              Termos de Assinatura
-            </span>
-            .
+          <p className="text-xs text-muted-foreground text-center">
+            *resultados individuais podem variar
           </p>
         </div>
       </main>
