@@ -114,7 +114,11 @@ export default function Result() {
         email = JSON.parse(storedAnswers).email || "";
       } catch (e) {}
     }
-    sendServerEvent("InitiateCheckout", { email, firstName: storedName }, { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] });
+    sendServerEvent(
+      "InitiateCheckout",
+      { email, firstName: storedName },
+      { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] },
+    );
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -202,15 +206,27 @@ export default function Result() {
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-red-600 text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <span>
-          Esta condição especial expira em minutos.{" "}
-          ⏳{" "}
+          Esta condição especial expira em minutos. ⏳{" "}
           <b>
             Encerra em {time.mins}:{time.secs}
           </b>
         </span>
       </div>
 
-      <main className="max-w-lg mx-auto px-4 pb-8 pt-8 space-y-8">
+      <main className="max-w-lg mx-auto px-4 pb-8 pt-8 space-y-6">
+        <div className="text-center space-y-3">
+          <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
+            Aqui está o que está{" "}
+            <span className="text-red-500">sabotando sua evolução</span> e como
+            corrigir isso nos próximos{" "}
+            <span className="text-primary">5 minutos</span>
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Você recebe um plano completo por menos do preço de um café — porque
+            nosso objetivo é fazer você criar o hábito primeiro.
+          </p>
+        </div>
+
         <div className="rounded-2xl overflow-hidden">
           <div className="grid grid-cols-2 border-b border-border/30">
             <div className="text-center py-3 text-muted-foreground font-medium text-sm">
@@ -243,7 +259,7 @@ export default function Result() {
             </div>
           </div>
 
-          <div className="flex flex-row gap-4 px-6 pb-6 items-start">
+          <div className="flex flex-row gap-4 px-6 items-start">
             <div className="flex-1 space-y-4 min-w-0">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
@@ -309,68 +325,20 @@ export default function Result() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div className="p-5 rounded-2xl bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900">
-            <h3 className="font-bold text-orange-700 dark:text-orange-400 mb-3 text-sm">
-              Caminho Atual
-            </h3>
-            <ul className="space-y-2.5 text-sm text-orange-600 dark:text-orange-300">
-              <li className="flex items-start gap-2">
-                <X className="w-4 h-4 mt-0.5 flex-shrink-0" /> Esforco
-                inconsistente
-              </li>
-              <li className="flex items-start gap-2">
-                <X className="w-4 h-4 mt-0.5 flex-shrink-0" /> Nevoa mental
-              </li>
-              <li className="flex items-start gap-2">
-                <X className="w-4 h-4 mt-0.5 flex-shrink-0" /> Fadiga de decisao
-              </li>
-            </ul>
-          </div>
-          <div className="p-5 rounded-2xl bg-green-50 dark:bg-green-950/30 border border-green-100 dark:border-green-900">
-            <h3 className="font-bold text-green-700 dark:text-green-400 mb-3 text-sm">
-              Meta EmCinco
-            </h3>
-            <ul className="space-y-2.5 text-sm text-green-600 dark:text-green-300">
-              <li className="flex items-start gap-2">
-                <Check className="w-4 h-4 mt-0.5 flex-shrink-0" /> Habito de 5
-                min
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="w-4 h-4 mt-0.5 flex-shrink-0" /> Foco Laser
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="w-4 h-4 mt-0.5 flex-shrink-0" /> Progresso
-                Claro
-              </li>
-            </ul>
-          </div>
+        <div className="text-center text-sm text-muted-foreground mt-2">
+          +3.812 pessoas usando o método EmCinco™ para destravar foco e
+          consistência.
         </div>
-
-        <div className="text-center space-y-3">
-          <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Aqui está o que está{" "}
-            <span className="text-red-500">sabotando sua evolução</span>
-            {" "}— e como corrigir isso nos próximos{" "}
-            <span className="text-primary">5 minutos</span>
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            Você recebe um plano completo por menos do preço de um café — porque nosso objetivo é fazer você criar o hábito primeiro.
-          </p>
-        </div>
-
         <div className="space-y-4">
           {testimonials.map((t, idx) => (
             <Testimonial key={idx} name={t.name} text={t.text} />
           ))}
         </div>
 
-        <div className="text-center text-sm text-muted-foreground">
-          +3.812 pessoas usando o método EmCinco™ para destravar foco e consistência.
-        </div>
-
-        <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
-          <h3 className="font-bold text-lg text-center">O que você recebe HOJE:</h3>
+        <div className="bg-primary/15 border border-primary rounded-2xl p-5 space-y-4">
+          <h3 className="font-bold text-lg text-center">
+            O que você recebe HOJE:
+          </h3>
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -408,29 +376,37 @@ export default function Result() {
               </div>
               <span>Suporte por e-mail</span>
             </li>
+            <li className="flex items-start gap-3">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span>Acesso ao grupo de network</span>
+            </li>
           </ul>
         </div>
 
         <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-4 text-center">
           <span className="text-amber-700 dark:text-amber-400 font-medium">
-            Vagas limitadas para o plano de 4 semanas. Restam <span className="font-bold">7</span> acessos.
+            Vagas limitadas para o plano de 4 semanas. Restam{" "}
+            <span className="font-bold">7</span> acessos.
           </span>
         </div>
 
         <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 flex-col gap-3">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
-              <Check className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-semibold text-green-700 dark:text-green-400">
-              Código promocional aplicado!
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-primary" />
-              <span className="font-medium uppercase">emcinco_jan26</span>
+          <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-green-500 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="font-semibold text-green-700 dark:text-green-400">
+                  Código promocional aplicado!
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-primary" />
+                <span className="font-medium uppercase">emcinco_jan26</span>
+              </div>
             </div>
             <div className="text-right">
               <span className="text-2xl font-bold text-green-600">
@@ -469,9 +445,7 @@ export default function Result() {
               </div>
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
-                <div className="text-sm text-muted-foreground">
-                  R$49,99
-                </div>
+                <div className="text-sm text-muted-foreground">R$49,99</div>
               </div>
               <div className="text-right">
                 <div className="font-bold text-lg">R$7,14</div>
@@ -574,8 +548,6 @@ export default function Result() {
             </div>
           </button>
 
-
-
           <div className="space-y-4 pt-3">
             <button
               onClick={() => setShowCheckout(true)}
@@ -588,10 +560,13 @@ export default function Result() {
             <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <ShieldCheck className="w-6 h-6 text-green-600" />
-                <span className="font-bold text-green-700 dark:text-green-400">Garantia de 30 dias</span>
+                <span className="font-bold text-green-700 dark:text-green-400">
+                  Garantia de 30 dias
+                </span>
               </div>
               <p className="text-sm text-green-600 dark:text-green-400">
-                Se você não sentir progresso real, devolvemos 100% do seu dinheiro.
+                Se você não sentir progresso real, devolvemos 100% do seu
+                dinheiro.
               </p>
             </div>
 
