@@ -138,7 +138,7 @@ export async function registerRoutes(
 
       const enrichedUserData = {
         ...userData,
-        clientIpAddress: req.ip || req.headers["x-forwarded-for"]?.toString() || "",
+        clientIpAddress: req.ip || req.headers["x-forwarded-for"]?.toString() || req.socket.remoteAddress || "",
         clientUserAgent: req.headers["user-agent"] || "",
       };
 
