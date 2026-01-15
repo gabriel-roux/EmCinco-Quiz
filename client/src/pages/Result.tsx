@@ -206,7 +206,8 @@ export default function Result() {
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-red-600 text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <span>
-          Esta condição especial expira em minutos. ⏳{" "}
+          Vagas limitadas para o plano de 4 semanas. Restam{" "}
+          <span className="font-bold">7</span> acessos e{" "}
           <b>
             Encerra em {time.mins}:{time.secs}
           </b>
@@ -385,20 +386,10 @@ export default function Result() {
           </ul>
         </div>
 
-        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-4 text-center">
-          <span className="text-amber-700 dark:text-amber-400 font-medium">
-            Vagas limitadas para o plano de 4 semanas. Restam{" "}
-            <span className="font-bold">7</span> acessos.
-          </span>
-        </div>
-
         <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-4 flex-col gap-3">
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-green-500 flex items-center justify-center">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
                 <span className="font-semibold text-green-700 dark:text-green-400">
                   Código promocional aplicado!
                 </span>
