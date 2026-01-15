@@ -6,7 +6,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { sendFacebookEvent, type FacebookEventName } from "./facebookCapi";
-import { getInitialPaymentAmount } from "./stripeConfig";
+import { getInitialPaymentAmount, getStripePriceId } from "./stripeConfig";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -168,6 +168,7 @@ export async function registerRoutes(
       }
 
       const amount = getInitialPaymentAmount(planId, !!isFinalOffer);
+      const priceId = getStripePriceId(planId, !!isFinalOffer);
       
       const stripe = await getUncachableStripeClient();
       const paymentIntent = await stripe.paymentIntents.create({
@@ -178,9 +179,8 @@ export async function registerRoutes(
         },
         metadata: {
           planId,
-          isFinalOffer: isFinalOffer ? "true" : "false",
+          priceId,
           email: email || "",
-          name: name || "",
         },
       });
 
