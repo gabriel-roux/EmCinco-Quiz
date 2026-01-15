@@ -112,6 +112,7 @@ export async function sendServerEvent(
         eventSourceUrl: window.location.href,
         userData: {
           ...userData,
+          clientUserAgent: navigator.userAgent,
           fbc,
           fbp,
         },

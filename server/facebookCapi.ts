@@ -130,7 +130,11 @@ export async function sendFacebookEvent(
     event_time: Math.floor(Date.now() / 1000),
     event_source_url: eventSourceUrl,
     action_source: "website",
-    user_data: prepareUserData(userData),
+    user_data: {
+      ...prepareUserData(userData),
+      client_ip_address: userData.clientIpAddress, // Fallback if prepareUserData didn't get it
+      client_user_agent: userData.clientUserAgent,
+    },
   };
 
   if (customData) {

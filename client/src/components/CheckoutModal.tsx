@@ -109,7 +109,7 @@ function CheckoutForm({
         email = JSON.parse(storedAnswers).email || "";
       } catch (e) {}
     }
-    sendServerEvent("AddPaymentInfo", { email }, { value: priceValue, currency: "BRL" });
+    sendServerEvent("AddPaymentInfo", { email, firstName: localStorage.getItem("emcinco_name") || "" }, { value: priceValue, currency: "BRL" });
   }, [plan.id, plan.discountedPrice]);
 
   const handleCardPaymentSelect = () => {
@@ -145,7 +145,7 @@ function CheckoutForm({
           email = JSON.parse(storedAnswers).email || "";
         } catch (e) {}
       }
-      sendServerEvent("Purchase", { email }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
+      sendServerEvent("Purchase", { email, firstName: localStorage.getItem("emcinco_name") || "" }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
 
       // If no error and no redirect happened, manually navigate
       window.location.href = "/success";

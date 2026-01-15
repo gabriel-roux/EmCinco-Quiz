@@ -107,13 +107,14 @@ export default function Result() {
   useEffect(() => {
     trackInitiateCheckout(19.99, ["emcinco_plan"]);
     const storedAnswers = localStorage.getItem("emcinco_answers");
+    const storedName = localStorage.getItem("emcinco_name") || "";
     let email = "";
     if (storedAnswers) {
       try {
         email = JSON.parse(storedAnswers).email || "";
       } catch (e) {}
     }
-    sendServerEvent("InitiateCheckout", { email }, { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] });
+    sendServerEvent("InitiateCheckout", { email, firstName: storedName }, { value: 19.99, currency: "BRL", contentIds: ["emcinco_plan"] });
   }, []);
 
   const formatTime = (seconds: number) => {
