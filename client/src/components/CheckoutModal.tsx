@@ -11,7 +11,7 @@ import {
   ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
 import { cn } from "@/lib/utils";
-import { trackAddPaymentInfo, trackPurchase, sendServerEvent } from "@/lib/facebookPixel";
+import { trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
 
 interface Plan {
   id: string;
@@ -134,20 +134,8 @@ function CheckoutForm({
       console.error(error);
       setIsProcessing(false);
     } else {
-      // Payment confirmed, trigger Purchase event
-      const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
-      trackPurchase(priceValue, [plan.id]);
-      
-      const storedAnswers = localStorage.getItem("emcinco_answers");
-      let email = "";
-      if (storedAnswers) {
-        try {
-          email = JSON.parse(storedAnswers).email || "";
-        } catch (e) {}
-      }
-      sendServerEvent("Purchase", { email, firstName: localStorage.getItem("emcinco_name") || "" }, { value: priceValue, currency: "BRL", contentIds: [plan.id] });
-
-      // If no error and no redirect happened, manually navigate
+      // Payment confirmed - Purchase event is sent via webhook (server-side only)
+      // Navigate to success page
       window.location.href = "/success";
     }
   };
@@ -299,10 +287,26 @@ export default function CheckoutModal({
           setStripePromise(loadStripe(data.publishableKey));
         });
 
+      // Get email and name for metadata
+      let userEmail = "";
+      let userName = localStorage.getItem("emcinco_name") || "";
+      const answers = localStorage.getItem("emcinco_answers");
+      if (answers) {
+        try {
+          const parsed = JSON.parse(answers);
+          userEmail = parsed.email_capture || parsed.email || "";
+        } catch (e) {}
+      }
+
       fetch("/api/stripe/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId: selectedPlan, isFinalOffer }),
+        body: JSON.stringify({ 
+          planId: selectedPlan, 
+          isFinalOffer,
+          email: userEmail,
+          name: userName,
+        }),
       })
         .then((res) => res.json())
         .then((data) => {

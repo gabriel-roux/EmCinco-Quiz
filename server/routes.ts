@@ -6,6 +6,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { sendFacebookEvent, type FacebookEventName } from "./facebookCapi";
+import { getInitialPaymentAmount } from "./stripeConfig";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -159,26 +160,14 @@ export async function registerRoutes(
   // Create payment intent
   app.post("/api/stripe/create-payment-intent", async (req, res) => {
     try {
-      const { planId, isFinalOffer } = req.body;
+      const { planId, isFinalOffer, email, name } = req.body;
       
       const validPlans = ["1week", "4week", "12week"];
       if (!validPlans.includes(planId)) {
         return res.status(400).json({ message: "Invalid plan selected" });
       }
-      
-      const regularPrices: Record<string, number> = {
-        "1week": 1050,
-        "4week": 1999,
-        "12week": 3499,
-      };
-      
-      const finalOfferPrices: Record<string, number> = {
-        "1week": 262,
-        "4week": 499,
-        "12week": 874,
-      };
 
-      const amount = isFinalOffer ? finalOfferPrices[planId] : regularPrices[planId];
+      const amount = getInitialPaymentAmount(planId, !!isFinalOffer);
       
       const stripe = await getUncachableStripeClient();
       const paymentIntent = await stripe.paymentIntents.create({
@@ -189,6 +178,9 @@ export async function registerRoutes(
         },
         metadata: {
           planId,
+          isFinalOffer: isFinalOffer ? "true" : "false",
+          email: email || "",
+          name: name || "",
         },
       });
 
