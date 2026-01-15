@@ -223,7 +223,7 @@ export default function Result() {
             <span className="text-primary">5 minutos</span>
           </h1>
           <p className="text-muted-foreground text-sm">
-            Você recebe um plano completo por menos do preço de um café — porque
+            Você recebe um plano completo por menos do preço de um café, porque
             nosso objetivo é fazer você criar o hábito primeiro.
           </p>
         </div>
