@@ -436,10 +436,10 @@ export default function Result() {
               </div>
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
-                <div className="text-sm text-muted-foreground">R$49,99</div>
+                <div className="text-sm text-muted-foreground">R$10,49</div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$7,14</div>
+                <div className="font-bold text-lg">R$1,5</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
@@ -545,7 +545,7 @@ export default function Result() {
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              COMEÇAR AGORA — QUERO MUDAR MEU HÁBITO
+              QUERO MUDAR MEU HÁBITO
             </button>
 
             <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
@@ -636,6 +636,144 @@ export default function Result() {
           <p className="text-xs text-muted-foreground text-center">
             *resultados individuais podem variar
           </p>
+        </div>
+
+        <div className="space-y-4">
+          <button
+            onClick={() => setSelectedPlan("1week")}
+            className={cn(
+              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200 opacity-60",
+              selectedPlan === "1week"
+                ? "border-primary bg-primary/5"
+                : "border-border bg-card",
+            )}
+            data-testid="plan-1week"
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                  selectedPlan === "1week"
+                    ? "border-primary"
+                    : "border-muted-foreground/30",
+                )}
+              >
+                {selectedPlan === "1week" && (
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                )}
+              </div>
+              <div className="flex-1">
+                <div className="font-bold">Plano 1 Semana</div>
+                <div className="text-sm text-muted-foreground">R$10,49</div>
+              </div>
+              <div className="text-right">
+                <div className="font-bold text-lg">R$1,5</div>
+                <div className="text-xs text-muted-foreground">por dia</div>
+              </div>
+            </div>
+          </button>
+
+          <div className="relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider z-10">
+              Mais Popular
+            </div>
+            <button
+              onClick={() => setSelectedPlan("4week")}
+              className={cn(
+                "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
+                selectedPlan === "4week"
+                  ? "border-primary bg-primary/15 text-white"
+                  : "border-border bg-card",
+              )}
+              data-testid="plan-4week"
+            >
+              <div className="flex items-center gap-3">
+                <div
+                  className={cn(
+                    "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                    selectedPlan === "4week"
+                      ? "border-primary bg-primary"
+                      : "border-muted-foreground/30",
+                  )}
+                >
+                  {selectedPlan === "4week" && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="font-bold text-black">Plano 4 Semanas</div>
+                  <div
+                    className={cn(
+                      "text-sm",
+                      selectedPlan === "4week"
+                        ? "text-black/80"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    <span className="line-through text-red-500">R$49,99</span>{" "}
+                    R$19,99
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold text-lg text-black">R$0,71</div>
+                  <div
+                    className={cn(
+                      "text-xs",
+                      selectedPlan === "4week"
+                        ? "text-black/80"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    por dia
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <button
+            onClick={() => setSelectedPlan("12week")}
+            className={cn(
+              "w-full p-5 rounded-2xl border-2 text-left transition-all duration-200",
+              selectedPlan === "12week"
+                ? "border-primary bg-primary/5"
+                : "border-border bg-card",
+            )}
+            data-testid="plan-12week"
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                  selectedPlan === "12week"
+                    ? "border-primary"
+                    : "border-muted-foreground/30",
+                )}
+              >
+                {selectedPlan === "12week" && (
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                )}
+              </div>
+              <div className="flex-1">
+                <div className="font-bold">Plano 12 Semanas</div>
+                <div className="text-sm text-muted-foreground">
+                  <span className="line-through">R$99,99</span> R$34,99
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="font-bold text-lg">R$0,41</div>
+                <div className="text-xs text-muted-foreground">por dia</div>
+              </div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => setShowCheckout(true)}
+            className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
+            data-testid="button-start-plan"
+          >
+            QUERO MUDAR MEU HÁBITO
+          </button>
         </div>
       </main>
 
