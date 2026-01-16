@@ -118,7 +118,8 @@ export async function sendFacebookEvent(
   eventName: string,
   eventSourceUrl: string,
   userData: UserData,
-  customData?: CustomData
+  customData?: CustomData,
+  eventId?: string
 ): Promise<{ success: boolean; error?: string }> {
   if (!FB_PIXEL_ID || !FB_ACCESS_TOKEN) {
     console.warn("Facebook CAPI: Missing FB_PIXEL_ID or FB_ACCESS_TOKEN");
@@ -134,6 +135,10 @@ export async function sendFacebookEvent(
       ...prepareUserData(userData),
     },
   };
+
+  if (eventId) {
+    eventPayload.event_id = eventId;
+  }
 
   if (customData) {
     eventPayload.custom_data = prepareCustomData(customData);

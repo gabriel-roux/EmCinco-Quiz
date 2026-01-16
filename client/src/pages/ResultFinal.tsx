@@ -15,6 +15,7 @@ import tiredPhoto from "@assets/image_1767730709233.png";
 import happyPhoto from "@assets/image_1767730696591.png";
 import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
+import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 
 interface FAQItemProps {
   question: string;
@@ -88,6 +89,46 @@ export default function ResultFinal() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const email = getStoredEmail();
+    const firstName = getStoredName();
+    const contentId = `emcinco_${selectedPlan}_final`;
+    
+    const priceMap: Record<string, number> = {
+      "1week": 2.62,
+      "4week": 4.99,
+      "12week": 8.74,
+    };
+    const value = priceMap[selectedPlan] || 4.99;
+
+    const viewContentId = trackEventWithId("ViewContent", {
+      content_name: "EmCinco Final Offer",
+      currency: "BRL",
+      value,
+    });
+    
+    const initiateCheckoutId = trackEventWithId("InitiateCheckout", {
+      currency: "BRL",
+      value,
+      content_ids: [contentId],
+      content_type: "product",
+      num_items: 1,
+    });
+
+    sendServerEvent(
+      "ViewContent",
+      { email, firstName },
+      { value, currency: "BRL", contentName: "EmCinco Final Offer" },
+      viewContentId,
+    );
+    sendServerEvent(
+      "InitiateCheckout",
+      { email, firstName },
+      { value, currency: "BRL", contentIds: [contentId], contentType: "product", numItems: 1 },
+      initiateCheckoutId,
+    );
+  }, [selectedPlan]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);

@@ -4,10 +4,48 @@ import { CheckCircle2, ArrowRight, Download, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
-import { trackPurchase, sendServerEvent } from "@/lib/facebookPixel";
+import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 
 export default function Success() {
   const name = localStorage.getItem("emcinco_name") || "Guerreiro(a)";
+
+  useEffect(() => {
+    const email = getStoredEmail();
+    const firstName = getStoredName();
+
+    const selectedPlan = localStorage.getItem("emcinco_selected_plan") || "4week";
+    const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
+    const contentId = isFinalOffer ? `emcinco_${selectedPlan}_final` : `emcinco_${selectedPlan}`;
+    
+    const priceMap: Record<string, number> = {
+      "1week": isFinalOffer ? 2.62 : 10.50,
+      "4week": isFinalOffer ? 4.99 : 19.99,
+      "12week": isFinalOffer ? 8.74 : 34.99,
+    };
+    const value = priceMap[selectedPlan] || 19.99;
+
+    const purchaseEventId = trackEventWithId("Purchase", {
+      currency: "BRL",
+      value,
+      content_ids: [contentId],
+      content_type: "product",
+      num_items: 1,
+    });
+    
+    sendServerEvent(
+      "Purchase",
+      { email, firstName },
+      { 
+        value, 
+        currency: "BRL",
+        contentIds: [contentId],
+        contentName: `Plano EmCinco ${selectedPlan}`,
+        contentType: "product",
+        numItems: 1
+      },
+      purchaseEventId
+    );
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center pt-12 px-4 pb-12">

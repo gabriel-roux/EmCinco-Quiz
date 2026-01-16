@@ -31,13 +31,28 @@ export function initFacebookPixel(): void {
   window.fbq("track", "PageView");
 }
 
+function generateEventId(): string {
+  return `${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+}
+
 export function trackEvent(
   eventName: string,
-  params?: Record<string, any>
+  params?: Record<string, any>,
+  eventId?: string
 ): void {
   if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", eventName, params);
+    const options = eventId ? { eventID: eventId } : undefined;
+    window.fbq("track", eventName, params, options);
   }
+}
+
+export function trackEventWithId(
+  eventName: string,
+  params?: Record<string, any>
+): string {
+  const eventId = generateEventId();
+  trackEvent(eventName, params, eventId);
+  return eventId;
 }
 
 export function trackViewContent(contentName: string, value?: number): void {
@@ -93,12 +108,30 @@ interface CustomData {
   value?: number;
   contentName?: string;
   contentIds?: string[];
+  contentType?: string;
+  numItems?: number;
+}
+
+export function getStoredEmail(): string {
+  const storedAnswers = localStorage.getItem("emcinco_answers");
+  if (storedAnswers) {
+    try {
+      const parsed = JSON.parse(storedAnswers);
+      return parsed.email || parsed.email_capture || "";
+    } catch (e) {}
+  }
+  return "";
+}
+
+export function getStoredName(): string {
+  return localStorage.getItem("emcinco_name") || "";
 }
 
 export async function sendServerEvent(
   eventName: string,
   userData: UserData,
-  customData?: CustomData
+  customData?: CustomData,
+  eventId?: string
 ): Promise<void> {
   try {
     const fbc = document.cookie.match(/_fbc=([^;]+)/)?.[1] || "";
@@ -110,6 +143,7 @@ export async function sendServerEvent(
       body: JSON.stringify({
         eventName,
         eventSourceUrl: window.location.href,
+        eventId,
         userData: {
           ...userData,
           clientUserAgent: navigator.userAgent,

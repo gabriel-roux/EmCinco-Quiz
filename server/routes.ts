@@ -123,7 +123,7 @@ export async function registerRoutes(
   // Facebook CAPI event endpoint
   app.post("/api/facebook/event", async (req, res) => {
     try {
-      const { eventName, eventSourceUrl, userData, customData } = req.body;
+      const { eventName, eventSourceUrl, userData, customData, eventId } = req.body;
       
       const validEvents: FacebookEventName[] = [
         "ViewContent",
@@ -147,7 +147,8 @@ export async function registerRoutes(
         eventName,
         eventSourceUrl,
         enrichedUserData,
-        customData
+        customData,
+        eventId
       );
 
       res.json(result);

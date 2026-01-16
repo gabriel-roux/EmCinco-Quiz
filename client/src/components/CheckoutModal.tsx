@@ -11,7 +11,7 @@ import {
   ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
 import { cn } from "@/lib/utils";
-import { trackAddPaymentInfo, sendServerEvent } from "@/lib/facebookPixel";
+import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 
 interface Plan {
   id: string;
@@ -100,17 +100,32 @@ function CheckoutForm({
 
   useEffect(() => {
     const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
-    trackAddPaymentInfo(priceValue);
+    const email = getStoredEmail();
+    const firstName = getStoredName();
+    const contentId = isFinalOffer ? `emcinco_${plan.id}_final` : `emcinco_${plan.id}`;
     
-    const storedAnswers = localStorage.getItem("emcinco_answers");
-    let email = "";
-    if (storedAnswers) {
-      try {
-        email = JSON.parse(storedAnswers).email || "";
-      } catch (e) {}
-    }
-    sendServerEvent("AddPaymentInfo", { email, firstName: localStorage.getItem("emcinco_name") || "" }, { value: priceValue, currency: "BRL" });
-  }, [plan.id, plan.discountedPrice]);
+    const addPaymentEventId = trackEventWithId("AddPaymentInfo", {
+      currency: "BRL",
+      value: priceValue,
+      content_ids: [contentId],
+      content_type: "product",
+      num_items: 1,
+    });
+    
+    sendServerEvent(
+      "AddPaymentInfo", 
+      { email, firstName }, 
+      { 
+        value: priceValue, 
+        currency: "BRL",
+        contentIds: [contentId],
+        contentName: plan.name,
+        contentType: "product",
+        numItems: 1
+      },
+      addPaymentEventId
+    );
+  }, [plan.id, plan.discountedPrice, plan.name, isFinalOffer]);
 
   const handleCardPaymentSelect = () => {
     setPaymentMethod("card");
@@ -134,7 +149,9 @@ function CheckoutForm({
       console.error(error);
       setIsProcessing(false);
     } else {
-      // Payment confirmed - Purchase event is sent via webhook (server-side only)
+      // Save plan info for Purchase tracking on success page
+      localStorage.setItem("emcinco_selected_plan", plan.id);
+      localStorage.setItem("emcinco_final_offer", isFinalOffer ? "true" : "false");
       // Navigate to success page
       window.location.href = "/success";
     }
