@@ -63,6 +63,20 @@ interface QuizAnswers {
   [key: string]: any;
 }
 
+// Classifica o perfil do usuário baseado nas respostas do quiz
+function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
+  let score = 0;
+
+  // Verifica respostas que indicam sobrecarga emocional
+  if (answers.consistency_likert >= 4) score++;
+  if (answers.focus_likert >= 4) score++;
+  if (answers.autopilot_likert >= 4) score++;
+  if (answers.routine_chaos?.includes("estagnado")) score++;
+  if (answers.focus_blockers?.includes("esgotado")) score++;
+
+  return score >= 3 ? "emocional" : "racional";
+}
+
 const steps: QuizStep[] = [
   { type: "landing" },
 
@@ -401,6 +415,10 @@ export default function Quiz() {
 
         localStorage.setItem("emcinco_answers", JSON.stringify(answers));
         localStorage.setItem("emcinco_name", name);
+        
+        // Classificar perfil do usuário (emocional vs racional)
+        const checkoutProfile = getCheckoutProfile(answers);
+        localStorage.setItem("emcinco_checkout_profile", checkoutProfile);
 
         setLocation("/processing");
       } catch (error) {

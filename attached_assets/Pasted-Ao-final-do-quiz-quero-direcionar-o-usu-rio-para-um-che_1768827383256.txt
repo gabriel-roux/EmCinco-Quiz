@@ -1,0 +1,207 @@
+Ao final do quiz, quero direcionar o usuário para um checkout dinâmico, que muda automaticamente a copy com base nas respostas do quiz.
+
+O objetivo é aumentar conversão em público frio usando segmentação por estado mental, não A/B aleatório.
+
+🎯 OBJETIVO TÉCNICO
+
+Implemente um Checkout Inteligente com Variação Dinâmica, onde:
+
+Existe apenas uma página de checkout (/checkout)
+
+O conteúdo da página muda com base no perfil detectado no quiz
+
+O perfil é salvo no localStorage como:
+
+"emocional" ou "racional"
+
+🧠 LÓGICA DE CLASSIFICAÇÃO DO PERFIL
+
+Crie uma função que analisa as respostas do quiz e define o perfil:
+
+function getCheckoutProfile(answers) {
+  let score = 0;
+
+  if (answers.consistency_likert >= 4) score++;
+  if (answers.focus_likert >= 4) score++;
+  if (answers.autopilot_likert >= 4) score++;
+  if (answers.routine_chaos?.includes("estagnado")) score++;
+  if (answers.focus_blockers?.includes("esgotado")) score++;
+
+  return score >= 3 ? "emocional" : "racional";
+}
+
+
+No final do quiz:
+
+Salvar o perfil no localStorage:
+
+localStorage.setItem("emcinco_checkout_profile", profile);
+
+
+Redirecionar sempre para:
+
+/checkout
+
+🧩 CHECKOUT DINÂMICO (UMA ÚNICA PÁGINA)
+
+Na página /checkout:
+
+Ler o perfil:
+
+const profile = localStorage.getItem("emcinco_checkout_profile");
+
+
+Renderizar condicionalmente a variação correta:
+
+{profile === "emocional" ? <CheckoutEmocional /> : <CheckoutRacional />}
+
+🎭 VARIAÇÃO 1 — CHECKOUT EMOCIONAL (Perfil Sobrecarregado)
+📌 Público
+
+Usuários que:
+
+Se sentem travados
+
+Vivem no piloto automático
+
+Começam e não terminam
+
+Se culpam por “falta de disciplina”
+
+🧠 Tom
+
+Acolhedor, humano, direto, sem pressão.
+
+✍️ COPY COMPLETA
+
+Headline principal
+
+Você não está falhando.
+Você só está mentalmente sobrecarregado.
+
+Subheadline
+
+Pessoas inteligentes travam quando o cérebro está cansado — não quando falta força de vontade.
+
+Bloco de identificação
+
+Se você sente que:
+
+começa empolgado e depois some
+
+passa o dia ocupado, mas sem avançar
+
+termina o dia frustrado consigo mesmo
+
+…isso não é preguiça.
+
+Quebra de culpa
+
+Seu cérebro entra em modo de defesa quando tudo parece grande demais.
+Ele evita tarefas longas para te proteger do estresse.
+
+Apresentação do EmCinco
+
+O EmCinco foi criado para destravar, não para exigir disciplina impossível.
+
+Mecanismo EmCinco™ (emocional)
+
+Apenas 5 minutos
+
+Zero decisões
+
+Zero sobrecarga
+
+Progresso visível todos os dias
+
+CTA
+
+Começar meu plano de 5 minutos por dia
+
+Microcopy abaixo do botão
+
+Sem pressão. Sem promessas milagrosas. Apenas um sistema que funciona.
+
+🧩 VARIAÇÃO 2 — CHECKOUT RACIONAL (Perfil Otimizador)
+📌 Público
+
+Usuários que:
+
+Já funcionam, mas querem mais
+
+Querem eficiência
+
+Gostam de método, clareza e previsibilidade
+
+🧠 Tom
+
+Claro, lógico, estruturado, confiante.
+
+✍️ COPY COMPLETA
+
+Headline principal
+
+O método mais simples para criar consistência real em 5 minutos por dia.
+
+Subheadline
+
+Um sistema baseado em neurociência para aprender e evoluir sem depender de motivação.
+
+Bloco lógico
+
+A maioria das pessoas falha porque:
+
+depende de motivação
+
+cria planos longos demais
+
+não mede progresso
+
+Apresentação do EmCinco
+
+O EmCinco resolve isso com um sistema de micro-execução diária.
+
+Mecanismo EmCinco™ (racional)
+
+Micro-hábitos cientificamente comprovados
+
+Redução total de fricção
+
+Feedback imediato de progresso
+
+Estrutura semanal clara (4 semanas)
+
+O que o usuário recebe
+
+Missões diárias de 5 minutos
+
+Plano adaptado ao perfil
+
+Evolução mensurável
+
+CTA
+
+Ativar meu plano EmCinco agora
+
+Microcopy
+
+Leva menos tempo do que rolar o Instagram.
+
+🧪 EXTRAS IMPORTANTES (IMPLEMENTAR)
+
+Disparar evento:
+
+fbq("track", "ViewContent", { checkout_type: profile });
+
+
+Mostrar badge discreto:
+
+“Plano adaptado ao seu perfil”
+
+✅ RESULTADO ESPERADO
+
+Checkout alinhado com o estado mental do lead
+
+Menos abandono
+
+Mais conversão em tráfego frio

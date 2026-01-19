@@ -80,6 +80,57 @@ function Testimonial({ name, text }: TestimonialProps) {
   );
 }
 
+// Tipo de perfil do checkout
+type CheckoutProfile = "emocional" | "racional";
+
+// Copy dinâmica baseada no perfil
+const profileCopy = {
+  emocional: {
+    headline: "Você não está falhando.",
+    headlineHighlight: "Você só está mentalmente sobrecarregado.",
+    subheadline: "Pessoas inteligentes travam quando o cérebro está cansado — não quando falta força de vontade.",
+    identification: [
+      "começa empolgado e depois some",
+      "passa o dia ocupado, mas sem avançar",
+      "termina o dia frustrado consigo mesmo",
+    ],
+    identificationIntro: "Se você sente que:",
+    identificationConclusion: "…isso não é preguiça.",
+    guiltBreak: "Seu cérebro entra em modo de defesa quando tudo parece grande demais. Ele evita tarefas longas para te proteger do estresse.",
+    presentation: "O EmCinco foi criado para destravar, não para exigir disciplina impossível.",
+    mechanism: [
+      "Apenas 5 minutos",
+      "Zero decisões",
+      "Zero sobrecarga",
+      "Progresso visível todos os dias",
+    ],
+    cta: "Começar meu plano de 5 minutos por dia",
+    microcopy: "Sem pressão. Sem promessas milagrosas. Apenas um sistema que funciona.",
+  },
+  racional: {
+    headline: "O método mais simples para criar",
+    headlineHighlight: "consistência real em 5 minutos por dia.",
+    subheadline: "Um sistema baseado em neurociência para aprender e evoluir sem depender de motivação.",
+    identification: [
+      "depende de motivação",
+      "cria planos longos demais",
+      "não mede progresso",
+    ],
+    identificationIntro: "A maioria das pessoas falha porque:",
+    identificationConclusion: "",
+    guiltBreak: "",
+    presentation: "O EmCinco resolve isso com um sistema de micro-execução diária.",
+    mechanism: [
+      "Micro-hábitos cientificamente comprovados",
+      "Redução total de fricção",
+      "Feedback imediato de progresso",
+      "Estrutura semanal clara (4 semanas)",
+    ],
+    cta: "Ativar meu plano EmCinco agora",
+    microcopy: "Leva menos tempo do que rolar o Instagram.",
+  },
+};
+
 export default function Result() {
   const [selectedPlan, setSelectedPlan] = useState<
     "1week" | "4week" | "12week"
@@ -89,8 +140,19 @@ export default function Result() {
   const generatePlan = useGeneratePlan();
   const [showCheckout, setShowCheckout] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
+  const [profile, setProfile] = useState<CheckoutProfile>("racional");
 
   const [timeLeft, setTimeLeft] = useState(600);
+  
+  // Ler perfil do localStorage
+  useEffect(() => {
+    const savedProfile = localStorage.getItem("emcinco_checkout_profile") as CheckoutProfile;
+    if (savedProfile === "emocional" || savedProfile === "racional") {
+      setProfile(savedProfile);
+    }
+  }, []);
+  
+  const copy = profileCopy[profile];
 
   const handleExitIntent = () => {
     setShowCheckout(false);
@@ -120,6 +182,7 @@ export default function Result() {
       content_name: "EmCinco Quiz Result",
       currency: "BRL",
       value,
+      checkout_type: profile,
     });
     
     const initiateCheckoutId = trackEventWithId("InitiateCheckout", {
@@ -133,7 +196,7 @@ export default function Result() {
     sendServerEvent(
       "ViewContent",
       { email, firstName },
-      { value, currency: "BRL", contentName: "EmCinco Quiz Result" },
+      { value, currency: "BRL", contentName: `EmCinco Quiz Result - ${profile}` },
       viewContentId,
     );
     sendServerEvent(
@@ -142,7 +205,7 @@ export default function Result() {
       { value, currency: "BRL", contentIds: [contentId], contentType: "product", numItems: 1 },
       initiateCheckoutId,
     );
-  }, [selectedPlan]);
+  }, [selectedPlan, profile]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -238,17 +301,63 @@ export default function Result() {
       </div>
 
       <main className="max-w-lg mx-auto px-4 pb-8 pt-8 space-y-6">
+        {/* Badge de perfil personalizado */}
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
+            <Zap className="w-3 h-3" />
+            Plano adaptado ao seu perfil
+          </div>
+        </div>
+
         <div className="text-center space-y-3">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
-            Aqui está o que está{" "}
-            <span className="text-red-500">sabotando sua evolução</span> e como
-            corrigir isso nos próximos{" "}
-            <span className="text-primary">5 minutos</span>
+            {copy.headline}{" "}
+            <span className={profile === "emocional" ? "text-red-500" : "text-primary"}>
+              {copy.headlineHighlight}
+            </span>
           </h1>
           <p className="text-muted-foreground text-sm">
-            Você recebe um plano completo por menos do preço de um café, porque
-            nosso objetivo é fazer você criar o hábito primeiro.
+            {copy.subheadline}
           </p>
+        </div>
+        
+        {/* Bloco de identificação dinâmico */}
+        <div className="bg-card border border-border rounded-2xl p-5 space-y-3">
+          <p className="font-medium text-foreground">{copy.identificationIntro}</p>
+          <ul className="space-y-2">
+            {copy.identification.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-muted-foreground text-sm">
+                <span className="text-primary mt-0.5">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          {copy.identificationConclusion && (
+            <p className="font-semibold text-foreground pt-2">{copy.identificationConclusion}</p>
+          )}
+          {copy.guiltBreak && (
+            <p className="text-muted-foreground text-sm border-t border-border pt-3 mt-3">
+              {copy.guiltBreak}
+            </p>
+          )}
+        </div>
+        
+        {/* Apresentação do EmCinco */}
+        <div className="text-center">
+          <p className="text-foreground font-medium">{copy.presentation}</p>
+        </div>
+        
+        {/* Mecanismo EmCinco™ */}
+        <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5">
+          <h3 className="font-bold text-center mb-4">Mecanismo EmCinco™</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {copy.mechanism.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-2 text-sm">
+                <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="rounded-2xl overflow-hidden">
@@ -562,14 +671,17 @@ export default function Result() {
             </div>
           </button>
 
-          <div className="space-y-4 pt-3">
+          <div className="space-y-3 pt-3">
             <button
               onClick={() => setShowCheckout(true)}
               className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
               data-testid="button-start-plan"
             >
-              QUERO MUDAR MEU HÁBITO
+              {copy.cta.toUpperCase()}
             </button>
+            <p className="text-center text-xs text-muted-foreground">
+              {copy.microcopy}
+            </p>
 
             <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-xl p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
@@ -795,8 +907,11 @@ export default function Result() {
             className="w-full bg-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:translate-y-[-1px] active:translate-y-0 transition-all flex items-center justify-center gap-2"
             data-testid="button-start-plan"
           >
-            QUERO MUDAR MEU HÁBITO
+            {copy.cta.toUpperCase()}
           </button>
+          <p className="text-center text-xs text-muted-foreground mt-2">
+            {copy.microcopy}
+          </p>
         </div>
       </main>
 
