@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Lock, CreditCard, Check, Apple } from "lucide-react";
+import { X, Lock } from "lucide-react";
 import { SiVisa, SiMastercard, SiAmericanexpress } from "react-icons/si";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -8,9 +8,7 @@ import {
   PaymentElement,
   useStripe,
   useElements,
-  ExpressCheckoutElement,
 } from "@stripe/react-stripe-js";
-import { cn } from "@/lib/utils";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 
 interface Plan {
@@ -90,9 +88,7 @@ function CheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
-  const [paymentMethod, setPaymentMethod] = useState<"fast" | "card">("fast");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [expressCheckoutReady, setExpressCheckoutReady] = useState(false);
 
   const discount = isFinalOffer ? "R$45,00" : "R$30,00";
   const discountPercent = isFinalOffer ? "75%" : "60%";
@@ -126,10 +122,6 @@ function CheckoutForm({
       addPaymentEventId
     );
   }, [plan.id, plan.discountedPrice, plan.name, isFinalOffer]);
-
-  const handleCardPaymentSelect = () => {
-    setPaymentMethod("card");
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -203,68 +195,29 @@ function CheckoutForm({
           </div>
         </div>
 
-        <div className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex items-center justify-center gap-2 py-2">
+            <SiVisa className="w-10 h-6 text-blue-600" />
+            <SiMastercard className="w-8 h-6" />
+            <SiAmericanexpress className="w-8 h-6 text-blue-500" />
+          </div>
+
+          <PaymentElement
+            options={{
+              layout: "tabs",
+            }}
+          />
+
           <button
-            onClick={handleCardPaymentSelect}
-            className={cn(
-              "w-full p-4 rounded-xl border-2 transition-all",
-              paymentMethod === "card"
-                ? "border-primary bg-primary/5"
-                : "border-border",
-            )}
-            data-testid="button-card-payment"
+            type="submit"
+            disabled={!stripe || isProcessing}
+            className="w-full bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
+            data-testid="button-continue-payment"
           >
-            <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                  paymentMethod === "card"
-                    ? "border-primary bg-primary"
-                    : "border-muted-foreground/30",
-                )}
-              >
-                {paymentMethod === "card" && (
-                  <Check className="w-3 h-3 text-white" />
-                )}
-              </div>
-              <span className="font-medium">Cartão de crédito</span>
-              <div className="flex items-center gap-1 ml-auto">
-                <SiVisa className="w-8 h-5 text-blue-600" />
-                <SiMastercard className="w-6 h-5" />
-                <SiAmericanexpress className="w-6 h-5 text-blue-500" />
-              </div>
-            </div>
+            <Lock className="w-4 h-4" />
+            {isProcessing ? "PROCESSANDO..." : "CONTINUAR"}
           </button>
-
-          {paymentMethod === "card" && (
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4 animate-in fade-in slide-in-from-top-2"
-            >
-              <div className="flex items-center justify-center gap-2 py-2">
-                <SiVisa className="w-10 h-6 text-blue-600" />
-                <SiMastercard className="w-8 h-6" />
-                <SiAmericanexpress className="w-8 h-6 text-blue-500" />
-              </div>
-
-              <PaymentElement
-                options={{
-                  layout: "tabs",
-                }}
-              />
-
-              <button
-                type="submit"
-                disabled={!stripe || isProcessing}
-                className="w-full bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
-                data-testid="button-continue-payment"
-              >
-                <Lock className="w-4 h-4" />
-                {isProcessing ? "PROCESSANDO..." : "CONTINUAR"}
-              </button>
-            </form>
-          )}
-        </div>
+        </form>
       </div>
     </div>
   );
