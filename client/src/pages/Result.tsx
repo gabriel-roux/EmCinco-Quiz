@@ -20,7 +20,12 @@ import tiredPhoto from "@assets/image_1767730709233.png";
 import happyPhoto from "@assets/image_1767730696591.png";
 import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
-import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
+import {
+  trackEventWithId,
+  sendServerEvent,
+  getStoredEmail,
+  getStoredName,
+} from "@/lib/facebookPixel";
 
 interface FAQItemProps {
   question: string;
@@ -88,38 +93,44 @@ const profileCopy = {
   emocional: {
     headline: "Você não está falhando.",
     headlineHighlight: "Você só está mentalmente sobrecarregado.",
-    subheadline: "Pessoas inteligentes travam quando o cérebro está cansado — não quando falta força de vontade.",
+    subheadline:
+      "Pessoas inteligentes travam quando o cérebro está cansado, não quando falta força de vontade.",
     identification: [
-      "começa empolgado e depois some",
-      "passa o dia ocupado, mas sem avançar",
-      "termina o dia frustrado consigo mesmo",
+      "Começa empolgado e depois some",
+      "Passa o dia ocupado, mas sem avançar",
+      "Termina o dia frustrado consigo mesmo",
     ],
     identificationIntro: "Se você sente que:",
     identificationConclusion: "…isso não é preguiça.",
-    guiltBreak: "Seu cérebro entra em modo de defesa quando tudo parece grande demais. Ele evita tarefas longas para te proteger do estresse.",
-    presentation: "O EmCinco foi criado para destravar, não para exigir disciplina impossível.",
+    guiltBreak:
+      "Seu cérebro entra em modo de defesa quando tudo parece grande demais. Ele evita tarefas longas para te proteger do estresse.",
+    presentation:
+      "O EmCinco foi criado para destravar, não para exigir disciplina impossível.",
     mechanism: [
       "Apenas 5 minutos",
       "Zero decisões",
       "Zero sobrecarga",
       "Progresso visível todos os dias",
     ],
-    cta: "Começar meu plano de 5 minutos por dia",
-    microcopy: "Sem pressão. Sem promessas milagrosas. Apenas um sistema que funciona.",
+    cta: "Começar meu plano de 5 minutos",
+    microcopy:
+      "Sem pressão. Sem promessas milagrosas. Apenas um sistema que funciona.",
   },
   racional: {
     headline: "O método mais simples para criar",
     headlineHighlight: "consistência real em 5 minutos por dia.",
-    subheadline: "Um sistema baseado em neurociência para aprender e evoluir sem depender de motivação.",
+    subheadline:
+      "Um sistema baseado em neurociência para aprender e evoluir sem depender de motivação.",
     identification: [
-      "depende de motivação",
-      "cria planos longos demais",
-      "não mede progresso",
+      "Depende de motivação",
+      "Cria planos longos demais",
+      "Não mede progresso",
     ],
     identificationIntro: "A maioria das pessoas falha porque:",
     identificationConclusion: "",
     guiltBreak: "",
-    presentation: "O EmCinco resolve isso com um sistema de micro-execução diária.",
+    presentation:
+      "O EmCinco resolve isso com um sistema de micro-execução diária.",
     mechanism: [
       "Micro-hábitos cientificamente comprovados",
       "Redução total de fricção",
@@ -143,15 +154,17 @@ export default function Result() {
   const [profile, setProfile] = useState<CheckoutProfile>("racional");
 
   const [timeLeft, setTimeLeft] = useState(600);
-  
+
   // Ler perfil do localStorage
   useEffect(() => {
-    const savedProfile = localStorage.getItem("emcinco_checkout_profile") as CheckoutProfile;
+    const savedProfile = localStorage.getItem(
+      "emcinco_checkout_profile",
+    ) as CheckoutProfile;
     if (savedProfile === "emocional" || savedProfile === "racional") {
       setProfile(savedProfile);
     }
   }, []);
-  
+
   const copy = profileCopy[profile];
 
   const handleExitIntent = () => {
@@ -170,21 +183,21 @@ export default function Result() {
     const email = getStoredEmail();
     const firstName = getStoredName();
     const contentId = `emcinco_${selectedPlan}`;
-    
+
     const priceMap: Record<string, number> = {
-      "1week": 10.50,
+      "1week": 10.5,
       "4week": 19.99,
       "12week": 34.99,
     };
     const value = priceMap[selectedPlan] || 19.99;
-    
+
     const viewContentId = trackEventWithId("ViewContent", {
       content_name: "EmCinco Quiz Result",
       currency: "BRL",
       value,
       checkout_type: profile,
     });
-    
+
     const initiateCheckoutId = trackEventWithId("InitiateCheckout", {
       currency: "BRL",
       value,
@@ -196,13 +209,23 @@ export default function Result() {
     sendServerEvent(
       "ViewContent",
       { email, firstName },
-      { value, currency: "BRL", contentName: `EmCinco Quiz Result - ${profile}` },
+      {
+        value,
+        currency: "BRL",
+        contentName: `EmCinco Quiz Result - ${profile}`,
+      },
       viewContentId,
     );
     sendServerEvent(
       "InitiateCheckout",
       { email, firstName },
-      { value, currency: "BRL", contentIds: [contentId], contentType: "product", numItems: 1 },
+      {
+        value,
+        currency: "BRL",
+        contentIds: [contentId],
+        contentType: "product",
+        numItems: 1,
+      },
       initiateCheckoutId,
     );
   }, [selectedPlan, profile]);
@@ -312,28 +335,37 @@ export default function Result() {
         <div className="text-center space-y-3">
           <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
             {copy.headline}{" "}
-            <span className={profile === "emocional" ? "text-red-500" : "text-primary"}>
+            <span
+              className={
+                profile === "emocional" ? "text-red-500" : "text-primary"
+              }
+            >
               {copy.headlineHighlight}
             </span>
           </h1>
-          <p className="text-muted-foreground text-sm">
-            {copy.subheadline}
-          </p>
+          <p className="text-muted-foreground text-sm">{copy.subheadline}</p>
         </div>
-        
+
         {/* Bloco de identificação dinâmico */}
         <div className="bg-card border border-border rounded-2xl p-5 space-y-3">
-          <p className="font-medium text-foreground">{copy.identificationIntro}</p>
+          <p className="font-medium text-foreground">
+            {copy.identificationIntro}
+          </p>
           <ul className="space-y-2">
             {copy.identification.map((item, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-muted-foreground text-sm">
+              <li
+                key={idx}
+                className="flex items-start gap-2 text-muted-foreground text-sm"
+              >
                 <span className="text-primary mt-0.5">•</span>
                 {item}
               </li>
             ))}
           </ul>
           {copy.identificationConclusion && (
-            <p className="font-semibold text-foreground pt-2">{copy.identificationConclusion}</p>
+            <p className="font-semibold text-foreground pt-2">
+              {copy.identificationConclusion}
+            </p>
           )}
           {copy.guiltBreak && (
             <p className="text-muted-foreground text-sm border-t border-border pt-3 mt-3">
@@ -341,12 +373,12 @@ export default function Result() {
             </p>
           )}
         </div>
-        
+
         {/* Apresentação do EmCinco */}
         <div className="text-center">
           <p className="text-foreground font-medium">{copy.presentation}</p>
         </div>
-        
+
         {/* Mecanismo EmCinco™ */}
         <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5">
           <h3 className="font-bold text-center mb-4">Mecanismo EmCinco™</h3>
@@ -458,16 +490,6 @@ export default function Result() {
           </div>
         </div>
 
-        <div className="text-center text-sm text-muted-foreground mt-2">
-          +3.812 pessoas usando o método EmCinco™ para destravar foco e
-          consistência.
-        </div>
-        <div className="space-y-4">
-          {testimonials.map((t, idx) => (
-            <Testimonial key={idx} name={t.name} text={t.text} />
-          ))}
-        </div>
-
         <div className="bg-primary/15 border border-primary rounded-2xl p-5 space-y-4">
           <h3 className="font-bold text-lg text-center">
             O que você recebe HOJE:
@@ -507,7 +529,7 @@ export default function Result() {
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Suporte por e-mail</span>
+              <span>Suporte por WhatsApp</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -711,6 +733,16 @@ export default function Result() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="text-center text-sm text-muted-foreground mt-2">
+          +3.812 pessoas usando o método EmCinco™ para destravar foco e
+          consistência.
+        </div>
+        <div className="space-y-4">
+          {testimonials.map((t, idx) => (
+            <Testimonial key={idx} name={t.name} text={t.text} />
+          ))}
         </div>
 
         <div className="space-y-2">

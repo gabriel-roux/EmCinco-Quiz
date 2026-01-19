@@ -19,16 +19,19 @@ function Router() {
       <Route path="/result" component={Result} />
       <Route path="/result-final" component={ResultFinal} />
       <Route path="/success" component={Success} />
-      <Route path="/quiz">
-        {() => <Quiz />}
-      </Route>
+      <Route
+        path="/login"
+        component={() =>
+          (window.location.href = "https://app.emcinco.com/login")
+        }
+      />
+      <Route path="/quiz">{() => <Quiz />}</Route>
       <Route component={NotFound} />
     </Switch>
   );
 }
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
