@@ -122,7 +122,7 @@ const profileCopy = {
   },
   racional: {
     headline: "O que está sabotando seu foco não é falta de disciplina",
-    headlineHighlight: "é um sistema mental quebrado e sobrecarregado.",
+    headlineHighlight: "é sua mente sobrecarregada.",
     subheadline:
       "Em 5 minutos por dia, o EmCinco reconstrói seu foco e cria progresso automático, sem depender de motivação.",
     identification: [
