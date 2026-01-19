@@ -92,52 +92,56 @@ type CheckoutProfile = "emocional" | "racional";
 const profileCopy = {
   emocional: {
     headline: "Você não está falhando.",
-    headlineHighlight: "Você só está mentalmente sobrecarregado.",
+    headlineHighlight: "Seu cérebro só está sobrecarregado.",
     subheadline:
-      "Pessoas inteligentes travam quando o cérebro está cansado, não quando falta força de vontade.",
-    identification: [
-      "Começa empolgado e depois some",
-      "Passa o dia ocupado, mas sem avançar",
-      "Termina o dia frustrado consigo mesmo",
-    ],
+      "Quando a mente está cansada, até pessoas inteligentes travam, desistem e se sabotam sem perceber.",
     identificationIntro: "Se você sente que:",
-    identificationConclusion: "…isso não é preguiça.",
+    identification: [
+      "Começa empolgado e depois abandona em silêncio",
+      "Passa o dia ocupado, mas sem progresso real",
+      "Vai dormir com a sensação de que podia ter feito mais",
+    ],
+    identificationConclusion:
+      "…isso não é falta de disciplina. É excesso mental.",
     guiltBreak:
-      "Seu cérebro entra em modo de defesa quando tudo parece grande demais. Ele evita tarefas longas para te proteger do estresse.",
+      "Quando tudo parece grande demais, o cérebro entra em modo de defesa. Ele evita começar para te proteger do estresse, não porque você é fraco.",
     presentation:
-      "O EmCinco foi criado para destravar, não para exigir disciplina impossível.",
+      "O EmCinco foi criado para contornar esse bloqueio, não para exigir força de vontade que você não tem sobrando.",
+    mechanismIntro: "Por isso o método funciona:",
     mechanism: [
-      "Apenas 5 minutos",
-      "Zero decisões",
-      "Zero sobrecarga",
+      "Apenas 5 minutos (o cérebro aceita)",
+      "Zero decisões (nada para planejar)",
+      "Zero sobrecarga mental",
       "Progresso visível todos os dias",
     ],
+    lossFrame:
+      "Se nada mudar, o padrão se repete: você tenta, se cobra, desiste — e a confiança em si mesmo diminui um pouco mais a cada ciclo.",
     cta: "Começar meu plano de 5 minutos",
     microcopy:
-      "Sem pressão. Sem promessas milagrosas. Apenas um sistema que funciona.",
+      "Sem pressão. Sem promessas irreais. Apenas um sistema simples para destravar consistência.",
   },
   racional: {
-    headline: "O método mais simples para criar",
-    headlineHighlight: "consistência real em 5 minutos por dia.",
+    headline: "O que está sabotando seu foco não é falta de disciplina",
+    headlineHighlight: "é um sistema mental quebrado e sobrecarregado.",
     subheadline:
-      "Um sistema baseado em neurociência para aprender e evoluir sem depender de motivação.",
+      "Em 5 minutos por dia, o EmCinco reconstrói seu foco e cria progresso automático, sem depender de motivação.",
     identification: [
-      "Depende de motivação",
-      "Cria planos longos demais",
-      "Não mede progresso",
+      "Quebra promessas consigo mesma toda semana",
+      "Começa empolgada e abandona em silêncio",
+      "Está mentalmente cansada antes mesmo de começar",
     ],
     identificationIntro: "A maioria das pessoas falha porque:",
     identificationConclusion: "",
     guiltBreak: "",
     presentation:
-      "O EmCinco resolve isso com um sistema de micro-execução diária.",
+      "O EmCinco resolve isso criando um loop diário impossível de falhar:",
     mechanism: [
-      "Micro-hábitos cientificamente comprovados",
-      "Redução total de fricção",
-      "Feedback imediato de progresso",
-      "Estrutura semanal clara (4 semanas)",
+      "Missões de 5 minutos que seu cérebro aceita",
+      "Zero decisões (você só executa)",
+      "Progresso visível desde o primeiro dia",
+      "Reforço positivo que te faz querer continuar",
     ],
-    cta: "Ativar meu plano EmCinco agora",
+    cta: "Quero voltar a ter constância",
     microcopy: "Leva menos tempo do que rolar o Instagram.",
   },
 };
