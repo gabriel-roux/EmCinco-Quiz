@@ -4,7 +4,12 @@ import { CheckCircle2, ArrowRight, Download, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
-import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
+import {
+  trackEventWithId,
+  sendServerEvent,
+  getStoredEmail,
+  getStoredName,
+} from "@/lib/facebookPixel";
 
 export default function Success() {
   const name = localStorage.getItem("emcinco_name") || "Guerreiro(a)";
@@ -13,12 +18,15 @@ export default function Success() {
     const email = getStoredEmail();
     const firstName = getStoredName();
 
-    const selectedPlan = localStorage.getItem("emcinco_selected_plan") || "4week";
+    const selectedPlan =
+      localStorage.getItem("emcinco_selected_plan") || "4week";
     const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
-    const contentId = isFinalOffer ? `emcinco_${selectedPlan}_final` : `emcinco_${selectedPlan}`;
-    
+    const contentId = isFinalOffer
+      ? `emcinco_${selectedPlan}_final`
+      : `emcinco_${selectedPlan}`;
+
     const priceMap: Record<string, number> = {
-      "1week": isFinalOffer ? 2.62 : 10.50,
+      "1week": isFinalOffer ? 2.62 : 10.5,
       "4week": isFinalOffer ? 4.99 : 19.99,
       "12week": isFinalOffer ? 8.74 : 34.99,
     };
@@ -31,19 +39,19 @@ export default function Success() {
       content_type: "product",
       num_items: 1,
     });
-    
+
     sendServerEvent(
       "Purchase",
       { email, firstName },
-      { 
-        value, 
+      {
+        value,
         currency: "BRL",
         contentIds: [contentId],
         contentName: `Plano EmCinco ${selectedPlan}`,
         contentType: "product",
-        numItems: 1
+        numItems: 1,
       },
-      purchaseEventId
+      purchaseEventId,
     );
   }, []);
 
@@ -61,20 +69,21 @@ export default function Success() {
       </motion.div>
 
       <div className="text-center space-y-4 max-w-md mx-auto mb-12">
-        <motion.h1 
+        <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="text-4xl font-heading font-bold text-foreground"
         >
           Parabéns, {name}!
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
           className="text-xl text-muted-foreground"
         >
-          Seu acesso vitalício ao EmCinco e à Comunidade Mastermind foi confirmado com sucesso.
+          Seu acesso vitalício ao EmCinco e à Comunidade Mastermind foi
+          confirmado com sucesso.
         </motion.p>
       </div>
 
@@ -92,7 +101,8 @@ export default function Success() {
               <div className="space-y-1">
                 <h3 className="font-bold text-lg">Seu Plano está Pronto</h3>
                 <p className="text-sm text-muted-foreground">
-                  As suas primeiras 4 semanas de missões personalizadas já foram geradas com base no seu perfil.
+                  As suas primeiras 4 semanas de missões personalizadas já foram
+                  geradas com base no seu perfil.
                 </p>
               </div>
             </CardContent>
@@ -112,7 +122,8 @@ export default function Success() {
               <div className="space-y-1">
                 <h3 className="font-bold text-lg">Próximos Passos</h3>
                 <p className="text-sm text-muted-foreground">
-                  Enviamos um e-mail com o seu guia de boas-vindas e o link de acesso exclusivo à nossa comunidade privada.
+                  Enviamos um e-mail com o seu guia de boas-vindas e o link de
+                  acesso exclusivo à nossa comunidade privada.
                 </p>
               </div>
             </CardContent>
@@ -126,7 +137,7 @@ export default function Success() {
         transition={{ delay: 0.5 }}
         className="mt-12 w-full max-w-md space-y-4"
       >
-        <Link href="/">
+        <Link href="https://app.emcinco.com/login">
           <Button className="w-full py-8 text-xl font-bold rounded-2xl shadow-xl hover-elevate">
             ACESSAR MEU PLANO AGORA
             <ArrowRight className="ml-2 w-6 h-6" />
