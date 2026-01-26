@@ -71,28 +71,27 @@ function ResultTitle({ headline, highlight, isRed = false }: ResultTitleProps) {
           </motion.span>
         );
       })}
-      {/* Highlight block */}
-      <span className="inline-block relative mr-[0.3em]">
-        <span 
-          className={isRed ? "highlight-block-bg-red" : "highlight-block-bg"}
-          style={{ animationDelay: `${highlightDelay}s` }}
-        />
-        {highlightWordsArray.map((word, i) => {
-          const delay = 0.2 + (wordIndex * 0.08);
-          wordIndex++;
-          return (
+      {/* Highlight words - each word is inline with its own bg */}
+      {highlightWordsArray.map((word, i) => {
+        const delay = 0.2 + (wordIndex * 0.08);
+        wordIndex++;
+        return (
+          <span key={`hl-wrap-${i}`} className="inline-block relative mr-[0.3em]">
+            <span 
+              className={isRed ? "highlight-block-bg-red" : "highlight-block-bg"}
+              style={{ animationDelay: `${highlightDelay}s` }}
+            />
             <motion.span
-              key={`hl-${i}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay, ease: "easeOut" }}
-              className="inline-block relative z-10 text-white mr-[0.3em] last:mr-0"
+              className="inline-block relative z-10 text-white"
             >
               {word}
             </motion.span>
-          );
-        })}
-      </span>
+          </span>
+        );
+      })}
     </h1>
   );
 }
