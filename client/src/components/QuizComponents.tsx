@@ -15,51 +15,42 @@ interface OptionCardProps {
 export function OptionCard({ label, selected, onClick, icon, subtitle, isMulti }: OptionCardProps) {
   return (
     <motion.button
-      whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className={cn(
-        "w-full text-left p-5 rounded-2xl border-2 transition-all duration-200 flex items-center gap-4 group relative overflow-hidden",
+        "w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 flex items-center justify-between gap-4 group",
         selected 
-          ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" 
-          : "border-border bg-card hover:border-primary/30 hover:shadow-md"
+          ? "border-primary bg-primary/5" 
+          : "border-border bg-white hover:border-primary/40"
       )}
     >
-      {isMulti ? (
-        <div className={cn(
-          "w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-200",
-          selected ? "bg-primary border-primary" : "bg-white border-border group-hover:border-primary/50"
-        )}>
-          {selected && <Check className="w-4 h-4 text-white" />}
-        </div>
-      ) : (
-        selected && (
-          <div className="absolute right-0 top-0 p-1.5 bg-primary rounded-bl-xl">
-            <Check className="w-4 h-4 text-white" />
-          </div>
-        )
-      )}
-      
-      {icon && (
-        <div className={cn(
-          "w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-colors",
-          selected ? "bg-primary text-white" : "bg-white text-muted-foreground group-hover:text-primary"
-        )}>
-          {icon}
-        </div>
-      )}
-      
-      <div className="flex-1">
-        <h3 className={cn(
-          "font-semibold text-lg transition-colors",
+      <div className="flex-1 flex items-center gap-3">
+        {icon && (
+          <span className="text-lg">{icon}</span>
+        )}
+        <span className={cn(
+          "text-sm font-medium transition-colors",
           selected ? "text-primary" : "text-foreground"
         )}>
           {label}
-        </h3>
-        {subtitle && (
-          <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
-        )}
+        </span>
       </div>
+      
+      {isMulti ? (
+        <div className={cn(
+          "w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 flex-shrink-0",
+          selected ? "bg-primary border-primary" : "bg-white border-gray-300"
+        )}>
+          {selected && <Check className="w-3 h-3 text-white" />}
+        </div>
+      ) : (
+        <div className={cn(
+          "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-200 flex-shrink-0",
+          selected ? "border-primary" : "border-gray-300"
+        )}>
+          {selected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+        </div>
+      )}
     </motion.button>
   );
 }
@@ -136,21 +127,36 @@ interface QuestionHeaderProps {
   title: string;
   subtitle?: string;
   micro?: string;
+  highlight?: string;
 }
 
-export function QuestionHeader({ title, subtitle, micro }: QuestionHeaderProps) {
+export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHeaderProps) {
+  const renderTitle = () => {
+    if (!highlight) {
+      return <span>{title.toUpperCase()}</span>;
+    }
+    const parts = title.split(new RegExp(`(${highlight})`, 'i'));
+    return parts.map((part, i) => 
+      part.toLowerCase() === highlight.toLowerCase() ? (
+        <span key={i} className="bg-primary text-white px-2 py-0.5">{part.toUpperCase()}</span>
+      ) : (
+        <span key={i}>{part.toUpperCase()}</span>
+      )
+    );
+  };
+
   return (
-    <div className="mb-8 text-center md:text-left space-y-3">
+    <div className="mb-6 text-left space-y-2">
       {micro && (
-        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-2">
+        <div className="inline-block px-3 py-1 rounded-full border border-border text-foreground text-xs font-mono uppercase tracking-widest mb-2">
           {micro}
         </div>
       )}
-      <h1 className="text-3xl md:text-4xl font-mono font-bold text-foreground leading-tight">
-        {title}
+      <h1 className="text-lg md:text-xl font-mono font-bold text-foreground leading-snug tracking-tight">
+        {renderTitle()}
       </h1>
       {subtitle && (
-        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed">
           {subtitle}
         </p>
       )}
