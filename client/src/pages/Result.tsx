@@ -27,6 +27,76 @@ import {
   getStoredName,
 } from "@/lib/facebookPixel";
 
+// Componente de título animado para Results
+interface ResultTitleProps {
+  headline: string;
+  highlight: string;
+  isRed?: boolean;
+}
+
+function ResultTitle({ headline, highlight, isRed = false }: ResultTitleProps) {
+  const fullText = `${headline} ${highlight}`;
+  const words = fullText.split(" ");
+  const totalWords = words.length;
+  const lastWordDelay = 0.2 + ((totalWords - 1) * 0.08);
+  const highlightDelay = lastWordDelay + 0.3;
+
+  // Find highlight position
+  const highlightStart = fullText.toLowerCase().indexOf(highlight.toLowerCase());
+  const highlightEnd = highlightStart + highlight.length;
+
+  const beforeText = fullText.substring(0, highlightStart).trim();
+  const highlightText = fullText.substring(highlightStart, highlightEnd);
+  
+  const beforeWords = beforeText ? beforeText.split(" ") : [];
+  const highlightWordsArray = highlightText.split(" ");
+  
+  let wordIndex = 0;
+
+  return (
+    <h1 className="text-2xl md:text-3xl font-mono font-extrabold leading-tight overflow-hidden">
+      {/* Before words */}
+      {beforeWords.map((word, i) => {
+        const delay = 0.2 + (wordIndex * 0.08);
+        wordIndex++;
+        return (
+          <motion.span
+            key={`before-${i}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay, ease: "easeOut" }}
+            className="inline-block mr-[0.3em]"
+          >
+            {word}
+          </motion.span>
+        );
+      })}
+      {/* Highlight block */}
+      <span className="inline-block relative mr-[0.3em]">
+        <span 
+          className={isRed ? "highlight-block-bg-red" : "highlight-block-bg"}
+          style={{ animationDelay: `${highlightDelay}s` }}
+        />
+        {highlightWordsArray.map((word, i) => {
+          const delay = 0.2 + (wordIndex * 0.08);
+          wordIndex++;
+          return (
+            <motion.span
+              key={`hl-${i}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay, ease: "easeOut" }}
+              className="inline-block relative z-10 text-white mr-[0.3em] last:mr-0"
+            >
+              {word}
+            </motion.span>
+          );
+        })}
+      </span>
+    </h1>
+  );
+}
+
 interface FAQItemProps {
   question: string;
   answer: string;
@@ -336,18 +406,20 @@ export default function Result() {
           </div>
         </div>
 
-        <div className="text-center space-y-3">
-          <h1 className="text-2xl md:text-3xl font-mono font-extrabold leading-tight">
-            {copy.headline}{" "}
-            <span
-              className={
-                profile === "emocional" ? "text-red-500" : "text-primary"
-              }
-            >
-              {copy.headlineHighlight}
-            </span>
-          </h1>
-          <p className="text-muted-foreground text-sm">{copy.subheadline}</p>
+        <div className="text-center space-y-3 overflow-hidden">
+          <ResultTitle 
+            headline={copy.headline}
+            highlight={copy.headlineHighlight}
+            isRed={profile === "emocional"}
+          />
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.2 }}
+            className="text-muted-foreground text-sm"
+          >
+            {copy.subheadline}
+          </motion.p>
         </div>
 
         {/* Bloco de identificação dinâmico */}
