@@ -65,7 +65,7 @@ export default function Processing() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       <div className="text-center space-y-2 mb-8">
-        <h1 className="text-2xl font-heading font-bold text-foreground">EmCinco</h1>
+        <h1 className="text-2xl font-handwritten font-bold text-foreground">EmCinco</h1>
       </div>
 
       <div className="relative w-56 h-56 mb-8">

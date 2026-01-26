@@ -146,7 +146,7 @@ export function QuestionHeader({ title, subtitle, micro }: QuestionHeaderProps) 
           {micro}
         </div>
       )}
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground leading-tight">
+      <h1 className="text-3xl md:text-4xl font-handwritten font-bold text-foreground leading-tight">
         {title}
       </h1>
       {subtitle && (
@@ -339,7 +339,7 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
             className="bg-card rounded-3xl p-8 md:p-10 border border-border shadow-xl space-y-8"
           >
             <div className="space-y-6">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground leading-tight">
+              <h2 className="text-2xl md:text-3xl font-handwritten font-bold text-foreground leading-tight">
                 Pronto. Já entendemos seu perfil. ✅
               </h2>
               

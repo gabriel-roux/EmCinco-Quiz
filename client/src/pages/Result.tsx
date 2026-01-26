@@ -337,7 +337,7 @@ export default function Result() {
         </div>
 
         <div className="text-center space-y-3">
-          <h1 className="text-2xl md:text-3xl font-heading font-extrabold leading-tight">
+          <h1 className="text-2xl md:text-3xl font-handwritten font-extrabold leading-tight">
             {copy.headline}{" "}
             <span
               className={
@@ -750,7 +750,7 @@ export default function Result() {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-2xl font-bold text-center font-heading mb-4">
+          <h3 className="text-2xl font-bold text-center font-handwritten mb-4">
             Perguntas Frequentes
           </h3>
           {faqs.map((faq, idx) => (
@@ -765,7 +765,7 @@ export default function Result() {
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-2xl font-bold text-center font-heading text-foreground">
+          <h3 className="text-2xl font-bold text-center font-handwritten text-foreground">
             Alcance seu pico com EmCinco
           </h3>
           <div className="overflow-hidden rounded-2xl border border-border">

@@ -72,7 +72,7 @@ export default function Success() {
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-4xl font-heading font-bold text-foreground"
+          className="text-4xl font-handwritten font-bold text-foreground"
         >
           Parabéns, {name}!
         </motion.h1>
