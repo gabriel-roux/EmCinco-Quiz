@@ -131,34 +131,82 @@ interface QuestionHeaderProps {
 }
 
 export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHeaderProps) {
-  const renderTitle = () => {
-    if (!highlight) {
-      return <span>{title.toUpperCase()}</span>;
+  const words = title.toUpperCase().split(" ");
+  const highlightWords = highlight ? highlight.toUpperCase().split(" ") : [];
+  
+  // Find which word indices are part of the highlight
+  let highlightStartIndex = -1;
+  if (highlight) {
+    const titleLower = title.toLowerCase();
+    const highlightLower = highlight.toLowerCase();
+    const charIndex = titleLower.indexOf(highlightLower);
+    if (charIndex !== -1) {
+      const wordsBefore = title.substring(0, charIndex).split(" ").filter(w => w).length;
+      highlightStartIndex = wordsBefore;
     }
-    const parts = title.split(new RegExp(`(${highlight})`, 'i'));
-    return parts.map((part, i) => 
-      part.toLowerCase() === highlight.toLowerCase() ? (
-        <span key={i} className="highlight-animated">{part.toUpperCase()}</span>
-      ) : (
-        <span key={i}>{part.toUpperCase()}</span>
-      )
-    );
-  };
+  }
+  
+  // Calculate when the last highlight word appears
+  const highlightEndIndex = highlightStartIndex + highlightWords.length - 1;
+  const lastHighlightWordDelay = 0.2 + (highlightEndIndex * 0.08);
+  const highlightAnimationDelay = lastHighlightWordDelay + 0.3;
 
   return (
     <div className="mb-6 text-left space-y-2">
       {micro && (
-        <div className="inline-block px-3 py-1 rounded-full border border-border text-foreground text-xs font-mono uppercase tracking-widest mb-2">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="inline-block px-3 py-1 rounded-full border border-border text-foreground text-xs font-mono uppercase tracking-widest mb-2"
+        >
           {micro}
-        </div>
+        </motion.div>
       )}
       <h1 className="text-lg md:text-xl font-mono font-bold text-foreground leading-snug tracking-tight">
-        {renderTitle()}
+        {words.map((word, i) => {
+          const isHighlightWord = highlightStartIndex !== -1 && 
+            i >= highlightStartIndex && 
+            i <= highlightEndIndex;
+          const wordDelay = 0.2 + (i * 0.08);
+          
+          return (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.3, 
+                delay: wordDelay,
+                ease: "easeOut"
+              }}
+              className="inline-block mr-[0.3em]"
+            >
+              {isHighlightWord ? (
+                <span 
+                  className="highlight-word-animated"
+                  style={{ 
+                    animationDelay: `${highlightAnimationDelay}s`
+                  }}
+                >
+                  {word}
+                </span>
+              ) : (
+                word
+              )}
+            </motion.span>
+          );
+        })}
       </h1>
       {subtitle && (
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.2 + (words.length * 0.08) + 0.2 }}
+          className="text-sm text-muted-foreground leading-relaxed"
+        >
           {subtitle}
-        </p>
+        </motion.p>
       )}
     </div>
   );
