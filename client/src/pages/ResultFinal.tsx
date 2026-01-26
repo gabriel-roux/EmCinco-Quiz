@@ -17,6 +17,70 @@ import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 
+// Componente de título animado com dois highlights (vermelho e azul)
+function FinalTitle() {
+  const parts = [
+    { text: "Esta é sua", type: "normal" as const },
+    { text: "última chance", type: "red" as const },
+    { text: "de transformar sua rotina por apenas", type: "normal" as const },
+    { text: "R$4,99", type: "blue" as const },
+  ];
+
+  let wordIndex = 0;
+  const allWords: { word: string; type: "normal" | "red" | "blue"; index: number }[] = [];
+  
+  parts.forEach(part => {
+    const words = part.text.split(" ");
+    words.forEach(word => {
+      allWords.push({ word, type: part.type, index: wordIndex });
+      wordIndex++;
+    });
+  });
+
+  const totalWords = allWords.length;
+  const lastWordDelay = 0.2 + ((totalWords - 1) * 0.08);
+  const highlightDelay = lastWordDelay + 0.3;
+
+  return (
+    <h1 className="text-2xl md:text-3xl font-mono font-extrabold leading-tight overflow-hidden">
+      {allWords.map((item, i) => {
+        const delay = 0.2 + (item.index * 0.08);
+        
+        if (item.type === "normal") {
+          return (
+            <motion.span
+              key={`word-${i}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay, ease: "easeOut" }}
+              className="inline-block mr-[0.3em]"
+            >
+              {item.word}
+            </motion.span>
+          );
+        }
+        
+        return (
+          <span key={`hl-wrap-${i}`} className="inline-block relative mr-[0.3em]">
+            <span 
+              className={item.type === "red" ? "highlight-block-bg-red" : "highlight-block-bg"}
+              style={{ animationDelay: `${highlightDelay}s` }}
+            />
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay, ease: "easeOut" }}
+              className="inline-block relative z-10 text-white"
+            >
+              {item.word}
+            </motion.span>
+          </span>
+        );
+      })}
+    </h1>
+  );
+}
+
 interface FAQItemProps {
   question: string;
   answer: string;
@@ -279,16 +343,16 @@ export default function ResultFinal() {
           </div>
         </div>
 
-        <div className="text-center space-y-3">
-          <h1 className="text-2xl md:text-3xl font-mono font-extrabold leading-tight">
-            Esta é sua{" "}
-            <span className="text-red-500">última chance</span>
-            {" "}de transformar sua rotina por apenas{" "}
-            <span className="text-primary">R$4,99</span>
-          </h1>
-          <p className="text-muted-foreground text-sm">
+        <div className="text-center space-y-3 overflow-hidden">
+          <FinalTitle />
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.4 }}
+            className="text-muted-foreground text-sm"
+          >
             75% OFF aplicado automaticamente. Oferta válida apenas agora.
-          </p>
+          </motion.p>
         </div>
 
         <div className="space-y-4">
