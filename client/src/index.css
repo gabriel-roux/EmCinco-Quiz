@@ -63,4 +63,14 @@
   .quiz-transition {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* Fonte manuscrita/cursiva estilo Caveat */
+  .font-handwritten {
+    font-family: 'Caveat', cursive;
+  }
+
+  /* Destaque com fundo azul claro (estilo "Qualquer Coisa?") */
+  .highlight-box {
+    @apply bg-primary/15 px-2 py-0.5 rounded font-handwritten;
+  }
 }
