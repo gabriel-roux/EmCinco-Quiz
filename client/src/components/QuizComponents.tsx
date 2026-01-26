@@ -255,6 +255,126 @@ export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHe
   );
 }
 
+interface InfoTitleProps {
+  title: string;
+  highlight?: string;
+}
+
+export function InfoTitle({ title, highlight }: InfoTitleProps) {
+  const words = title.split(" ");
+  const totalWords = words.length;
+  const lastWordDelay = 0.2 + ((totalWords - 1) * 0.08);
+  const highlightDelay = lastWordDelay + 0.3;
+
+  // Find highlight position in the title
+  let highlightStart = -1;
+  let highlightEnd = -1;
+  if (highlight) {
+    const titleLower = title.toLowerCase();
+    const highlightLower = highlight.toLowerCase();
+    highlightStart = titleLower.indexOf(highlightLower);
+    highlightEnd = highlightStart + highlight.length;
+  }
+
+  const renderTitleParts = () => {
+    if (!highlight || highlightStart === -1) {
+      return words.map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.2 + (i * 0.08), ease: "easeOut" }}
+          className="inline-block mr-[0.3em]"
+        >
+          {word}
+        </motion.span>
+      ));
+    }
+
+    const beforeText = title.substring(0, highlightStart).trimStart();
+    const highlightText = title.substring(highlightStart, highlightEnd);
+    const afterText = title.substring(highlightEnd).trimEnd();
+    
+    const beforeWords = beforeText ? beforeText.split(" ") : [];
+    const afterWords = afterText ? afterText.split(" ") : [];
+    
+    let wordIndex = 0;
+    const elements: JSX.Element[] = [];
+
+    // Before words
+    beforeWords.forEach((word, i) => {
+      if (word.trim()) {
+        elements.push(
+          <motion.span
+            key={`before-${i}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 + (wordIndex * 0.08), ease: "easeOut" }}
+            className="inline-block mr-[0.3em]"
+          >
+            {word}
+          </motion.span>
+        );
+        wordIndex++;
+      }
+    });
+
+    // Highlight block
+    const highlightWordsArray = highlightText.split(" ");
+    const highlightWordStartIndex = wordIndex;
+    
+    elements.push(
+      <span key="highlight-block" className="inline-block relative mr-[0.3em]">
+        <span 
+          className="highlight-block-bg"
+          style={{ animationDelay: `${highlightDelay}s` }}
+        />
+        {highlightWordsArray.map((word, i) => {
+          const delay = 0.2 + ((highlightWordStartIndex + i) * 0.08);
+          wordIndex++;
+          return (
+            <motion.span
+              key={`hl-${i}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay, ease: "easeOut" }}
+              className="inline-block relative z-10 text-white mr-[0.3em] last:mr-0"
+            >
+              {word}
+            </motion.span>
+          );
+        })}
+      </span>
+    );
+
+    // After words
+    afterWords.forEach((word, i) => {
+      if (word.trim()) {
+        elements.push(
+          <motion.span
+            key={`after-${i}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 + (wordIndex * 0.08), ease: "easeOut" }}
+            className="inline-block mr-[0.3em]"
+          >
+            {word}
+          </motion.span>
+        );
+        wordIndex++;
+      }
+    });
+
+    return elements;
+  };
+
+  return (
+    <h1 className="text-3xl font-mono font-bold text-foreground leading-snug overflow-hidden">
+      {renderTitleParts()}
+    </h1>
+  );
+}
+
 interface OptimizedImageProps {
   src: string;
   alt?: string;

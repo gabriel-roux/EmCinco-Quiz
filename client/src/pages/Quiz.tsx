@@ -21,6 +21,7 @@ import {
   ProgressBar,
   TimelineItem,
   DiagnosisStep,
+  InfoTitle,
 } from "@/components/QuizComponents";
 import SocialProof from "@/components/SocialProof";
 import {
@@ -235,6 +236,7 @@ const steps: QuizStep[] = [
     id: "story_1",
     type: "info",
     title: "Seu problema não é preguiça.",
+    highlight: "não é preguiça",
     text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O nosso método reconstrói esse sistema em apenas 5 minutos por dia.",
     visual: "image",
     image: batteryLowImg,
@@ -308,7 +310,8 @@ const steps: QuizStep[] = [
   {
     id: "authority_info",
     type: "info",
-    title: "Fundamentado em neurociência. ",
+    title: "Fundamentado em neurociência.",
+    highlight: "neurociência",
     text: "Nossa IA combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
     visual: "image",
     image: cartoonLearningImg,
@@ -331,6 +334,7 @@ const steps: QuizStep[] = [
     id: "expert_review",
     type: "info",
     title: "Missões diárias personalizadas.",
+    highlight: "personalizadas",
     text: "Com base nas suas respostas, criamos uma trilha única com missões de 5 minutos que se adaptam ao seu ritmo. Sem esforço. Sem decisões. Apenas seguir o plano.",
     visual: "image",
     image: engineImg,
@@ -357,6 +361,7 @@ const steps: QuizStep[] = [
     id: "habit_stacking_info",
     type: "info",
     title: "Sua jornada de 4 semanas está sendo criada.",
+    highlight: "4 semanas",
     text: "Estamos analisando seu perfil e montando uma trilha que elimina a procrastinação e coloca você em modo de evolução constante.",
     visual: "image",
     image: profileImg,
@@ -645,22 +650,34 @@ export default function Quiz() {
           )}
 
           {currentStep.type === "info" && (
-            <div className="text-center space-y-8 py-8">
+            <div className="text-center space-y-8 py-8 overflow-hidden">
               {currentStep.visual === "image" ? (
-                <OptimizedImage
-                  src={currentStep.image as string}
-                  alt={currentStep.title}
-                  className="w-full max-w-[280px] mx-auto aspect-square"
-                />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <OptimizedImage
+                    src={currentStep.image as string}
+                    alt={currentStep.title}
+                    className="w-full max-w-[280px] mx-auto aspect-square"
+                  />
+                </motion.div>
               ) : (
                 currentStep.icon
               )}
-              <h1 className="text-3xl font-mono font-bold">
-                {currentStep.title}
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <InfoTitle 
+                title={currentStep.title!} 
+                highlight={currentStep.highlight} 
+              />
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.6 }}
+                className="text-xl text-muted-foreground leading-relaxed"
+              >
                 {currentStep.text}
-              </p>
+              </motion.p>
             </div>
           )}
 
