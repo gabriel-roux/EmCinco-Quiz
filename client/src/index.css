@@ -73,4 +73,44 @@
   .highlight-box {
     @apply bg-primary/15 px-2 py-0.5 rounded font-mono;
   }
+
+  /* Highlight animado - fundo cresce da esquerda para direita */
+  .highlight-animated {
+    background: linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    animation: highlight-grow 0.6s ease-out forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes highlight-grow {
+    from {
+      background-size: 0% 100%;
+      color: inherit;
+    }
+    to {
+      background-size: 100% 100%;
+      color: white;
+    }
+  }
+
+  /* Botão pulsante CTA */
+  .animate-pulse-cta {
+    animation: pulse-cta 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-cta {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 hsla(var(--primary), 0);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px 4px hsla(var(--primary), 0.3);
+    }
+  }
 }

@@ -107,7 +107,7 @@ export function BottomBar({ onContinue, disabled, label = "Continuar", loading, 
             "w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all duration-300",
             disabled 
               ? "bg-muted text-muted-foreground cursor-not-allowed" 
-              : "bg-primary text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0"
+              : "bg-primary text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 animate-pulse-cta"
           )}
         >
           {loading ? (
@@ -138,7 +138,7 @@ export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHe
     const parts = title.split(new RegExp(`(${highlight})`, 'i'));
     return parts.map((part, i) => 
       part.toLowerCase() === highlight.toLowerCase() ? (
-        <span key={i} className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">{part.toUpperCase()}</span>
+        <span key={i} className="highlight-animated">{part.toUpperCase()}</span>
       ) : (
         <span key={i}>{part.toUpperCase()}</span>
       )
