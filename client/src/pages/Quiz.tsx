@@ -57,6 +57,8 @@ interface QuizStep {
   placeholder?: string;
   note?: string;
   icon?: React.ReactNode;
+  highlight?: string;
+  micro?: string;
 }
 
 interface QuizAnswers {
@@ -84,6 +86,7 @@ const steps: QuizStep[] = [
     id: "age",
     type: "single",
     question: "Qual é a sua faixa etária?",
+    micro: "Perfil",
     options: [
       "18–24 anos",
       "25–34 anos",
@@ -96,14 +99,15 @@ const steps: QuizStep[] = [
   {
     id: "struggle",
     type: "single",
-    question:
-      "Seja sincero: o que costuma acontecer quando você tenta aprender algo novo?",
+    question: "Seja sincero: o que costuma acontecer quando você tenta aprender algo novo?",
+    highlight: "aprender algo novo",
+    micro: "Autoconhecimento",
     options: [
-      "😵 Começo animado, mas me distraio fácil",
-      "🤯 Penso demais… e acabo nem começando",
-      "🐢 Sou consistente, mas evoluo muito devagar",
-      "🧭 Fico perdido, não sei por onde começar",
-      "⏰ Simplesmente não tenho tempo",
+      "Começo animado, mas me distraio fácil",
+      "Penso demais… e acabo nem começando",
+      "Sou consistente, mas evoluo muito devagar",
+      "Fico perdido, não sei por onde começar",
+      "Simplesmente não tenho tempo",
     ],
   },
 
@@ -112,25 +116,29 @@ const steps: QuizStep[] = [
     type: "likert",
     statement: "Eu tenho potencial, só não consigo manter a consistência.",
     sub: "Você concorda com essa afirmação?",
+    highlight: "consistência",
+    micro: "Foco e Atenção",
   },
   {
     id: "focus_likert",
     type: "likert",
-    statement:
-      "Quando eu realmente foco, eu vou longe. O difícil é entrar no foco.",
+    statement: "Quando eu realmente foco, eu vou longe. O difícil é entrar no foco.",
     sub: "Você concorda com essa afirmação?",
+    highlight: "entrar no foco",
+    micro: "Foco e Atenção",
   },
 
   {
     id: "focus_blockers",
     type: "single",
-    question:
-      "Hoje em dia, qual é o seu maior desafio com foco e produtividade?",
+    question: "Hoje em dia, qual é o seu maior desafio com foco e produtividade?",
+    highlight: "foco e produtividade",
+    micro: "Bloqueios",
     options: [
-      "😵 Dificuldade em manter o foco por muito tempo",
-      "🧠 Minha mente se dispersa fácil",
-      "⏳ Procrastino e fico sem clareza do que fazer",
-      "🔋 Chego mentalmente esgotado no fim do dia",
+      "Dificuldade em manter o foco por muito tempo",
+      "Minha mente se dispersa fácil",
+      "Procrastino e fico sem clareza do que fazer",
+      "Chego mentalmente esgotado no fim do dia",
     ],
   },
 
@@ -144,30 +152,35 @@ const steps: QuizStep[] = [
     type: "likert",
     statement: "Sinto que meus dias acontecem no piloto automático.",
     sub: "Você concorda?",
+    highlight: "piloto automático",
+    micro: "Rotina",
   },
 
   {
     id: "typical_day",
     type: "single",
     question: "Como você descreveria um dia típico da sua rotina?",
+    highlight: "sua rotina",
+    micro: "Rotina",
     options: [
-      "⏰ Sempre corrido, sem tempo pra nada",
-      "📋 Ocupado, mas administrável",
-      "😕 Calmo, porém sem foco",
-      "🌪️ Caótico e imprevisível",
+      "Sempre corrido, sem tempo pra nada",
+      "Ocupado, mas administrável",
+      "Calmo, porém sem foco",
+      "Caótico e imprevisível",
     ],
   },
 
   {
     id: "screen_distraction",
     type: "single",
-    question:
-      "Com que frequência o seu celular acaba roubando sua atenção, mesmo quando você quer se concentrar?",
+    question: "Com que frequência o seu celular acaba roubando sua atenção, mesmo quando você quer se concentrar?",
+    highlight: "se concentrar",
+    micro: "Distrações",
     options: [
-      "📱 Quase o tempo todo",
-      "😓 Várias vezes ao dia",
-      "😐 Algumas vezes",
-      "😌 Quase nunca",
+      "Quase o tempo todo",
+      "Várias vezes ao dia",
+      "Algumas vezes",
+      "Quase nunca",
     ],
   },
 
@@ -175,11 +188,13 @@ const steps: QuizStep[] = [
     id: "dedicated_time",
     type: "single",
     question: "Sendo realista: quanto tempo por dia você consegue dedicar para evoluir?",
+    highlight: "evoluir",
+    micro: "Tempo",
     options: [
-      "⏱️ 2 minutos",
-      "⭐ 5 minutos (ideal para a sua rotina)",
-      "⏳ 10 minutos",
-      "🕒 15 minutos ou mais",
+      "2 minutos",
+      "5 minutos (ideal para a sua rotina)",
+      "10 minutos",
+      "15 minutos ou mais",
     ],
   },
 
@@ -187,11 +202,13 @@ const steps: QuizStep[] = [
     id: "routine_chaos",
     type: "single",
     question: "Como você se sente em relação ao seu progresso hoje?",
+    highlight: "progresso",
+    micro: "Progresso",
     options: [
-      "😕 Me sinto estagnado e sem direção",
-      "🔄 Começo muitas coisas, mas não termino",
-      "📉 Sei que poderia render muito mais",
-      "🙂 Estou bem, mas quero melhorar",
+      "Me sinto estagnado e sem direção",
+      "Começo muitas coisas, mas não termino",
+      "Sei que poderia render muito mais",
+      "Estou bem, mas quero melhorar",
     ],
   },
 
@@ -199,6 +216,8 @@ const steps: QuizStep[] = [
     id: "fix_priority",
     type: "multi",
     question: "O que você quer melhorar primeiro?",
+    highlight: "melhorar primeiro",
+    micro: "Prioridades",
     options: [
       "Disciplina",
       "Foco",
@@ -223,6 +242,8 @@ const steps: QuizStep[] = [
     id: "suffering_area",
     type: "multi",
     question: "O que mais sofre quando sua consistência falha?",
+    highlight: "consistência falha",
+    micro: "Impacto",
     options: [
       "Carreira e promoções",
       "Confiança pessoal",
@@ -238,13 +259,15 @@ const steps: QuizStep[] = [
     id: "skill_interest",
     type: "single",
     question: "Que tipo de habilidade você mais gostaria de desenvolver agora?",
+    highlight: "desenvolver",
+    micro: "Habilidades",
     options: [
-      "💻 Tecnologia e IA",
-      "🗣️ Comunicação",
-      "💼 Negócios",
-      "🎨 Criatividade",
-      "🧠 Mente e corpo",
-      "🌍 Idiomas",
+      "Tecnologia e IA",
+      "Comunicação",
+      "Negócios",
+      "Criatividade",
+      "Mente e corpo",
+      "Idiomas",
     ],
   },
 
@@ -252,12 +275,14 @@ const steps: QuizStep[] = [
     id: "learning_style",
     type: "single",
     question: "Qual formato de aprendizado funciona melhor para você?",
+    highlight: "aprendizado",
+    micro: "Estilo",
     options: [
-      "⚡ Microlições rápidas e diretas",
-      "🪜 Passo a passo, bem estruturado",
-      "📚 Leitura no meu ritmo",
-      "🧪 Aprender na prática, fazendo",
-      "🔀 Um pouco de tudo",
+      "Microlições rápidas e diretas",
+      "Passo a passo, bem estruturado",
+      "Leitura no meu ritmo",
+      "Aprender na prática, fazendo",
+      "Um pouco de tudo",
     ],
   },
 
@@ -265,6 +290,8 @@ const steps: QuizStep[] = [
     id: "bad_habits",
     type: "multi",
     question: "Quais hábitos estão te atrapalhando?",
+    highlight: "atrapalhando",
+    micro: "Hábitos",
     options: [
       "Dormir tarde",
       "Tempo de tela",
@@ -290,10 +317,12 @@ const steps: QuizStep[] = [
     id: "app_experience",
     type: "single",
     question: "Você já tentou melhorar sua produtividade com outros métodos?",
+    highlight: "outros métodos",
+    micro: "Experiência",
     options: [
-      "😕 Sim, mas acabei desistindo",
-      "🙂 Sim, e ainda uso alguns",
-      "🌱 Não, estou começando agora",
+      "Sim, mas acabei desistindo",
+      "Sim, e ainda uso alguns",
+      "Não, estou começando agora",
     ],
   },
 
@@ -310,6 +339,8 @@ const steps: QuizStep[] = [
     id: "outcome_desire",
     type: "multi",
     question: "Como sua vida melhora quando você resolve isso?",
+    highlight: "resolve isso",
+    micro: "Resultados",
     options: [
       "Melhor desempenho",
       "Mais dinheiro",
@@ -341,8 +372,9 @@ const steps: QuizStep[] = [
   {
     id: "commitment_time",
     type: "single",
-    question:
-      "Quanto tempo você quer dedicar diariamente ao seu plano EmCinco?",
+    question: "Quanto tempo você quer dedicar diariamente ao seu plano EmCinco?",
+    highlight: "plano EmCinco",
+    micro: "Compromisso",
     options: ["5 min", "10 min", "15 min", "20 min"],
   },
 
@@ -359,6 +391,8 @@ const steps: QuizStep[] = [
     type: "input",
     inputType: "email",
     question: "Digite seu e-mail para receber seu plano personalizado",
+    highlight: "plano personalizado",
+    micro: "Contato",
     placeholder: "seu@email.com",
     note: "Prometemos: nada de spam.",
   },
@@ -368,6 +402,8 @@ const steps: QuizStep[] = [
     type: "input",
     inputType: "text",
     question: "Qual é o seu nome?",
+    highlight: "seu nome",
+    micro: "Contato",
     placeholder: "Seu nome",
   },
 ];
@@ -523,7 +559,11 @@ export default function Quiz() {
 
           {currentStep.type === "single" && (
             <div className="space-y-6">
-              <QuestionHeader title={currentStep.question!} />
+              <QuestionHeader 
+                title={currentStep.question!} 
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
+              />
               <div className="grid gap-3">
                 {currentStep.options?.map((opt) => (
                   <OptionCard
@@ -542,6 +582,8 @@ export default function Quiz() {
               <QuestionHeader
                 title={currentStep.question!}
                 subtitle="Selecione todas que se aplicam"
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
               />
               <div className="grid gap-3">
                 {currentStep.options?.map((opt) => {
@@ -575,6 +617,8 @@ export default function Quiz() {
               <QuestionHeader
                 title={currentStep.statement!}
                 subtitle={currentStep.sub}
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
               />
               <div className="py-8">
                 <LikertScale
@@ -607,7 +651,11 @@ export default function Quiz() {
 
           {currentStep.type === "summary" && (
             <div className="space-y-6">
-              <QuestionHeader title={currentStep.title!} />
+              <QuestionHeader 
+                title={currentStep.title!}
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
+              />
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -720,7 +768,11 @@ export default function Quiz() {
 
           {currentStep.type === "timeline" && (
             <div className="space-y-6">
-              <QuestionHeader title={currentStep.title!} />
+              <QuestionHeader 
+                title={currentStep.title!}
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
+              />
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -882,6 +934,8 @@ export default function Quiz() {
               <QuestionHeader
                 title={currentStep.question!}
                 subtitle={currentStep.note}
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
               />
               <input
                 type={currentStep.inputType}
