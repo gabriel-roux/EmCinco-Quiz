@@ -407,6 +407,17 @@ const steps: QuizStep[] = [
     micro: "Contato",
     placeholder: "Seu nome",
   },
+
+  {
+    id: "whatsapp_capture",
+    type: "input",
+    inputType: "tel",
+    question: "Qual é o seu WhatsApp? (opcional)",
+    highlight: "WhatsApp",
+    micro: "Contato",
+    placeholder: "(11) 99999-9999",
+    note: "Opcional - para receber dicas extras",
+  },
 ];
 
 export default function Quiz() {
@@ -538,7 +549,10 @@ export default function Quiz() {
     const val = answers[currentStep.id!];
     if (currentStep.type === "multi")
       return Array.isArray(val) && val.length > 0;
-    if (currentStep.type === "input") return val && val.length > 2;
+    if (currentStep.type === "input") {
+      if (currentStep.id === "whatsapp_capture") return true;
+      return val && val.length > 2;
+    }
     if (["info", "summary", "timeline"].includes(currentStep.type)) return true;
     return val !== undefined && val !== null;
   };
@@ -942,11 +956,35 @@ export default function Quiz() {
                 type={currentStep.inputType}
                 placeholder={currentStep.placeholder}
                 value={answers[currentStep.id!] || ""}
-                onChange={(e) => handleAnswer(currentStep.id!, e.target.value)}
+                onChange={(e) => {
+                  if (currentStep.id === "whatsapp_capture") {
+                    let value = e.target.value.replace(/\D/g, "");
+                    if (value.length <= 11) {
+                      if (value.length > 2) {
+                        value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                      }
+                      if (value.length > 10) {
+                        value = `${value.slice(0, 10)}-${value.slice(10)}`;
+                      }
+                    }
+                    handleAnswer(currentStep.id!, value);
+                  } else {
+                    handleAnswer(currentStep.id!, e.target.value);
+                  }
+                }}
                 className="w-full text-lg p-4 rounded-xl border-2 border-border focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all"
                 autoFocus
                 data-testid={`input-${currentStep.id}`}
               />
+              {currentStep.id === "whatsapp_capture" && (
+                <button
+                  onClick={handleContinue}
+                  className="text-sm text-muted-foreground underline hover:text-foreground transition-colors"
+                  data-testid="button-skip-whatsapp"
+                >
+                  Pular esta etapa
+                </button>
+              )}
             </div>
           )}
         </motion.div>
