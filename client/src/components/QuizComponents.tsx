@@ -138,7 +138,7 @@ export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHe
     const parts = title.split(new RegExp(`(${highlight})`, 'i'));
     return parts.map((part, i) => 
       part.toLowerCase() === highlight.toLowerCase() ? (
-        <span key={i} className="bg-primary text-white px-2 py-0.5">{part.toUpperCase()}</span>
+        <span key={i} className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">{part.toUpperCase()}</span>
       ) : (
         <span key={i}>{part.toUpperCase()}</span>
       )
