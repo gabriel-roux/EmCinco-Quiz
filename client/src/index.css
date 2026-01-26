@@ -87,26 +87,23 @@
     animation-delay: 0.2s;
   }
 
-  /* Highlight word-by-word - texto começa escuro, depois fundo cresce */
-  .highlight-word-animated {
-    background: linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
-    background-size: 0% 100%;
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding: 0.125rem 0.25rem;
-    margin: 0 -0.125rem;
+  /* Highlight block - fundo absoluto que cresce, texto já é branco */
+  .highlight-block-bg {
+    position: absolute;
+    inset: -0.125rem -0.375rem;
+    background: hsl(var(--primary));
     border-radius: 0.25rem;
-    animation: highlight-word-grow 0.6s ease-out forwards;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: highlight-block-grow 0.6s ease-out forwards;
   }
 
-  @keyframes highlight-word-grow {
+  @keyframes highlight-block-grow {
     0% {
-      background-size: 0% 100%;
-      color: inherit;
+      transform: scaleX(0);
     }
     100% {
-      background-size: 100% 100%;
-      color: white;
+      transform: scaleX(1);
     }
   }
 
