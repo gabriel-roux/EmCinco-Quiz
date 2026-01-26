@@ -163,9 +163,9 @@ export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHe
       ));
     }
 
-    const beforeText = title.substring(0, highlightStart).trim();
+    const beforeText = title.substring(0, highlightStart).trimStart();
     const highlightText = title.substring(highlightStart, highlightEnd);
-    const afterText = title.substring(highlightEnd).trim();
+    const afterText = title.substring(highlightEnd).trimEnd();
     
     const beforeWords = beforeText ? beforeText.toUpperCase().split(" ") : [];
     const afterWords = afterText ? afterText.toUpperCase().split(" ") : [];
