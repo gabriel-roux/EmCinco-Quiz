@@ -64,13 +64,13 @@
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Fonte manuscrita/cursiva estilo Caveat */
-  .font-handwritten {
-    font-family: 'Caveat', cursive;
+  /* Fonte monoespaçada científica */
+  .font-mono-scientific {
+    font-family: 'Space Mono', 'IBM Plex Mono', monospace;
   }
 
-  /* Destaque com fundo azul claro (estilo "Qualquer Coisa?") */
+  /* Destaque com fundo azul claro */
   .highlight-box {
-    @apply bg-primary/15 px-2 py-0.5 rounded font-handwritten;
+    @apply bg-primary/15 px-2 py-0.5 rounded font-mono;
   }
 }

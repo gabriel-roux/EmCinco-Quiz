@@ -596,7 +596,7 @@ export default function Quiz() {
               ) : (
                 currentStep.icon
               )}
-              <h1 className="text-3xl font-handwritten font-bold">
+              <h1 className="text-3xl font-mono font-bold">
                 {currentStep.title}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">

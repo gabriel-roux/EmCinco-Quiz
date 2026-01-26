@@ -36,7 +36,7 @@ export default function ExitPopup({ isOpen, onClose, onContinue }: ExitPopupProp
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center space-y-4">
-                <h2 className="text-2xl font-handwritten font-bold">
+                <h2 className="text-2xl font-mono font-bold">
                   Você sabia?
                 </h2>
                 <p className="text-muted-foreground">

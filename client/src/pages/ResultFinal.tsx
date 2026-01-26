@@ -280,7 +280,7 @@ export default function ResultFinal() {
         </div>
 
         <div className="text-center space-y-3">
-          <h1 className="text-2xl md:text-3xl font-handwritten font-extrabold leading-tight">
+          <h1 className="text-2xl md:text-3xl font-mono font-extrabold leading-tight">
             Esta é sua{" "}
             <span className="text-red-500">última chance</span>
             {" "}de transformar sua rotina por apenas{" "}
@@ -527,7 +527,7 @@ export default function ResultFinal() {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-2xl font-bold text-center font-handwritten mb-4">
+          <h3 className="text-2xl font-bold text-center font-mono mb-4">
             Perguntas Frequentes
           </h3>
           {faqs.map((faq, idx) => (
