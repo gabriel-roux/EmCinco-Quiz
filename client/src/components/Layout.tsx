@@ -18,10 +18,13 @@ export function Layout({ children, progress, hideHeader = false, onBack, showBac
     <div className="min-h-screen bg-background flex flex-col">
       {/* Progress Bar - Full width at very top */}
       {progress !== undefined && !hideHeader && (
-        <div className="fixed top-0 left-0 right-0 z-[60] h-1 bg-gray-200">
+        <div className="fixed top-0 left-0 right-0 z-[60] h-1 bg-gray-200 overflow-hidden">
           <div 
-            className="h-full bg-primary transition-all duration-500 ease-out"
-            style={{ width: `${progress}%` }}
+            className="h-full bg-primary"
+            style={{ 
+              width: `${progress}%`,
+              transition: 'width 0.3s ease-out'
+            }}
           />
         </div>
       )}

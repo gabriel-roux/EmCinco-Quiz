@@ -237,29 +237,19 @@ export function QuestionHeader({ title, subtitle, micro, highlight }: QuestionHe
   };
 
   return (
-    <div className="mb-6 text-left space-y-2">
+    <div className="mb-6 text-left space-y-2 overflow-hidden">
       {micro && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="inline-block px-3 py-1 rounded-full border border-border text-foreground text-xs font-mono uppercase tracking-widest mb-2"
-        >
+        <div className="inline-block px-3 py-1 rounded-full border border-border text-foreground text-xs font-mono uppercase tracking-widest mb-2">
           {micro}
-        </motion.div>
+        </div>
       )}
-      <h1 className="text-lg md:text-xl font-mono font-bold text-foreground leading-snug tracking-tight">
+      <h1 className="text-lg md:text-xl font-mono font-bold text-foreground leading-snug tracking-tight overflow-hidden">
         {renderTitleParts()}
       </h1>
       {subtitle && (
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 + (totalWords * 0.08) + 0.2 }}
-          className="text-sm text-muted-foreground leading-relaxed"
-        >
+        <p className="text-sm text-muted-foreground leading-relaxed">
           {subtitle}
-        </motion.p>
+        </p>
       )}
     </div>
   );
