@@ -43,6 +43,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const [isDetecting, setIsDetecting] = useState(true);
 
   useEffect(() => {
+    // Verificar parametro da URL primeiro (?locale=es ou ?locale=pt-BR)
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLocale = urlParams.get("locale");
+    if (urlLocale === "es" || urlLocale === "pt-BR") {
+      setLocale(urlLocale);
+      localStorage.setItem("emcinco_locale", urlLocale);
+      setIsDetecting(false);
+      return;
+    }
+
     const savedLocale = localStorage.getItem("emcinco_locale") as Locale;
     if (savedLocale && (savedLocale === "pt-BR" || savedLocale === "es")) {
       setLocale(savedLocale);
