@@ -1,31 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star } from "lucide-react";
+import { useLocale } from "@/lib/i18n";
+import { landingContent } from "@/data/quizSteps";
 
-const testimonials = [
-  {
-    title: "Este plano trouxe minha energia de volta",
-    text: "Acordo me sentindo renovado, focado e eu mesmo novamente. As pessoas dizem que pareco mais vivo, e honestamente, eu sinto isso tambem."
-  },
-  {
-    title: "Finalmente tenho clareza mental",
-    text: "Eu costumava me sentir mentalmente exausto o tempo todo. Agora tenho energia o dia inteiro e consigo focar nas coisas importantes."
-  },
-  {
-    title: "Mudou minha rotina completamente",
-    text: "Em apenas 5 minutos por dia, construi habitos que transformaram minha produtividade. Nao imaginava que seria tao simples."
-  },
-  {
-    title: "Resultados visiveis em 2 semanas",
-    text: "Minha concentracao melhorou drasticamente. Consigo trabalhar por horas sem distracao e ainda tenho energia no fim do dia."
-  }
-];
+function getTestimonials(content: typeof landingContent["pt-BR"]) {
+  return [
+    { title: content.testimonial1Title, text: content.testimonial1Text },
+    { title: content.testimonial2Title, text: content.testimonial2Text },
+    { title: content.testimonial3Title, text: content.testimonial3Text },
+    { title: content.testimonial4Title, text: content.testimonial4Text },
+  ];
+}
 
 export default function Processing() {
   const [, setLocation] = useLocation();
   const [progress, setProgress] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { locale } = useLocale();
+  const content = landingContent[locale];
+  const testimonials = useMemo(() => getTestimonials(content), [content]);
 
   useEffect(() => {
     const duration = 4000;
@@ -99,9 +94,9 @@ export default function Processing() {
       </div>
 
       <div className="text-center space-y-2 mb-10">
-        <p className="text-lg text-muted-foreground">Criando seu Plano de Recuperacao</p>
-        <p className="text-2xl font-bold text-primary">Mais de 9.000 pessoas</p>
-        <p className="text-muted-foreground font-medium">escolheram o emcinco</p>
+        <p className="text-lg text-muted-foreground">{content.creatingPlan}</p>
+        <p className="text-2xl font-bold text-primary">{content.moreThan9000}</p>
+        <p className="text-muted-foreground font-medium">{content.choseEmcinco}</p>
       </div>
 
       <div className="w-full max-w-md">

@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Check, ChevronRight, Loader2 } from "lucide-react";
+import { useLocale } from "@/lib/i18n";
+import { landingContent } from "@/data/quizSteps";
 
 interface OptionCardProps {
   label: string;
@@ -526,6 +528,8 @@ export function TimelineItem({ week, text, color, index }: TimelineItemProps) {
 
 export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
   const [loading, setLoading] = useState(true);
+  const { locale } = useLocale();
+  const content = landingContent[locale];
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -545,7 +549,7 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
           >
             <Loader2 className="w-12 h-12 text-primary animate-spin" />
             <p className="text-xl font-medium text-muted-foreground animate-pulse">
-              Analisando suas respostas...
+              {content.analyzingResponses}
             </p>
           </motion.div>
         ) : (
@@ -557,7 +561,7 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
           >
             <div className="space-y-6">
               <h2 className="text-2xl md:text-3xl font-mono font-bold text-foreground leading-tight">
-                Pronto. Já entendemos seu perfil. ✅
+                {content.diagnosisTitle} ✅
               </h2>
               
               <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -566,7 +570,7 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  Pelas suas respostas, dá pra ver que o problema não é falta de vontade ou capacidade.
+                  {content.diagnosisText1}
                 </motion.p>
                 
                 <motion.p
@@ -574,7 +578,7 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  O maior desafio hoje é encontrar tempo, manter o foco e seguir um método que realmente caiba na sua rotina.
+                  {content.diagnosisText2}
                 </motion.p>
                 
                 <motion.p
@@ -582,17 +586,17 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  Isso é mais comum do que parece. Muita gente inteligente e dedicada passa exatamente por isso.
+                  {content.diagnosisNote}
                 </motion.p>
               </div>
             </div>
 
             <div className="pt-4 border-t border-border space-y-4">
               <p className="font-semibold text-foreground text-lg italic">
-                "É por isso que a próxima pergunta é tão importante:"
+                "{content.diagnosisQuestion}"
               </p>
               <p className="text-primary font-bold text-xl">
-                Diga quanto tempo por dia você realmente consegue separar para evoluir.
+                {content.diagnosisPrompt}
               </p>
             </div>
           </motion.div>

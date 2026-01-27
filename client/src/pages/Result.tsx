@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   Check,
   X,
@@ -26,6 +26,8 @@ import {
   getStoredEmail,
   getStoredName,
 } from "@/lib/facebookPixel";
+import { useLocale, pricing } from "@/lib/i18n";
+import { landingContent } from "@/data/quizSteps";
 
 // Componente de título animado para Results
 interface ResultTitleProps {
@@ -156,64 +158,126 @@ function Testimonial({ name, text }: TestimonialProps) {
 
 // Tipo de perfil do checkout
 type CheckoutProfile = "emocional" | "racional";
+type Locale = "pt-BR" | "es";
 
-// Copy dinâmica baseada no perfil
-const profileCopy = {
-  emocional: {
-    headline: "Você não está falhando.",
-    headlineHighlight: "Seu cérebro só está sobrecarregado.",
-    subheadline:
-      "Quando a mente está cansada, até pessoas inteligentes travam, desistem e se sabotam sem perceber.",
-    identificationIntro: "Se você sente que:",
-    identification: [
-      "Começa empolgado e depois abandona em silêncio",
-      "Passa o dia ocupado, mas sem progresso real",
-      "Vai dormir com a sensação de que podia ter feito mais",
-    ],
-    identificationConclusion:
-      "…isso não é falta de disciplina. É excesso mental.",
-    guiltBreak:
-      "Quando tudo parece grande demais, o cérebro entra em modo de defesa. Ele evita começar para te proteger do estresse, não porque você é fraco.",
-    presentation:
-      "O EmCinco foi criado para contornar esse bloqueio, não para exigir força de vontade que você não tem sobrando.",
-    mechanismIntro: "Por isso o método funciona:",
-    mechanism: [
-      "Apenas 5 minutos (o cérebro aceita)",
-      "Zero decisões (nada para planejar)",
-      "Zero sobrecarga mental",
-      "Progresso visível todos os dias",
-    ],
-    lossFrame:
-      "Se nada mudar, o padrão se repete: você tenta, se cobra, desiste — e a confiança em si mesmo diminui um pouco mais a cada ciclo.",
-    cta: "Começar meu plano de 5 minutos",
-    microcopy:
-      "Sem pressão. Sem promessas irreais. Apenas um sistema simples para destravar consistência.",
-  },
-  racional: {
-    headline: "O que está sabotando seu foco não é falta de disciplina",
-    headlineHighlight: "é sua mente sobrecarregada.",
-    subheadline:
-      "Em 5 minutos por dia, o EmCinco reconstrói seu foco e cria progresso automático, sem depender de motivação.",
-    identification: [
-      "Quebra promessas consigo mesma toda semana",
-      "Começa empolgada e abandona em silêncio",
-      "Está mentalmente cansada antes mesmo de começar",
-    ],
-    identificationIntro: "A maioria das pessoas falha porque:",
-    identificationConclusion: "",
-    guiltBreak: "",
-    presentation:
-      "O EmCinco resolve isso criando um loop diário impossível de falhar:",
-    mechanism: [
-      "Missões de 5 minutos que seu cérebro aceita",
-      "Zero decisões (você só executa)",
-      "Progresso visível desde o primeiro dia",
-      "Reforço positivo que te faz querer continuar",
-    ],
-    cta: "Quero voltar a ter constância",
-    microcopy: "Leva menos tempo do que rolar o Instagram.",
-  },
-};
+// Copy dinâmica baseada no perfil e locale
+function getProfileCopy(locale: Locale) {
+  if (locale === "es") {
+    return {
+      emocional: {
+        headline: "No estas fallando.",
+        headlineHighlight: "Tu cerebro solo esta sobrecargado.",
+        subheadline:
+          "Cuando la mente esta cansada, hasta personas inteligentes se traban, desisten y se sabotean sin darse cuenta.",
+        identificationIntro: "Si sientes que:",
+        identification: [
+          "Empiezas emocionado y despues abandonas en silencio",
+          "Pasas el dia ocupado, pero sin progreso real",
+          "Te vas a dormir con la sensacion de que podrias haber hecho mas",
+        ],
+        identificationConclusion:
+          "...eso no es falta de disciplina. Es exceso mental.",
+        guiltBreak:
+          "Cuando todo parece demasiado grande, el cerebro entra en modo de defensa. Evita comenzar para protegerte del estres, no porque seas debil.",
+        presentation:
+          "EmCinco fue creado para sortear ese bloqueo, no para exigir fuerza de voluntad que no tienes de sobra.",
+        mechanismIntro: "Por eso el metodo funciona:",
+        mechanism: [
+          "Solo 5 minutos (el cerebro acepta)",
+          "Cero decisiones (nada que planear)",
+          "Cero sobrecarga mental",
+          "Progreso visible todos los dias",
+        ],
+        lossFrame:
+          "Si nada cambia, el patron se repite: intentas, te exiges, desistes - y la confianza en ti mismo disminuye un poco mas con cada ciclo.",
+        cta: "Comenzar mi plan de 5 minutos",
+        microcopy:
+          "Sin presion. Sin promesas irreales. Solo un sistema simple para desbloquear consistencia.",
+      },
+      racional: {
+        headline: "Lo que esta saboteando tu enfoque no es falta de disciplina",
+        headlineHighlight: "es tu mente sobrecargada.",
+        subheadline:
+          "En 5 minutos al dia, EmCinco reconstruye tu enfoque y crea progreso automatico, sin depender de motivacion.",
+        identification: [
+          "Rompe promesas consigo misma toda semana",
+          "Empieza emocionada y abandona en silencio",
+          "Esta mentalmente cansada antes de empezar",
+        ],
+        identificationIntro: "La mayoria de las personas falla porque:",
+        identificationConclusion: "",
+        guiltBreak: "",
+        presentation:
+          "EmCinco resuelve esto creando un loop diario imposible de fallar:",
+        mechanism: [
+          "Misiones de 5 minutos que tu cerebro acepta",
+          "Cero decisiones (solo ejecutas)",
+          "Progreso visible desde el primer dia",
+          "Refuerzo positivo que te hace querer continuar",
+        ],
+        cta: "Quiero volver a tener constancia",
+        microcopy: "Toma menos tiempo que scrollear Instagram.",
+      },
+    };
+  }
+  
+  return {
+    emocional: {
+      headline: "Voce nao esta falhando.",
+      headlineHighlight: "Seu cerebro so esta sobrecarregado.",
+      subheadline:
+        "Quando a mente esta cansada, ate pessoas inteligentes travam, desistem e se sabotam sem perceber.",
+      identificationIntro: "Se voce sente que:",
+      identification: [
+        "Comeca empolgado e depois abandona em silencio",
+        "Passa o dia ocupado, mas sem progresso real",
+        "Vai dormir com a sensacao de que podia ter feito mais",
+      ],
+      identificationConclusion:
+        "...isso nao e falta de disciplina. E excesso mental.",
+      guiltBreak:
+        "Quando tudo parece grande demais, o cerebro entra em modo de defesa. Ele evita comecar para te proteger do estresse, nao porque voce e fraco.",
+      presentation:
+        "O EmCinco foi criado para contornar esse bloqueio, nao para exigir forca de vontade que voce nao tem sobrando.",
+      mechanismIntro: "Por isso o metodo funciona:",
+      mechanism: [
+        "Apenas 5 minutos (o cerebro aceita)",
+        "Zero decisoes (nada para planejar)",
+        "Zero sobrecarga mental",
+        "Progresso visivel todos os dias",
+      ],
+      lossFrame:
+        "Se nada mudar, o padrao se repete: voce tenta, se cobra, desiste - e a confianca em si mesmo diminui um pouco mais a cada ciclo.",
+      cta: "Comecar meu plano de 5 minutos",
+      microcopy:
+        "Sem pressao. Sem promessas irreais. Apenas um sistema simples para destravar consistencia.",
+    },
+    racional: {
+      headline: "O que esta sabotando seu foco nao e falta de disciplina",
+      headlineHighlight: "e sua mente sobrecarregada.",
+      subheadline:
+        "Em 5 minutos por dia, o EmCinco reconstroi seu foco e cria progresso automatico, sem depender de motivacao.",
+      identification: [
+        "Quebra promessas consigo mesma toda semana",
+        "Comeca empolgada e abandona em silencio",
+        "Esta mentalmente cansada antes mesmo de comecar",
+      ],
+      identificationIntro: "A maioria das pessoas falha porque:",
+      identificationConclusion: "",
+      guiltBreak: "",
+      presentation:
+        "O EmCinco resolve isso criando um loop diario impossivel de falhar:",
+      mechanism: [
+        "Missoes de 5 minutos que seu cerebro aceita",
+        "Zero decisoes (voce so executa)",
+        "Progresso visivel desde o primeiro dia",
+        "Reforco positivo que te faz querer continuar",
+      ],
+      cta: "Quero voltar a ter constancia",
+      microcopy: "Leva menos tempo do que rolar o Instagram.",
+    },
+  };
+}
 
 export default function Result() {
   const [selectedPlan, setSelectedPlan] = useState<
@@ -225,6 +289,17 @@ export default function Result() {
   const [showCheckout, setShowCheckout] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [profile, setProfile] = useState<CheckoutProfile>("racional");
+  const { locale, currency, currencySymbol } = useLocale();
+  const content = landingContent[locale];
+  const profileCopy = useMemo(() => getProfileCopy(locale), [locale]);
+  const prices = pricing[locale].regular;
+  
+  const formatPrice = (val: number) => {
+    if (locale === "es") {
+      return `${currencySymbol}${val.toFixed(2)}`;
+    }
+    return `${currencySymbol}${val.toFixed(2).replace(".", ",")}`;
+  };
 
   const [timeLeft, setTimeLeft] = useState(600);
 
@@ -329,69 +404,116 @@ export default function Result() {
 
   const time = formatTime(timeLeft);
 
-  const faqs = [
+  const faqs = useMemo(() => locale === "es" ? [
+    {
+      question: "Por que funciona el enfoque EmCinco?",
+      answer:
+        "Nuestro plan te ayuda a construir habitos de forma mas profunda, con mas energia y enfoque. Combinamos tecnicas comprobadas de cambio conductual con orientacion personalizada. Recibes instrucciones paso a paso y rutinas que toman solo 5 minutos al dia.",
+    },
+    {
+      question: "Como puede ayudarme este plan?",
+      answer:
+        "EmCinco fue desarrollado para eliminar la fatiga de decision y crear momentum consistente. Notaras mas claridad mental, energia estable y progreso visible en tus metas.",
+    },
+    {
+      question: "Cuando empezare a sentir los efectos?",
+      answer:
+        "La mayoria de los usuarios reportan cambios notables en la primera semana. Los mayores beneficios aparecen despues de 21 dias de practica consistente.",
+    },
+    {
+      question: "Esta basado en ciencia?",
+      answer:
+        "Si! EmCinco esta basado en investigaciones de psicologia conductual, neurociencia y formacion de habitos de instituciones como Stanford, MIT y Harvard.",
+    },
+  ] : [
     {
       question: "Por que a abordagem EmCinco funciona?",
       answer:
-        "Nosso plano ajuda você a construir habitos de forma mais profunda, com mais energia e foco. Combinamos tecnicas comprovadas de mudança comportamental com orientação personalizada. Você recebe instruções passo a passo e rotinas que levam apenas 5 minutos por dia.",
+        "Nosso plano ajuda voce a construir habitos de forma mais profunda, com mais energia e foco. Combinamos tecnicas comprovadas de mudanca comportamental com orientacao personalizada. Voce recebe instrucoes passo a passo e rotinas que levam apenas 5 minutos por dia.",
     },
     {
       question: "Como este plano pode me ajudar?",
       answer:
-        "O EmCinco foi desenvolvido para eliminar a fadiga de decisão e criar momentum consistente. Você vai notar mais clareza mental, energia estavel e progresso visível em suas metas.",
+        "O EmCinco foi desenvolvido para eliminar a fadiga de decisao e criar momentum consistente. Voce vai notar mais clareza mental, energia estavel e progresso visivel em suas metas.",
     },
     {
-      question: "Quando vou começar a sentir os efeitos?",
+      question: "Quando vou comecar a sentir os efeitos?",
       answer:
-        "A maioria dos usuarios relata mudancas notáveis na primeira semana. Os maiores benefícios aparecem após 21 dias de prática consistente.",
+        "A maioria dos usuarios relata mudancas notaveis na primeira semana. Os maiores beneficios aparecem apos 21 dias de pratica consistente.",
     },
     {
-      question: "E baseado em ciência?",
+      question: "E baseado em ciencia?",
       answer:
-        "Sim! O EmCinco e baseado em pesquisas de psicologia comportamental, neurociência e formação de habitos de instituições como Stanford, MIT e Harvard.",
+        "Sim! O EmCinco e baseado em pesquisas de psicologia comportamental, neurociencia e formacao de habitos de instituicoes como Stanford, MIT e Harvard.",
     },
-  ];
+  ], [locale]);
 
-  const comparisonItems = [
-    "Foco inabalável",
-    "Consistência diária",
+  const comparisonItems = useMemo(() => locale === "es" ? [
+    "Enfoque inquebrantable",
+    "Consistencia diaria",
+    "Claridad de metas",
+    "Evolucion continua",
+    "Resultados practicos",
+  ] : [
+    "Foco inabalavel",
+    "Consistencia diaria",
     "Clareza de metas",
-    "Evolução contínua",
-    "Resultados práticos",
-  ];
+    "Evolucao continua",
+    "Resultados praticos",
+  ], [locale]);
 
-  const testimonials = [
+  const testimonials = useMemo(() => locale === "es" ? [
     {
       name: "Eduardo Vasconcelos",
-      text: "Antes eu começava vários cursos e abandonava na segunda semana. Com o EmCinco, consegui manter consistência pela primeira vez. Em pouco mais de um mês já estava aplicando conceitos de tecnologia no meu trabalho.",
+      text: "Antes empezaba varios cursos y los abandonaba en la segunda semana. Con EmCinco, logre mantener consistencia por primera vez. En poco mas de un mes ya estaba aplicando conceptos de tecnologia en mi trabajo.",
     },
     {
       name: "Camila Nogueira",
-      text: "Eu sempre achei que aprender algo novo exigia muito tempo livre (que eu não tenho). Os 5 minutos por dia mudaram completamente isso. Hoje estudar faz parte da minha rotina, como escovar os dentes.",
+      text: "Siempre pense que aprender algo nuevo requeria mucho tiempo libre (que no tengo). Los 5 minutos al dia cambiaron completamente eso. Hoy estudiar es parte de mi rutina, como cepillarme los dientes.",
     },
     {
       name: "Felipe Arantes",
-      text: "O maior ganho pra mim foi a clareza. Parei de pular de conteúdo em conteúdo sem direção. Agora sigo um caminho estruturado e vejo progresso real toda semana.",
+      text: "La mayor ganancia para mi fue la claridad. Deje de saltar de contenido en contenido sin direccion. Ahora sigo un camino estructurado y veo progreso real cada semana.",
     },
-  ];
+  ] : [
+    {
+      name: "Eduardo Vasconcelos",
+      text: "Antes eu comecava varios cursos e abandonava na segunda semana. Com o EmCinco, consegui manter consistencia pela primeira vez. Em pouco mais de um mes ja estava aplicando conceitos de tecnologia no meu trabalho.",
+    },
+    {
+      name: "Camila Nogueira",
+      text: "Eu sempre achei que aprender algo novo exigia muito tempo livre (que eu nao tenho). Os 5 minutos por dia mudaram completamente isso. Hoje estudar faz parte da minha rotina, como escovar os dentes.",
+    },
+    {
+      name: "Felipe Arantes",
+      text: "O maior ganho pra mim foi a clareza. Parei de pular de conteudo em conteudo sem direcao. Agora sigo um caminho estruturado e vejo progresso real toda semana.",
+    },
+  ], [locale]);
 
-  const goals = [
-    "Você desenvolve novas habilidades em apenas 5 minutos por dia",
-    "Sua consistência se torna automática e sem esforço",
-    "Você não é mais paralisado por indecisão ou procrastinação",
-    "Você se sente focado, confiante e pronto para evoluir",
-    "Seu aprendizado se torna fluido, diário e prazeroso",
-    "Você passa o dia com clareza mental e motivação constante",
-  ];
+  const goals = useMemo(() => locale === "es" ? [
+    "Desarrollas nuevas habilidades en solo 5 minutos al dia",
+    "Tu consistencia se vuelve automatica y sin esfuerzo",
+    "Ya no estas paralizado por indecision o procrastinacion",
+    "Te sientes enfocado, confiado y listo para evolucionar",
+    "Tu aprendizaje se vuelve fluido, diario y placentero",
+    "Pasas el dia con claridad mental y motivacion constante",
+  ] : [
+    "Voce desenvolve novas habilidades em apenas 5 minutos por dia",
+    "Sua consistencia se torna automatica e sem esforco",
+    "Voce nao e mais paralisado por indecisao ou procrastinacao",
+    "Voce se sente focado, confiante e pronto para evoluir",
+    "Seu aprendizado se torna fluido, diario e prazeroso",
+    "Voce passa o dia com clareza mental e motivacao constante",
+  ], [locale]);
 
   return (
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-red-600 text-white py-3 px-4 text-center text-sm font-medium shadow-md flex justify-center items-center gap-2">
         <span>
-          Vagas limitadas para o plano de 4 semanas. Restam{" "}
-          <span className="font-bold">7</span> acessos e{" "}
+          {content.limitedSpots} {content.spotsRemaining}{" "}
+          <span className="font-bold">7</span> {content.accessesAnd}{" "}
           <b>
-            Encerra em {time.mins}:{time.secs}
+            {content.endsIn} {time.mins}:{time.secs}
           </b>
         </span>
       </div>
@@ -401,7 +523,7 @@ export default function Result() {
         <div className="flex justify-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
             <Zap className="w-3 h-3" />
-            Plano adaptado ao seu perfil
+            {content.adaptedPlan}
           </div>
         </div>
 
@@ -470,10 +592,10 @@ export default function Result() {
         <div className="rounded-2xl overflow-hidden">
           <div className="grid grid-cols-2 border-b border-border/30">
             <div className="text-center py-3 text-muted-foreground font-medium text-sm">
-              Agora
+              {content.now}
             </div>
             <div className="text-center py-3 text-primary font-medium text-sm">
-              Sua Meta
+              {content.goal}
             </div>
           </div>
 
@@ -503,18 +625,18 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Nível de Foco
+                  {content.focusLevel}
                 </div>
                 <div className="font-bold text-[11px] text-foreground leading-tight">
-                  Disperso
+                  {content.dispersed}
                 </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Consistência
+                  {content.consistency}
                 </div>
                 <div className="font-bold text-[11px] text-foreground">
-                  Travada
+                  {content.stuck}
                 </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-1/4 bg-primary rounded-full" />
@@ -522,10 +644,10 @@ export default function Result() {
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Clareza Mental
+                  {content.mentalClarity}
                 </div>
                 <div className="font-bold text-[11px] text-foreground">
-                  Irregular
+                  {content.irregular}
                 </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-2/5 bg-primary rounded-full" />
@@ -535,18 +657,18 @@ export default function Result() {
             <div className="flex-1 space-y-4 min-w-0 text-right">
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Nível de Foco
+                  {content.focusLevel}
                 </div>
                 <div className="font-bold text-[11px] text-primary leading-tight">
-                  Afiado
+                  {content.sharp}
                 </div>
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Consistência
+                  {content.consistency}
                 </div>
                 <div className="font-bold text-[11px] text-primary leading-tight">
-                  Fluindo
+                  {content.automatic}
                 </div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
@@ -554,9 +676,9 @@ export default function Result() {
               </div>
               <div className="min-h-[45px]">
                 <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight mb-0.5 whitespace-nowrap">
-                  Clareza Mental
+                  {content.mentalClarity}
                 </div>
-                <div className="font-bold text-[11px] text-primary">Pico</div>
+                <div className="font-bold text-[11px] text-primary">{content.stable}</div>
                 <div className="w-full h-1 bg-muted rounded-full mt-1 overflow-hidden">
                   <div className="h-full w-full bg-primary rounded-full" />
                 </div>
@@ -633,7 +755,7 @@ export default function Result() {
                 {time.mins}:{time.secs}
               </span>
               <div className="text-xs text-muted-foreground">
-                minutos segundos
+                {content.minutes || "minutos"} {content.seconds || "segundos"}
               </div>
             </div>
           </div>
@@ -664,19 +786,19 @@ export default function Result() {
                 )}
               </div>
               <div className="flex-1">
-                <div className="font-bold">Plano 1 Semana</div>
-                <div className="text-sm text-muted-foreground">R$10,49</div>
+                <div className="font-bold">{content.plan1week}</div>
+                <div className="text-sm text-muted-foreground">{formatPrice(prices["1week"].price)}</div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$1,5</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
+                <div className="font-bold text-lg">{formatPrice(prices["1week"].daily)}</div>
+                <div className="text-xs text-muted-foreground">{content.perDay}</div>
               </div>
             </div>
           </button>
 
           <div className="relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider z-10">
-              Mais Popular
+              {content.mostPopular}
             </div>
             <button
               onClick={() => setSelectedPlan("4week")}
@@ -702,7 +824,7 @@ export default function Result() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="font-bold text-black">Plano 4 Semanas</div>
+                  <div className="font-bold text-black">{content.plan4week}</div>
                   <div
                     className={cn(
                       "text-sm",
@@ -711,12 +833,12 @@ export default function Result() {
                         : "text-muted-foreground",
                     )}
                   >
-                    <span className="line-through text-red-500">R$49,99</span>{" "}
-                    R$19,99
+                    <span className="line-through text-red-500">{formatPrice(prices["4week"].original)}</span>{" "}
+                    {formatPrice(prices["4week"].price)}
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-lg text-black">R$0,71</div>
+                  <div className="font-bold text-lg text-black">{formatPrice(prices["4week"].daily)}</div>
                   <div
                     className={cn(
                       "text-xs",
@@ -725,7 +847,7 @@ export default function Result() {
                         : "text-muted-foreground",
                     )}
                   >
-                    por dia
+                    {content.perDay}
                   </div>
                 </div>
               </div>
@@ -756,14 +878,14 @@ export default function Result() {
                 )}
               </div>
               <div className="flex-1">
-                <div className="font-bold">Plano 12 Semanas</div>
+                <div className="font-bold">{content.plan12week}</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$99,99</span> R$34,99
+                  <span className="line-through">{formatPrice(prices["12week"].original)}</span> {formatPrice(prices["12week"].price)}
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$0,41</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
+                <div className="font-bold text-lg">{formatPrice(prices["12week"].daily)}</div>
+                <div className="text-xs text-muted-foreground">{content.perDay}</div>
               </div>
             </div>
           </button>
@@ -784,35 +906,33 @@ export default function Result() {
               <div className="flex items-center justify-center gap-2 mb-2">
                 <ShieldCheck className="w-6 h-6 text-green-600" />
                 <span className="font-bold text-green-700 dark:text-green-400">
-                  Garantia de 30 dias
+                  {content.guarantee30}
                 </span>
               </div>
               <p className="text-sm text-green-600 dark:text-green-400">
-                Se você não sentir progresso real, devolvemos 100% do seu
-                dinheiro.
+                {content.guaranteeText}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
               <div className="flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Pagamento seguro</span>
+                <span>{content.securePayment2}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Check className="w-4 h-4" />
-                <span>Sem assinatura oculta</span>
+                <span>{content.noHiddenSubscription}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Check className="w-4 h-4" />
-                <span>Cancelamento fácil</span>
+                <span>{content.easyCancellation}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="text-center text-sm text-muted-foreground mt-2">
-          +3.812 pessoas usando o método EmCinco™ para destravar foco e
-          consistência.
+          {content.peopleUsing}
         </div>
         <div className="space-y-4">
           {testimonials.map((t, idx) => (
@@ -822,7 +942,7 @@ export default function Result() {
 
         <div className="space-y-2">
           <h3 className="text-2xl font-bold text-center font-mono mb-4">
-            Perguntas Frequentes
+            {content.commonQuestions}
           </h3>
           {faqs.map((faq, idx) => (
             <FAQItem
@@ -837,18 +957,18 @@ export default function Result() {
 
         <div className="space-y-4">
           <h3 className="text-2xl font-bold text-center font-mono text-foreground">
-            Alcance seu pico com EmCinco
+            {content.reachPeak}
           </h3>
           <div className="overflow-hidden rounded-2xl border border-border">
             <div className="grid grid-cols-3 bg-muted/50 text-center text-xs font-semibold py-3">
               <div></div>
               <div className="text-muted-foreground">
-                Sem
+                {content.without}
                 <br />
                 EmCinco
               </div>
               <div className="text-teal-600 dark:text-teal-400">
-                Usando
+                {content.with}
                 <br />
                 EmCinco
               </div>
@@ -876,7 +996,7 @@ export default function Result() {
             ))}
           </div>
           <p className="text-xs text-muted-foreground text-center">
-            *resultados individuais podem variar
+            *{locale === "es" ? "resultados individuales pueden variar" : "resultados individuais podem variar"}
           </p>
         </div>
 
@@ -905,19 +1025,19 @@ export default function Result() {
                 )}
               </div>
               <div className="flex-1">
-                <div className="font-bold">Plano 1 Semana</div>
-                <div className="text-sm text-muted-foreground">R$10,49</div>
+                <div className="font-bold">{content.plan1week}</div>
+                <div className="text-sm text-muted-foreground">{formatPrice(prices["1week"].price)}</div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$1,5</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
+                <div className="font-bold text-lg">{formatPrice(prices["1week"].daily)}</div>
+                <div className="text-xs text-muted-foreground">{content.perDay}</div>
               </div>
             </div>
           </button>
 
           <div className="relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider z-10">
-              Mais Popular
+              {content.mostPopular}
             </div>
             <button
               onClick={() => setSelectedPlan("4week")}
@@ -943,7 +1063,7 @@ export default function Result() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="font-bold text-black">Plano 4 Semanas</div>
+                  <div className="font-bold text-black">{content.plan4week}</div>
                   <div
                     className={cn(
                       "text-sm",
@@ -952,12 +1072,12 @@ export default function Result() {
                         : "text-muted-foreground",
                     )}
                   >
-                    <span className="line-through text-red-500">R$49,99</span>{" "}
-                    R$19,99
+                    <span className="line-through text-red-500">{formatPrice(prices["4week"].original)}</span>{" "}
+                    {formatPrice(prices["4week"].price)}
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-lg text-black">R$0,71</div>
+                  <div className="font-bold text-lg text-black">{formatPrice(prices["4week"].daily)}</div>
                   <div
                     className={cn(
                       "text-xs",
@@ -966,7 +1086,7 @@ export default function Result() {
                         : "text-muted-foreground",
                     )}
                   >
-                    por dia
+                    {content.perDay}
                   </div>
                 </div>
               </div>
@@ -997,14 +1117,14 @@ export default function Result() {
                 )}
               </div>
               <div className="flex-1">
-                <div className="font-bold">Plano 12 Semanas</div>
+                <div className="font-bold">{content.plan12week}</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$99,99</span> R$34,99
+                  <span className="line-through">{formatPrice(prices["12week"].original)}</span> {formatPrice(prices["12week"].price)}
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$0,41</div>
-                <div className="text-xs text-muted-foreground">por dia</div>
+                <div className="font-bold text-lg">{formatPrice(prices["12week"].daily)}</div>
+                <div className="text-xs text-muted-foreground">{content.perDay}</div>
               </div>
             </div>
           </button>
