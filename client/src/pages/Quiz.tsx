@@ -662,23 +662,23 @@ export default function Quiz() {
 
                   {[
                     {
-                      week: "Semana 1",
-                      text: "Parar de quebrar promessas",
+                      week: landing.week1Title,
+                      text: landing.week1Text,
                       color: "red" as const,
                     },
                     {
-                      week: "Semana 2",
-                      text: "Construir o loop do hábito",
+                      week: landing.week2Title,
+                      text: landing.week2Text,
                       color: "orange" as const,
                     },
                     {
-                      week: "Semana 3",
-                      text: "Fase de momentum",
+                      week: landing.week3Title,
+                      text: landing.week3Text,
                       color: "yellow" as const,
                     },
                     {
-                      week: "Semana 4",
-                      text: "Crescimento Consistente",
+                      week: landing.week4Title,
+                      text: landing.week4Text,
                       color: "green" as const,
                     },
                   ].map((item, idx) => (
