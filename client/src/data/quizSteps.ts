@@ -664,9 +664,13 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
 
 export const landingContent = {
   "pt-BR": {
-    badge: "Avaliacao de 1 min",
+    badge: "DIAGNOSTICO COGNITIVO",
+    welcomeTitle1: "Voce Esta Pronto Para",
+    welcomeHighlight: "Qualquer Coisa?",
+    welcomeDuration: "2 minutos",
     subtitle: "Aprenda novas habilidades em apenas 5 minutos por dia. Descubra agora se voce tem potencial para dominar qualquer habilidade em 4 semanas.",
-    cta: "Quero descobrir meu perfil",
+    cta: "COMECAR TESTE >",
+    privacyNote: "Seus dados estao protegidos e nao serao compartilhados.",
     feature1: "Aprenda novas habilidades",
     feature2: "Leva 1 minuto",
     feature3: "Base cientifica",
@@ -715,9 +719,13 @@ export const landingContent = {
     fiveMin: "5 min",
   },
   "es": {
-    badge: "Evaluacion de 1 min",
+    badge: "DIAGNOSTICO COGNITIVO",
+    welcomeTitle1: "Estas Listo Para",
+    welcomeHighlight: "Cualquier Cosa?",
+    welcomeDuration: "2 minutos",
     subtitle: "Aprende nuevas habilidades en solo 5 minutos al dia. Descubre ahora si tienes el potencial para dominar cualquier habilidad en 4 semanas.",
-    cta: "Quiero descubrir mi perfil",
+    cta: "COMENZAR TEST >",
+    privacyNote: "Tus datos estan protegidos y no seran compartidos.",
     feature1: "Aprende nuevas habilidades",
     feature2: "Toma 1 minuto",
     feature3: "Base cientifica",

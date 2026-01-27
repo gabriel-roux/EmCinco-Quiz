@@ -23,7 +23,6 @@ import {
   DiagnosisStep,
   InfoTitle,
 } from "@/components/QuizComponents";
-import SocialProof from "@/components/SocialProof";
 import {
   Target,
   Sparkles,
@@ -31,13 +30,13 @@ import {
   TrendingUp,
   ChevronRight,
 } from "lucide-react";
-import { Laptop, Clock, Brain, CheckCircle, Zap } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "@/lib/i18n";
 import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
 
-import newLogo from "@assets/LOGO-EMCINCO_1768418486475.png";
+import logoEmcinco from "@assets/logo-emcinco.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
 import researchImg from "@assets/generated_images/scientific_behavioral_research_logos_illustration.png";
 import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
@@ -160,56 +159,126 @@ export default function Quiz() {
   };
 
   if (stepIndex === 0) {
+    const containerVariants = {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.15,
+          delayChildren: 0.1,
+        },
+      },
+    };
+
+    const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "easeOut" },
+      },
+    };
+
+    const titleWords = landing.welcomeTitle1.split(" ");
+
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-          <div className="max-w-2xl w-full text-center space-y-8 animate-in fade-in duration-700">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest">
-                <Zap className="w-4 h-4" />
+      <div className="min-h-screen flex flex-col bg-background">
+        <div className="flex-1 flex flex-col justify-center px-6 py-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-md mx-auto w-full"
+          >
+            <motion.div variants={itemVariants} className="mb-8">
+              <img src={logoEmcinco} alt="EmCinco" className="h-10 mb-4" />
+
+              <span className="inline-block font-mono text-xs tracking-widest border border-primary/30 text-primary px-2 py-1 rounded">
                 {landing.badge}
+              </span>
+            </motion.div>
+
+            <motion.h1 className="font-mono text-2xl md:text-3xl font-bold leading-tight mb-6 tracking-tight">
+              {titleWords.map((word, index) => (
+                <motion.span
+                  key={word}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.3 + index * 0.1,
+                    duration: 0.4,
+                    ease: "easeOut",
+                  }}
+                  className="inline-block mr-[0.3em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+              <motion.span
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.7,
+                  duration: 0.4,
+                  ease: "easeOut",
+                }}
+                className="inline bg-primary/20 px-1"
+              >
+                {landing.welcomeHighlight}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5 }}
+              >
+                .
+              </motion.span>
+            </motion.h1>
+
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap gap-4 mb-6"
+            >
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Clock className="w-4 h-4" />
+                <span className="font-mono text-sm">{landing.welcomeDuration}</span>
               </div>
+            </motion.div>
 
-              <div className="flex justify-center mb-4">
-                <img src={newLogo} alt="EmCinco Logo" className="h-16 w-auto" />
-              </div>
-              <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-                {landing.subtitle}
-              </p>
-            </div>
+            <motion.p
+              variants={itemVariants}
+              className="text-muted-foreground text-base mb-10 leading-relaxed"
+            >
+              {landing.subtitle}
+            </motion.p>
 
-            <SocialProof />
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <motion.div variants={itemVariants}>
               <button
+                className="w-full py-6 text-base font-mono font-semibold tracking-wide gap-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                 onClick={() => {
                   handleAnswer("goal", "Life");
                   setStepIndex(1);
                 }}
-                className="group relative px-8 py-5 bg-primary text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
-                data-testid="button-start-career"
+                data-testid="button-start-quiz"
               >
-                <Laptop className="w-6 h-6" />
                 {landing.cta}
               </button>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2 whitespace-nowrap">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span>{landing.feature1}</span>
-              </div>
-              <div className="flex items-center gap-2 whitespace-nowrap">
-                <Clock className="w-4 h-4 text-primary flex-shrink-0" />
-                <span>{landing.feature2}</span>
-              </div>
-              <div className="flex items-center gap-2 whitespace-nowrap">
-                <Brain className="w-4 h-4 text-purple-500 flex-shrink-0" />
-                <span>{landing.feature3}</span>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
+
+        <motion.div
+          className="px-6 pb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+        >
+          <div className="max-w-md mx-auto">
+            <p className="text-center text-xs text-muted-foreground font-mono">
+              {landing.privacyNote}
+            </p>
+          </div>
+        </motion.div>
       </div>
     );
   }
