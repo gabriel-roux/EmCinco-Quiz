@@ -11,6 +11,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 import { useLocale, pricing, type Locale } from "@/lib/i18n";
+import { landingContent } from "@/data/quizSteps";
 
 interface Plan {
   id: string;
@@ -34,6 +35,7 @@ function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
   const p = pricing[locale];
   const prices = isFinalOffer ? p.final : p.regular;
   const sym = p.currencySymbol;
+  const content = landingContent[locale];
   
   const formatPrice = (val: number) => {
     if (locale === "es") {
@@ -41,15 +43,11 @@ function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
     }
     return `${sym}${val.toFixed(2).replace(".", ",")}`;
   };
-  
-  const planNames = locale === "es" 
-    ? { "1week": "Plan 1 Semana", "4week": "Plan 4 Semanas", "12week": "Plan 12 Semanas" }
-    : { "1week": "Plano 1 Semana", "4week": "Plano 4 Semanas", "12week": "Plano 12 Semanas" };
 
   return {
     "1week": {
       id: "1week",
-      name: planNames["1week"],
+      name: content.plan1week,
       originalPrice: formatPrice(prices["1week"].original),
       discountedPrice: formatPrice(prices["1week"].price),
       pricePerDay: formatPrice(prices["1week"].daily),
@@ -58,7 +56,7 @@ function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
     },
     "4week": {
       id: "4week",
-      name: planNames["4week"],
+      name: content.plan4week,
       originalPrice: formatPrice(prices["4week"].original),
       discountedPrice: formatPrice(prices["4week"].price),
       pricePerDay: formatPrice(prices["4week"].daily),
@@ -67,7 +65,7 @@ function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
     },
     "12week": {
       id: "12week",
-      name: planNames["12week"],
+      name: content.plan12week,
       originalPrice: formatPrice(prices["12week"].original),
       discountedPrice: formatPrice(prices["12week"].price),
       pricePerDay: formatPrice(prices["12week"].daily),
@@ -93,13 +91,11 @@ function CheckoutForm({
   const [isProcessing, setIsProcessing] = useState(false);
   const { locale, t } = useLocale();
 
-  const isSpanish = locale === "es";
   const discountPercent = isFinalOffer ? "75%" : "60%";
   const promoCode = isFinalOffer ? "emcinco_final" : "emcinco_jan26";
+  const content = landingContent[locale];
   
-  const discountText = isSpanish 
-    ? (isFinalOffer ? "$15.00" : "$10.00")
-    : (isFinalOffer ? "R$45,00" : "R$30,00");
+  const discountText = isFinalOffer ? content.discountFinal : content.discountRegular;
 
   useEffect(() => {
     const email = getStoredEmail();
@@ -179,7 +175,7 @@ function CheckoutForm({
         >
           <X className="w-5 h-5 text-muted-foreground" />
         </button>
-        <h2 className="font-bold text-lg">Complete seu checkout</h2>
+        <h2 className="font-bold text-lg">{landingContent[locale].completeCheckout}</h2>
         <div className="w-5" />
       </div>
 
@@ -192,22 +188,22 @@ function CheckoutForm({
             </span>
           </div>
           <div className="flex justify-between text-green-600">
-            <span>{isSpanish ? "Descuento oferta introductoria" : "Desconto oferta introdutória"}</span>
+            <span>{landingContent[locale].introDiscount}</span>
             <span>-{discountText}</span>
           </div>
           <div className="bg-muted/50 rounded-lg px-3 py-2 text-center text-sm text-muted-foreground">
-            Código promocional aplicado:{" "}
+            {landingContent[locale].promoApplied}{" "}
             <span className="font-medium">{promoCode}</span>
           </div>
         </div>
 
         <div className="border-t border-border pt-4">
           <div className="flex justify-between items-baseline">
-            <span className="font-bold text-lg">Total:</span>
+            <span className="font-bold text-lg">{landingContent[locale].total}</span>
             <span className="font-bold text-xl">{plan.discountedPrice}</span>
           </div>
           <div className="text-right text-sm text-green-600">
-            {isSpanish ? `Ahorraste ${discountText} (${discountPercent} OFF)` : `Você economizou ${discountText} (${discountPercent} OFF)`}
+            {landingContent[locale].youSaved} {discountText} ({discountPercent} OFF)
           </div>
         </div>
 
@@ -231,7 +227,7 @@ function CheckoutForm({
             data-testid="button-continue-payment"
           >
             <Lock className="w-4 h-4" />
-            {isProcessing ? "PROCESSANDO..." : "CONTINUAR"}
+            {isProcessing ? landingContent[locale].processing.toUpperCase() : landingContent[locale].pay.toUpperCase()}
           </button>
         </form>
       </div>

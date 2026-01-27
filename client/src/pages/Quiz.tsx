@@ -60,15 +60,26 @@ interface QuizAnswers {
 }
 
 // Classifica o perfil do usuário baseado nas respostas do quiz
+// Usa padrões que funcionam em ambos idiomas (pt-BR e es)
 function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
   let score = 0;
 
-  // Verifica respostas que indicam sobrecarga emocional
+  // Verifica respostas que indicam sobrecarga emocional (likert 4-5)
   if (answers.consistency_likert >= 4) score++;
   if (answers.focus_likert >= 4) score++;
   if (answers.autopilot_likert >= 4) score++;
-  if (answers.routine_chaos?.includes("estagnado")) score++;
-  if (answers.focus_blockers?.includes("esgotado")) score++;
+  
+  // routine_chaos: primeira opção indica estagnação em ambos idiomas
+  // pt-BR: "Me sinto estagnado e sem direcao" / es: "Me siento estancado y sin direccion"
+  const routineChaosValue = answers.routine_chaos || "";
+  if (routineChaosValue.toLowerCase().includes("estagnado") || 
+      routineChaosValue.toLowerCase().includes("estancado")) score++;
+  
+  // focus_blockers: última opção indica esgotamento em ambos idiomas
+  // pt-BR: "Chego mentalmente esgotado..." / es: "Llego mentalmente agotado..."
+  const focusBlockersValue = answers.focus_blockers || "";
+  if (focusBlockersValue.toLowerCase().includes("esgotado") || 
+      focusBlockersValue.toLowerCase().includes("agotado")) score++;
 
   return score >= 3 ? "emocional" : "racional";
 }
@@ -133,9 +144,8 @@ export default function Quiz() {
         setLocation("/processing");
       } catch (error) {
         toast({
-          title: "Erro",
-          description:
-            "Algo deu errado ao salvar seu progresso. Tente novamente.",
+          title: landing.error,
+          description: landing.errorSaving,
           variant: "destructive",
         });
       }
@@ -352,7 +362,7 @@ export default function Quiz() {
                 <div className="flex items-center justify-center gap-4 mb-6">
                   <div className="text-center">
                     <div className="text-xs text-muted-foreground mb-2 font-medium">
-                      Agora
+                      {landing.now}
                     </div>
                     <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                       <div className="text-4xl">
@@ -382,7 +392,7 @@ export default function Quiz() {
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-primary mb-2 font-medium">
-                      Meta
+                      {landing.goal}
                     </div>
                     <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
                       <div className="text-4xl">
@@ -418,33 +428,33 @@ export default function Quiz() {
               <div className="bg-card rounded-2xl p-6 space-y-6 border border-border shadow-sm">
                 <ProgressBar
                   value={30}
-                  label="Bateria de Aprendizado"
-                  status="Baixa"
+                  label={landing.learningBattery}
+                  status={landing.low}
                   statusColor="orange"
                 />
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <StatCard
-                    label="Principal Bloqueio"
-                    value="Foco Inconsistente"
+                    label={landing.mainBlocker}
+                    value={landing.inconsistentFocus}
                     icon={<Target className="w-5 h-5" />}
                     color="orange"
                   />
                   <StatCard
-                    label="Trilha de Habilidade"
-                    value={answers.skill_interest || "Crescimento Geral"}
+                    label={landing.skillTrack}
+                    value={answers.skill_interest || landing.generalGrowth}
                     icon={<Sparkles className="w-5 h-5" />}
                     color="purple"
                   />
                   <StatCard
-                    label="Melhor Formato"
-                    value="Micro-lições"
+                    label={landing.bestFormat}
+                    value={landing.microLessons}
                     icon={<Timer className="w-5 h-5" />}
                     color="primary"
                   />
                   <StatCard
-                    label="Compromisso Diário"
-                    value={answers.dedicated_time || "5 min"}
+                    label={landing.dailyCommitment}
+                    value={answers.dedicated_time || landing.fiveMin}
                     icon={<TrendingUp className="w-5 h-5" />}
                     color="green"
                   />
@@ -470,11 +480,11 @@ export default function Quiz() {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
                     data={[
-                      { name: "Agora", value: 20, label: "Início" },
-                      { name: "Sem 1", value: 40, label: "Base" },
-                      { name: "Sem 2", value: 65, label: "Construção" },
-                      { name: "Sem 3", value: 85, label: "Momentum" },
-                      { name: "Sem 4", value: 100, label: "Domínio" },
+                      { name: landing.now, value: 20, label: landing.start },
+                      { name: landing.week1, value: 40, label: landing.base },
+                      { name: landing.week2, value: 65, label: landing.building },
+                      { name: landing.week3, value: 85, label: landing.momentum },
+                      { name: landing.week4, value: 100, label: landing.mastery },
                     ]}
                     margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
                   >
@@ -654,7 +664,7 @@ export default function Quiz() {
                   className="text-sm text-muted-foreground underline hover:text-foreground transition-colors"
                   data-testid="button-skip-whatsapp"
                 >
-                  {locale === "es" ? "Saltar este paso" : "Pular esta etapa"}
+                  {landing.skipStep}
                 </button>
               )}
             </div>
@@ -666,7 +676,7 @@ export default function Quiz() {
         onContinue={handleContinue}
         disabled={!isStepValid()}
         loading={createLead.isPending}
-        label={stepIndex === steps.length - 1 ? (locale === "es" ? "Generar Plan" : "Gerar Plano") : landing.continue}
+        label={stepIndex === steps.length - 1 ? landing.generatePlan : landing.continue}
         className={
           ["single", "likert"].includes(currentStep.type) && currentStep.type !== "diagnosis" ? "hidden" : ""
         }
