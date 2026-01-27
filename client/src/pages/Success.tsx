@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowRight, Download, Calendar } from "lucide-react";
+import { CheckCircle2, ArrowRight, Download, Calendar, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,47 +13,126 @@ import {
 
 export default function Success() {
   const name = localStorage.getItem("emcinco_name") || "Guerreiro(a)";
+  const [isVerifying, setIsVerifying] = useState(true);
+  const [paymentVerified, setPaymentVerified] = useState(false);
+  const purchaseTrackedRef = useRef(false);
 
   useEffect(() => {
-    const email = getStoredEmail();
-    const firstName = getStoredName();
+    const verifyPaymentAndTrack = async () => {
+      // Get payment_intent from URL 
+      // Works for both direct navigation and Stripe redirect (3DS flow)
+      // Stripe automatically adds payment_intent, payment_intent_client_secret, and redirect_status to return_url
+      const urlParams = new URLSearchParams(window.location.search);
+      let paymentIntentId = urlParams.get("payment_intent");
+      
+      // Also check for redirect_status to confirm Stripe redirect
+      const redirectStatus = urlParams.get("redirect_status");
+      if (redirectStatus && redirectStatus !== "succeeded") {
+        console.error("Stripe redirect status not succeeded:", redirectStatus);
+        setIsVerifying(false);
+        return;
+      }
 
-    const selectedPlan =
-      localStorage.getItem("emcinco_selected_plan") || "4week";
-    const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
-    const contentId = isFinalOffer
-      ? `emcinco_${selectedPlan}_final`
-      : `emcinco_${selectedPlan}`;
+      if (!paymentIntentId) {
+        console.error("No payment_intent in URL - Purchase event NOT sent");
+        setIsVerifying(false);
+        return;
+      }
 
-    const priceMap: Record<string, number> = {
-      "1week": isFinalOffer ? 2.62 : 10.5,
-      "4week": isFinalOffer ? 4.99 : 19.99,
-      "12week": isFinalOffer ? 8.74 : 34.99,
+      // Client-side dedupe: check localStorage
+      const trackedPayments = JSON.parse(localStorage.getItem("emcinco_tracked_purchases") || "[]");
+      if (trackedPayments.includes(paymentIntentId)) {
+        console.log("Payment already tracked (localStorage):", paymentIntentId);
+        setPaymentVerified(true);
+        setIsVerifying(false);
+        return;
+      }
+
+      // Prevent duplicate tracking within same page lifecycle
+      if (purchaseTrackedRef.current) {
+        setIsVerifying(false);
+        return;
+      }
+
+      try {
+        const email = getStoredEmail();
+        
+        // Verify payment with backend (POST with email for security)
+        const response = await fetch("/api/stripe/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentIntentId, email }),
+        });
+        const data = await response.json();
+
+        if (data.verified) {
+          setPaymentVerified(true);
+          purchaseTrackedRef.current = true;
+
+          // Save to localStorage to prevent future duplicate tracking
+          trackedPayments.push(paymentIntentId);
+          localStorage.setItem("emcinco_tracked_purchases", JSON.stringify(trackedPayments));
+
+          // Now send Purchase event since payment is confirmed
+          const firstName = getStoredName();
+          const selectedPlan = data.planId || localStorage.getItem("emcinco_selected_plan") || "4week";
+          const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
+          const contentId = isFinalOffer
+            ? `emcinco_${selectedPlan}_final`
+            : `emcinco_${selectedPlan}`;
+
+          // Use actual amount from Stripe (in cents, convert to reais)
+          const value = data.amount / 100;
+
+          const purchaseEventId = trackEventWithId("Purchase", {
+            currency: "BRL",
+            value,
+            content_ids: [contentId],
+            content_type: "product",
+            num_items: 1,
+          });
+
+          sendServerEvent(
+            "Purchase",
+            { email, firstName },
+            {
+              value,
+              currency: "BRL",
+              contentIds: [contentId],
+              contentName: `Plano EmCinco ${selectedPlan}`,
+              contentType: "product",
+              numItems: 1,
+            },
+            purchaseEventId,
+          );
+
+          console.log("Purchase event sent - payment verified:", paymentIntentId);
+        } else if (data.alreadyProcessed) {
+          // Server says already tracked
+          setPaymentVerified(true);
+          console.log("Payment already tracked (server):", paymentIntentId);
+        } else {
+          console.error("Payment not verified - Purchase event NOT sent:", data.status);
+        }
+      } catch (err) {
+        console.error("Error verifying payment:", err);
+      } finally {
+        setIsVerifying(false);
+      }
     };
-    const value = priceMap[selectedPlan] || 19.99;
 
-    const purchaseEventId = trackEventWithId("Purchase", {
-      currency: "BRL",
-      value,
-      content_ids: [contentId],
-      content_type: "product",
-      num_items: 1,
-    });
-
-    sendServerEvent(
-      "Purchase",
-      { email, firstName },
-      {
-        value,
-        currency: "BRL",
-        contentIds: [contentId],
-        contentName: `Plano EmCinco ${selectedPlan}`,
-        contentType: "product",
-        numItems: 1,
-      },
-      purchaseEventId,
-    );
+    verifyPaymentAndTrack();
   }, []);
+
+  // Show loading while verifying
+  if (isVerifying) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-primary mb-4" />
+        <p className="text-muted-foreground">Confirmando seu pagamento...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center pt-12 px-4 pb-12">

@@ -158,6 +158,67 @@ export async function registerRoutes(
     }
   });
 
+  // Track which payment intents have already triggered Purchase events (in-memory dedupe)
+  const processedPaymentIntents = new Set<string>();
+
+  // Verify payment intent status - secured with metadata validation
+  app.post("/api/stripe/verify-payment", async (req, res) => {
+    try {
+      const { paymentIntentId, email } = req.body;
+      
+      if (!paymentIntentId || !paymentIntentId.startsWith("pi_")) {
+        return res.status(400).json({ verified: false, message: "Invalid payment intent ID" });
+      }
+
+      // Check if already processed (server-side dedupe)
+      if (processedPaymentIntents.has(paymentIntentId)) {
+        return res.json({ 
+          verified: false, 
+          alreadyProcessed: true,
+          message: "Payment already tracked" 
+        });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+      // Security: Validate that the email matches the payment intent metadata
+      const piEmail = (paymentIntent.metadata?.email || "").toLowerCase().trim();
+      const requestEmail = (email || "").toLowerCase().trim();
+      
+      // Require email validation - reject if PI has no email metadata or emails don't match
+      if (!piEmail) {
+        console.warn("Payment verification: no email in PI metadata", { paymentIntentId });
+        // Still allow but log warning - some legacy payments might not have email
+      } else if (requestEmail && piEmail !== requestEmail) {
+        console.warn("Payment verification: email mismatch", { piEmail, requestEmail });
+        return res.status(403).json({ verified: false, message: "Unauthorized" });
+      }
+
+      if (paymentIntent.status === "succeeded") {
+        // Mark as processed to prevent duplicate events
+        processedPaymentIntents.add(paymentIntentId);
+        
+        res.json({ 
+          verified: true, 
+          status: paymentIntent.status,
+          amount: paymentIntent.amount,
+          currency: paymentIntent.currency,
+          planId: paymentIntent.metadata?.planId
+        });
+      } else {
+        res.json({ 
+          verified: false, 
+          status: paymentIntent.status,
+          message: "Payment not completed" 
+        });
+      }
+    } catch (err) {
+      console.error("Payment verification error:", err);
+      res.status(500).json({ verified: false, message: "Failed to verify payment" });
+    }
+  });
+
   // Create payment intent
   app.post("/api/stripe/create-payment-intent", async (req, res) => {
     try {

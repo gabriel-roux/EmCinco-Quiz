@@ -129,10 +129,15 @@ function CheckoutForm({
 
     setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
+    // Save plan info before confirmation (in case of redirect)
+    localStorage.setItem("emcinco_selected_plan", plan.id);
+    localStorage.setItem("emcinco_final_offer", isFinalOffer ? "true" : "false");
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       redirect: "if_required",
       confirmParams: {
+        // Include payment_intent in return URL for redirect flows (3DS, etc)
         return_url: `${window.location.origin}/success`,
       },
     });
@@ -140,12 +145,17 @@ function CheckoutForm({
     if (error) {
       console.error(error);
       setIsProcessing(false);
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      // Navigate to success page with payment intent ID for verification
+      window.location.href = `/success?payment_intent=${paymentIntent.id}`;
+    } else if (paymentIntent && paymentIntent.status === "requires_action") {
+      // Payment requires additional action (3DS, etc) - Stripe will redirect
+      // The return_url will be used and we'll handle verification on Success page
+      console.log("Payment requires action, Stripe will handle redirect");
     } else {
-      // Save plan info for Purchase tracking on success page
-      localStorage.setItem("emcinco_selected_plan", plan.id);
-      localStorage.setItem("emcinco_final_offer", isFinalOffer ? "true" : "false");
-      // Navigate to success page
-      window.location.href = "/success";
+      // Payment failed or other status
+      console.error("Payment not successful:", paymentIntent?.status);
+      setIsProcessing(false);
     }
   };
 
