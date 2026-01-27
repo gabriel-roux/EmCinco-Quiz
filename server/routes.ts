@@ -6,7 +6,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { sendFacebookEvent, type FacebookEventName } from "./facebookCapi";
-import { getInitialPaymentAmount, getStripePriceId } from "./stripeConfig";
+import { getInitialPaymentAmount, getStripePriceId, getCurrency, type Locale } from "./stripeConfig";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -222,20 +222,22 @@ export async function registerRoutes(
   // Create payment intent
   app.post("/api/stripe/create-payment-intent", async (req, res) => {
     try {
-      const { planId, isFinalOffer, email, name } = req.body;
+      const { planId, isFinalOffer, email, name, locale = "pt-BR" } = req.body;
       
       const validPlans = ["1week", "4week", "12week"];
       if (!validPlans.includes(planId)) {
         return res.status(400).json({ message: "Invalid plan selected" });
       }
 
-      const amount = getInitialPaymentAmount(planId, !!isFinalOffer);
+      const validLocale: Locale = locale === "es" ? "es" : "pt-BR";
+      const amount = getInitialPaymentAmount(planId, !!isFinalOffer, validLocale);
+      const currency = getCurrency(validLocale);
       const priceId = getStripePriceId(planId, !!isFinalOffer);
       
       const stripe = await getUncachableStripeClient();
       const paymentIntent = await stripe.paymentIntents.create({
         amount,
-        currency: "brl",
+        currency,
         automatic_payment_methods: {
           enabled: true,
         },
@@ -243,6 +245,7 @@ export async function registerRoutes(
           planId,
           priceId,
           email: email || "",
+          locale: validLocale,
         },
       });
 

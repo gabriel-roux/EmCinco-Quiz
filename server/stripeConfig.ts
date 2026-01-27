@@ -1,6 +1,8 @@
 // Mapeamento de preços Stripe para assinaturas EmCinco
 // Criados via scripts/create-stripe-prices.ts
 
+export type Locale = "pt-BR" | "es";
+
 export const STRIPE_PRICE_IDS = {
   // Preços Regulares
   '1week_regular': 'price_1SprilEtwsiGnZB1RG0vONdz',
@@ -19,17 +21,33 @@ export const TRIAL_DAYS = {
   '12week': 84,
 } as const;
 
-// Preços para pagamento único inicial (em centavos BRL)
+// Preços para pagamento único inicial (em centavos)
 export const INITIAL_PAYMENT_AMOUNTS = {
-  regular: {
-    '1week': 1050,  // R$ 10,50
-    '4week': 1999,  // R$ 19,99
-    '12week': 3499, // R$ 34,99
+  "pt-BR": {
+    currency: "brl",
+    regular: {
+      '1week': 1050,  // R$ 10,50
+      '4week': 1999,  // R$ 19,99
+      '12week': 3499, // R$ 34,99
+    },
+    exit: {
+      '1week': 262,   // R$ 2,62
+      '4week': 499,   // R$ 4,99
+      '12week': 874,  // R$ 8,74
+    },
   },
-  exit: {
-    '1week': 262,   // R$ 2,62
-    '4week': 499,   // R$ 4,99
-    '12week': 874,  // R$ 8,74
+  "es": {
+    currency: "usd",
+    regular: {
+      '1week': 390,   // $3.90
+      '4week': 990,   // $9.90
+      '12week': 1590, // $15.90
+    },
+    exit: {
+      '1week': 190,   // $1.90
+      '4week': 490,   // $4.90
+      '12week': 790,  // $7.90
+    },
   },
 } as const;
 
@@ -43,7 +61,12 @@ export function getTrialDays(planId: string): number {
   return TRIAL_DAYS[planId as keyof typeof TRIAL_DAYS] || 7;
 }
 
-export function getInitialPaymentAmount(planId: string, isFinalOffer: boolean): number {
-  const priceSet = isFinalOffer ? INITIAL_PAYMENT_AMOUNTS.exit : INITIAL_PAYMENT_AMOUNTS.regular;
+export function getInitialPaymentAmount(planId: string, isFinalOffer: boolean, locale: Locale = "pt-BR"): number {
+  const localeConfig = INITIAL_PAYMENT_AMOUNTS[locale];
+  const priceSet = isFinalOffer ? localeConfig.exit : localeConfig.regular;
   return priceSet[planId as keyof typeof priceSet] || 1999;
+}
+
+export function getCurrency(locale: Locale = "pt-BR"): string {
+  return INITIAL_PAYMENT_AMOUNTS[locale].currency;
 }

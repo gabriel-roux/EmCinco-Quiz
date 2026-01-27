@@ -10,6 +10,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
+import { useLocale, pricing, type Locale } from "@/lib/i18n";
 
 interface Plan {
   id: string;
@@ -17,6 +18,8 @@ interface Plan {
   originalPrice: string;
   discountedPrice: string;
   pricePerDay: string;
+  priceValue: number;
+  currency: string;
 }
 
 interface CheckoutModalProps {
@@ -27,53 +30,52 @@ interface CheckoutModalProps {
   isFinalOffer?: boolean;
 }
 
-const regularPlans: Record<string, Plan> = {
-  "1week": {
-    id: "1week",
-    name: "Plano 1 Semana",
-    originalPrice: "R$49,99",
-    discountedPrice: "R$10,50",
-    pricePerDay: "R$1,50",
-  },
-  "4week": {
-    id: "4week",
-    name: "Plano 4 Semanas",
-    originalPrice: "R$49,99",
-    discountedPrice: "R$19,99",
-    pricePerDay: "R$0,71",
-  },
-  "12week": {
-    id: "12week",
-    name: "Plano 12 Semanas",
-    originalPrice: "R$99,99",
-    discountedPrice: "R$34,99",
-    pricePerDay: "R$0,41",
-  },
-};
+function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
+  const p = pricing[locale];
+  const prices = isFinalOffer ? p.final : p.regular;
+  const sym = p.currencySymbol;
+  
+  const formatPrice = (val: number) => {
+    if (locale === "es") {
+      return `${sym}${val.toFixed(2)}`;
+    }
+    return `${sym}${val.toFixed(2).replace(".", ",")}`;
+  };
+  
+  const planNames = locale === "es" 
+    ? { "1week": "Plan 1 Semana", "4week": "Plan 4 Semanas", "12week": "Plan 12 Semanas" }
+    : { "1week": "Plano 1 Semana", "4week": "Plano 4 Semanas", "12week": "Plano 12 Semanas" };
 
-const finalOfferPlans: Record<string, Plan> = {
-  "1week": {
-    id: "1week",
-    name: "Plano 1 Semana",
-    originalPrice: "R$49,99",
-    discountedPrice: "R$2,62",
-    pricePerDay: "R$0,37",
-  },
-  "4week": {
-    id: "4week",
-    name: "Plano 4 Semanas",
-    originalPrice: "R$49,99",
-    discountedPrice: "R$4,99",
-    pricePerDay: "R$0,17",
-  },
-  "12week": {
-    id: "12week",
-    name: "Plano 12 Semanas",
-    originalPrice: "R$99,99",
-    discountedPrice: "R$8,74",
-    pricePerDay: "R$0,10",
-  },
-};
+  return {
+    "1week": {
+      id: "1week",
+      name: planNames["1week"],
+      originalPrice: formatPrice(prices["1week"].original),
+      discountedPrice: formatPrice(prices["1week"].price),
+      pricePerDay: formatPrice(prices["1week"].daily),
+      priceValue: prices["1week"].price,
+      currency: p.currency,
+    },
+    "4week": {
+      id: "4week",
+      name: planNames["4week"],
+      originalPrice: formatPrice(prices["4week"].original),
+      discountedPrice: formatPrice(prices["4week"].price),
+      pricePerDay: formatPrice(prices["4week"].daily),
+      priceValue: prices["4week"].price,
+      currency: p.currency,
+    },
+    "12week": {
+      id: "12week",
+      name: planNames["12week"],
+      originalPrice: formatPrice(prices["12week"].original),
+      discountedPrice: formatPrice(prices["12week"].price),
+      pricePerDay: formatPrice(prices["12week"].daily),
+      priceValue: prices["12week"].price,
+      currency: p.currency,
+    },
+  };
+}
 
 function CheckoutForm({
   plan,
@@ -89,20 +91,24 @@ function CheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
+  const { locale, t } = useLocale();
 
-  const discount = isFinalOffer ? "R$45,00" : "R$30,00";
+  const isSpanish = locale === "es";
   const discountPercent = isFinalOffer ? "75%" : "60%";
   const promoCode = isFinalOffer ? "emcinco_final" : "emcinco_jan26";
+  
+  const discountText = isSpanish 
+    ? (isFinalOffer ? "$15.00" : "$10.00")
+    : (isFinalOffer ? "R$45,00" : "R$30,00");
 
   useEffect(() => {
-    const priceValue = parseFloat(plan.discountedPrice.replace("R$", "").replace(",", "."));
     const email = getStoredEmail();
     const firstName = getStoredName();
     const contentId = isFinalOffer ? `emcinco_${plan.id}_final` : `emcinco_${plan.id}`;
     
     const addPaymentEventId = trackEventWithId("AddPaymentInfo", {
-      currency: "BRL",
-      value: priceValue,
+      currency: plan.currency,
+      value: plan.priceValue,
       content_ids: [contentId],
       content_type: "product",
       num_items: 1,
@@ -112,8 +118,8 @@ function CheckoutForm({
       "AddPaymentInfo", 
       { email, firstName }, 
       { 
-        value: priceValue, 
-        currency: "BRL",
+        value: plan.priceValue, 
+        currency: plan.currency,
         contentIds: [contentId],
         contentName: plan.name,
         contentType: "product",
@@ -121,7 +127,7 @@ function CheckoutForm({
       },
       addPaymentEventId
     );
-  }, [plan.id, plan.discountedPrice, plan.name, isFinalOffer]);
+  }, [plan.id, plan.priceValue, plan.name, plan.currency, isFinalOffer]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,8 +192,8 @@ function CheckoutForm({
             </span>
           </div>
           <div className="flex justify-between text-green-600">
-            <span>Desconto oferta introdutória</span>
-            <span>-{discount}</span>
+            <span>{isSpanish ? "Descuento oferta introductoria" : "Desconto oferta introdutória"}</span>
+            <span>-{discountText}</span>
           </div>
           <div className="bg-muted/50 rounded-lg px-3 py-2 text-center text-sm text-muted-foreground">
             Código promocional aplicado:{" "}
@@ -201,7 +207,7 @@ function CheckoutForm({
             <span className="font-bold text-xl">{plan.discountedPrice}</span>
           </div>
           <div className="text-right text-sm text-green-600">
-            Você economizou {discount} ({discountPercent} OFF)
+            {isSpanish ? `Ahorraste ${discountText} (${discountPercent} OFF)` : `Você economizou ${discountText} (${discountPercent} OFF)`}
           </div>
         </div>
 
@@ -242,7 +248,8 @@ export default function CheckoutModal({
 }: CheckoutModalProps) {
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const plans = isFinalOffer ? finalOfferPlans : regularPlans;
+  const { locale } = useLocale();
+  const plans = getPlans(locale, isFinalOffer);
   const plan = plans[selectedPlan];
 
   useEffect(() => {
@@ -286,6 +293,7 @@ export default function CheckoutModal({
           isFinalOffer,
           email: userEmail,
           name: userName,
+          locale,
         }),
       })
         .then((res) => res.json())

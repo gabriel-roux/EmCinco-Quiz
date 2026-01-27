@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -34,6 +34,8 @@ import {
 import { Laptop, Clock, Brain, CheckCircle, Zap } from "lucide-react";
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
+import { useLocale } from "@/lib/i18n";
+import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
 
 import newLogo from "@assets/LOGO-EMCINCO_1768418486475.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
@@ -43,24 +45,15 @@ import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
 import cartoonLearningImg from "@assets/generated_images/cartoon_of_person_learning_happily..png";
 
-interface QuizStep {
-  id?: string;
-  type: string;
-  question?: string;
-  options?: string[];
-  statement?: string;
-  sub?: string;
-  title?: string;
-  text?: string;
-  visual?: string;
-  image?: string;
-  inputType?: string;
-  placeholder?: string;
-  note?: string;
-  icon?: React.ReactNode;
-  highlight?: string;
-  micro?: string;
-}
+const imageMap: Record<string, string> = {
+  batteryLow: batteryLowImg,
+  research: researchImg,
+  engine: engineImg,
+  profile: profileImg,
+  growth: growthImg,
+  cartoonLearning: cartoonLearningImg,
+};
+
 
 interface QuizAnswers {
   [key: string]: any;
@@ -80,360 +73,24 @@ function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
   return score >= 3 ? "emocional" : "racional";
 }
 
-const steps: QuizStep[] = [
-  { type: "landing" },
-
-  {
-    id: "age",
-    type: "single",
-    question: "Qual é a sua faixa etária?",
-    highlight: "faixa etária",
-    micro: "Perfil",
-    options: [
-      "18–24 anos",
-      "25–34 anos",
-      "35–44 anos",
-      "45–54 anos",
-      "55 anos ou mais",
-    ],
-  },
-
-  {
-    id: "struggle",
-    type: "single",
-    question: "Seja sincero: o que costuma acontecer quando você tenta aprender algo novo?",
-    highlight: "aprender algo novo",
-    micro: "Autoconhecimento",
-    options: [
-      "Começo animado, mas me distraio fácil",
-      "Penso demais… e acabo nem começando",
-      "Sou consistente, mas evoluo muito devagar",
-      "Fico perdido, não sei por onde começar",
-      "Simplesmente não tenho tempo",
-    ],
-  },
-
-  {
-    id: "consistency_likert",
-    type: "likert",
-    statement: "Eu tenho potencial, só não consigo manter a consistência.",
-    sub: "Você concorda com essa afirmação?",
-    highlight: "consistência",
-    micro: "Foco e Atenção",
-  },
-  {
-    id: "focus_likert",
-    type: "likert",
-    statement: "Quando eu realmente foco, eu vou longe. O difícil é entrar no foco.",
-    sub: "Você concorda com essa afirmação?",
-    highlight: "entrar no foco",
-    micro: "Foco e Atenção",
-  },
-
-  {
-    id: "focus_blockers",
-    type: "single",
-    question: "Hoje em dia, qual é o seu maior desafio com foco e produtividade?",
-    highlight: "foco e produtividade",
-    micro: "Bloqueios",
-    options: [
-      "Dificuldade em manter o foco por muito tempo",
-      "Minha mente se dispersa fácil",
-      "Procrastino e fico sem clareza do que fazer",
-      "Chego mentalmente esgotado no fim do dia",
-    ],
-  },
-
-  {
-    id: "diagnosis_rapid",
-    type: "diagnosis",
-  },
-
-  {
-    id: "autopilot_likert",
-    type: "likert",
-    statement: "Sinto que meus dias acontecem no piloto automático.",
-    sub: "Você concorda?",
-    highlight: "piloto automático",
-    micro: "Rotina",
-  },
-
-  {
-    id: "typical_day",
-    type: "single",
-    question: "Como você descreveria um dia típico da sua rotina?",
-    highlight: "sua rotina",
-    micro: "Rotina",
-    options: [
-      "Sempre corrido, sem tempo pra nada",
-      "Ocupado, mas administrável",
-      "Calmo, porém sem foco",
-      "Caótico e imprevisível",
-    ],
-  },
-
-  {
-    id: "screen_distraction",
-    type: "single",
-    question: "Com que frequência o seu celular acaba roubando sua atenção, mesmo quando você quer se concentrar?",
-    highlight: "se concentrar",
-    micro: "Distrações",
-    options: [
-      "Quase o tempo todo",
-      "Várias vezes ao dia",
-      "Algumas vezes",
-      "Quase nunca",
-    ],
-  },
-
-  {
-    id: "dedicated_time",
-    type: "single",
-    question: "Sendo realista: quanto tempo por dia você consegue dedicar para evoluir?",
-    highlight: "evoluir",
-    micro: "Tempo",
-    options: [
-      "2 minutos",
-      "5 minutos (ideal para a sua rotina)",
-      "10 minutos",
-      "15 minutos ou mais",
-    ],
-  },
-
-  {
-    id: "routine_chaos",
-    type: "single",
-    question: "Como você se sente em relação ao seu progresso hoje?",
-    highlight: "progresso",
-    micro: "Progresso",
-    options: [
-      "Me sinto estagnado e sem direção",
-      "Começo muitas coisas, mas não termino",
-      "Sei que poderia render muito mais",
-      "Estou bem, mas quero melhorar",
-    ],
-  },
-
-  {
-    id: "fix_priority",
-    type: "multi",
-    question: "O que você quer melhorar primeiro?",
-    highlight: "melhorar primeiro",
-    micro: "Prioridades",
-    options: [
-      "Disciplina",
-      "Foco",
-      "Confiança",
-      "Consistência",
-      "Carreira / Dinheiro",
-      "Criatividade",
-      "Ansiedade",
-      "Energia",
-    ],
-  },
-
-  {
-    id: "story_1",
-    type: "info",
-    title: "Seu problema não é preguiça.",
-    highlight: "não é preguiça",
-    text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O nosso método reconstrói esse sistema em apenas 5 minutos por dia.",
-    visual: "image",
-    image: batteryLowImg,
-  },
-  {
-    id: "suffering_area",
-    type: "multi",
-    question: "O que mais sofre quando sua consistência falha?",
-    highlight: "consistência falha",
-    micro: "Impacto",
-    options: [
-      "Carreira e promoções",
-      "Confiança pessoal",
-      "Renda e finanças",
-      "Relacionamentos",
-      "Saúde mental",
-      "Criatividade",
-      "Motivação",
-    ],
-  },
-
-  {
-    id: "skill_interest",
-    type: "single",
-    question: "Que tipo de habilidade você mais gostaria de desenvolver agora?",
-    highlight: "desenvolver",
-    micro: "Habilidades",
-    options: [
-      "Tecnologia e IA",
-      "Comunicação",
-      "Negócios",
-      "Criatividade",
-      "Mente e corpo",
-      "Idiomas",
-    ],
-  },
-
-  {
-    id: "learning_style",
-    type: "single",
-    question: "Qual formato de aprendizado funciona melhor para você?",
-    highlight: "aprendizado",
-    micro: "Estilo",
-    options: [
-      "Microlições rápidas e diretas",
-      "Passo a passo, bem estruturado",
-      "Leitura no meu ritmo",
-      "Aprender na prática, fazendo",
-      "Um pouco de tudo",
-    ],
-  },
-
-  {
-    id: "bad_habits",
-    type: "multi",
-    question: "Quais hábitos estão te atrapalhando?",
-    highlight: "atrapalhando",
-    micro: "Hábitos",
-    options: [
-      "Dormir tarde",
-      "Tempo de tela",
-      "Rolar feed infinito",
-      "Pular treinos",
-      "Açúcar",
-      "Procrastinação",
-      "Pensar demais",
-      "Nenhum",
-    ],
-  },
-
-  {
-    id: "authority_info",
-    type: "info",
-    title: "Fundamentado em neurociência.",
-    highlight: "neurociência",
-    text: "Nossa IA combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
-    visual: "image",
-    image: cartoonLearningImg,
-  },
-
-  {
-    id: "app_experience",
-    type: "single",
-    question: "Você já tentou melhorar sua produtividade com outros métodos?",
-    highlight: "outros métodos",
-    micro: "Experiência",
-    options: [
-      "Sim, mas acabei desistindo",
-      "Sim, e ainda uso alguns",
-      "Não, estou começando agora",
-    ],
-  },
-
-  {
-    id: "expert_review",
-    type: "info",
-    title: "Missões diárias personalizadas.",
-    highlight: "personalizadas",
-    text: "Com base nas suas respostas, criamos uma trilha única com missões de 5 minutos que se adaptam ao seu ritmo. Sem esforço. Sem decisões. Apenas seguir o plano.",
-    visual: "image",
-    image: engineImg,
-  },
-
-  {
-    id: "outcome_desire",
-    type: "multi",
-    question: "Como sua vida melhora quando você resolve isso?",
-    highlight: "resolve isso",
-    micro: "Resultados",
-    options: [
-      "Melhor desempenho",
-      "Mais dinheiro",
-      "Mais confiança",
-      "Foco afiado",
-      "Menos ansiedade",
-      "Criatividade",
-      "Disciplina real",
-    ],
-  },
-
-  {
-    id: "habit_stacking_info",
-    type: "info",
-    title: "Sua jornada de 4 semanas está sendo criada.",
-    highlight: "4 semanas",
-    text: "Estamos analisando seu perfil e montando uma trilha que elimina a procrastinação e coloca você em modo de evolução constante.",
-    visual: "image",
-    image: profileImg,
-  },
-
-  {
-    id: "profile_summary",
-    type: "summary",
-    title: "Análise de Perfil Concluída",
-    text: "Seu maior problema é a falta de consistência e não a falta de capacidade. Seu plano priorizará missões curtas diárias para evitar sobrecarga e manter você avançando todos os dias.",
-    image: profileImg,
-  },
-
-  {
-    id: "commitment_time",
-    type: "single",
-    question: "Quanto tempo você quer dedicar diariamente ao seu plano EmCinco?",
-    highlight: "plano EmCinco",
-    micro: "Compromisso",
-    options: ["5 min", "10 min", "15 min", "20 min"],
-  },
-
-  {
-    id: "timeline_view",
-    type: "timeline",
-    title:
-      "Apartir de agora, esse será o ultimo plano que você irá precisar para aprender algo novo.",
-    image: growthImg,
-  },
-
-  {
-    id: "email_capture",
-    type: "input",
-    inputType: "email",
-    question: "Digite seu e-mail para receber seu plano personalizado",
-    highlight: "plano personalizado",
-    micro: "Contato",
-    placeholder: "seu@email.com",
-    note: "Prometemos: nada de spam.",
-  },
-
-  {
-    id: "name_capture",
-    type: "input",
-    inputType: "text",
-    question: "Qual é o seu nome?",
-    highlight: "seu nome",
-    micro: "Contato",
-    placeholder: "Seu nome",
-  },
-
-  {
-    id: "whatsapp_capture",
-    type: "input",
-    inputType: "tel",
-    question: "Qual é o seu WhatsApp? (opcional)",
-    highlight: "WhatsApp",
-    micro: "Contato",
-    placeholder: "(11) 99999-9999",
-    note: "Opcional - para receber dicas extras",
-  },
-];
-
 export default function Quiz() {
   const [stepIndex, setStepIndex] = useState(1);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const createLead = useCreateLead();
+  const { locale } = useLocale();
+
+  const steps = useMemo(() => getQuizSteps(locale), [locale]);
+  const landing = landingContent[locale];
 
   const currentStep = steps[stepIndex];
   const progress = (stepIndex / (steps.length - 1)) * 100;
+
+  const getImage = (img: string | undefined): string => {
+    if (!img) return "";
+    return imageMap[img] || img;
+  };
 
   useEffect(() => {
     if (!answers.goal && stepIndex > 0) {
@@ -500,16 +157,14 @@ export default function Quiz() {
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest">
                 <Zap className="w-4 h-4" />
-                Avaliação de 1 min
+                {landing.badge}
               </div>
 
               <div className="flex justify-center mb-4">
                 <img src={newLogo} alt="EmCinco Logo" className="h-16 w-auto" />
               </div>
               <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-                Aprenda novas habilidades em apenas 5 minutos por dia. Descubra
-                agora se voce tem potencial para dominar qualquer habilidade em
-                4 semanas.
+                {landing.subtitle}
               </p>
             </div>
 
@@ -525,22 +180,22 @@ export default function Quiz() {
                 data-testid="button-start-career"
               >
                 <Laptop className="w-6 h-6" />
-                Quero descobrir meu perfil
+                {landing.cta}
               </button>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span>Aprenda novas habilidades</span>
+                <span>{landing.feature1}</span>
               </div>
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <Clock className="w-4 h-4 text-primary flex-shrink-0" />
-                <span>Leva 1 minuto</span>
+                <span>{landing.feature2}</span>
               </div>
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <Brain className="w-4 h-4 text-purple-500 flex-shrink-0" />
-                <span>Base científica</span>
+                <span>{landing.feature3}</span>
               </div>
             </div>
           </div>
@@ -601,7 +256,7 @@ export default function Quiz() {
             <div className="space-y-6">
               <QuestionHeader
                 title={currentStep.question!}
-                subtitle="Selecione todas que se aplicam"
+                subtitle={landing.selectAll}
                 highlight={currentStep.highlight}
                 micro={currentStep.micro}
               />
@@ -658,7 +313,7 @@ export default function Quiz() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                   <OptimizedImage
-                    src={currentStep.image as string}
+                    src={getImage(currentStep.image)}
                     alt={currentStep.title}
                     className="w-full max-w-[280px] mx-auto aspect-square"
                   />
@@ -999,7 +654,7 @@ export default function Quiz() {
                   className="text-sm text-muted-foreground underline hover:text-foreground transition-colors"
                   data-testid="button-skip-whatsapp"
                 >
-                  Pular esta etapa
+                  {locale === "es" ? "Saltar este paso" : "Pular esta etapa"}
                 </button>
               )}
             </div>
@@ -1011,7 +666,7 @@ export default function Quiz() {
         onContinue={handleContinue}
         disabled={!isStepValid()}
         loading={createLead.isPending}
-        label={stepIndex === steps.length - 1 ? "Gerar Plano" : "Continuar"}
+        label={stepIndex === steps.length - 1 ? (locale === "es" ? "Generar Plan" : "Gerar Plano") : landing.continue}
         className={
           ["single", "likert"].includes(currentStep.type) && currentStep.type !== "diagnosis" ? "hidden" : ""
         }
