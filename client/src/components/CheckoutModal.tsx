@@ -327,6 +327,7 @@ export default function CheckoutModal({
                 stripe={stripePromise}
                 options={{
                   clientSecret,
+                  locale: locale === "es" ? "es" : "pt-BR",
                   appearance: {
                     theme: "stripe",
                     variables: {
