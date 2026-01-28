@@ -43,6 +43,9 @@ import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_ill
 import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
 import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
 import cartoonLearningImg from "@assets/generated_images/cartoon_of_person_learning_happily..png";
+import avatar1 from "@assets/avatars/avatar1_1.jpg";
+import avatar2 from "@assets/avatars/avatar1_2.jpg";
+import avatar3 from "@assets/avatars/avatar1_3.jpg";
 
 const imageMap: Record<string, string> = {
   batteryLow: batteryLowImg,
