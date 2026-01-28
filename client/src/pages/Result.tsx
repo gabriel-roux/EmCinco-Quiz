@@ -165,46 +165,46 @@ function getProfileCopy(locale: Locale) {
   if (locale === "es") {
     return {
       emocional: {
-        headline: "No estas fallando.",
-        headlineHighlight: "Tu cerebro solo esta sobrecargado.",
+        headline: "No estás fallando.",
+        headlineHighlight: "Tu cerebro solo está sobrecargado.",
         subheadline:
-          "Cuando la mente esta cansada, hasta personas inteligentes se traban, desisten y se sabotean sin darse cuenta.",
+          "Cuando la mente está cansada, hasta personas inteligentes se traban, desisten y se sabotean sin darse cuenta.",
         identificationIntro: "Si sientes que:",
         identification: [
-          "Empiezas emocionado y despues abandonas en silencio",
-          "Pasas el dia ocupado, pero sin progreso real",
-          "Te vas a dormir con la sensacion de que podrias haber hecho mas",
+          "Empiezas emocionado y después abandonas en silencio",
+          "Pasas el día ocupado, pero sin progreso real",
+          "Te vas a dormir con la sensación de que podrías haber hecho más",
         ],
         identificationConclusion:
           "...eso no es falta de disciplina. Es exceso mental.",
         guiltBreak:
-          "Cuando todo parece demasiado grande, el cerebro entra en modo de defensa. Evita comenzar para protegerte del estres, no porque seas debil.",
+          "Cuando todo parece demasiado grande, el cerebro entra en modo de defensa. Evita comenzar para protegerte del estrés, no porque seas débil.",
         presentation:
           "EmCinco fue creado para sortear ese bloqueo, no para exigir fuerza de voluntad que no tienes de sobra.",
-        mechanismIntro: "Por eso el metodo funciona:",
+        mechanismIntro: "Por eso el método funciona:",
         mechanism: [
           "Solo 5 minutos (el cerebro acepta)",
           "Cero decisiones (nada que planear)",
           "Cero sobrecarga mental",
-          "Progreso visible todos los dias",
+          "Progreso visible todos los días",
         ],
         lossFrame:
-          "Si nada cambia, el patron se repite: intentas, te exiges, desistes - y la confianza en ti mismo disminuye un poco mas con cada ciclo.",
+          "Si nada cambia, el patrón se repite: intentas, te exiges, desistes - y la confianza en ti mismo disminuye un poco más con cada ciclo.",
         cta: "Comenzar mi plan de 5 minutos",
         microcopy:
-          "Sin presion. Sin promesas irreales. Solo un sistema simple para desbloquear consistencia.",
+          "Sin presión. Sin promesas irreales. Solo un sistema simple para desbloquear consistencia.",
       },
       racional: {
-        headline: "Lo que esta saboteando tu enfoque no es falta de disciplina",
+        headline: "Lo que está saboteando tu enfoque no es falta de disciplina",
         headlineHighlight: "es tu mente sobrecargada.",
         subheadline:
-          "En 5 minutos al dia, EmCinco reconstruye tu enfoque y crea progreso automatico, sin depender de motivacion.",
+          "En 5 minutos al día, EmCinco reconstruye tu enfoque y crea progreso automático, sin depender de motivación.",
         identification: [
           "Rompe promesas consigo misma toda semana",
           "Empieza emocionada y abandona en silencio",
-          "Esta mentalmente cansada antes de empezar",
+          "Está mentalmente cansada antes de empezar",
         ],
-        identificationIntro: "La mayoria de las personas falla porque:",
+        identificationIntro: "La mayoría de las personas falla porque:",
         identificationConclusion: "",
         guiltBreak: "",
         presentation:
@@ -212,7 +212,7 @@ function getProfileCopy(locale: Locale) {
         mechanism: [
           "Misiones de 5 minutos que tu cerebro acepta",
           "Cero decisiones (solo ejecutas)",
-          "Progreso visible desde el primer dia",
+          "Progreso visible desde el primer día",
           "Refuerzo positivo que te hace querer continuar",
         ],
         cta: "Quiero volver a tener constancia",
@@ -406,24 +406,24 @@ export default function Result() {
 
   const faqs = useMemo(() => locale === "es" ? [
     {
-      question: "Por que funciona el enfoque EmCinco?",
+      question: "¿Por qué funciona el enfoque EmCinco?",
       answer:
-        "Nuestro plan te ayuda a construir habitos de forma mas profunda, con mas energia y enfoque. Combinamos tecnicas comprobadas de cambio conductual con orientacion personalizada. Recibes instrucciones paso a paso y rutinas que toman solo 5 minutos al dia.",
+        "Nuestro plan te ayuda a construir hábitos de forma más profunda, con más energía y enfoque. Combinamos técnicas comprobadas de cambio conductual con orientación personalizada. Recibes instrucciones paso a paso y rutinas que toman solo 5 minutos al día.",
     },
     {
-      question: "Como puede ayudarme este plan?",
+      question: "¿Cómo puede ayudarme este plan?",
       answer:
-        "EmCinco fue desarrollado para eliminar la fatiga de decision y crear momentum consistente. Notaras mas claridad mental, energia estable y progreso visible en tus metas.",
+        "EmCinco fue desarrollado para eliminar la fatiga de decisión y crear momentum consistente. Notarás más claridad mental, energía estable y progreso visible en tus metas.",
     },
     {
-      question: "Cuando empezare a sentir los efectos?",
+      question: "¿Cuándo empezaré a sentir los efectos?",
       answer:
-        "La mayoria de los usuarios reportan cambios notables en la primera semana. Los mayores beneficios aparecen despues de 21 dias de practica consistente.",
+        "La mayoría de los usuarios reportan cambios notables en la primera semana. Los mayores beneficios aparecen después de 21 días de práctica consistente.",
     },
     {
-      question: "Esta basado en ciencia?",
+      question: "¿Está basado en ciencia?",
       answer:
-        "Si! EmCinco esta basado en investigaciones de psicologia conductual, neurociencia y formacion de habitos de instituciones como Stanford, MIT y Harvard.",
+        "¡Sí! EmCinco está basado en investigaciones de psicología conductual, neurociencia y formación de hábitos de instituciones como Stanford, MIT y Harvard.",
     },
   ] : [
     {
@@ -452,8 +452,8 @@ export default function Result() {
     "Enfoque inquebrantable",
     "Consistencia diaria",
     "Claridad de metas",
-    "Evolucion continua",
-    "Resultados practicos",
+    "Evolución continua",
+    "Resultados prácticos",
   ] : [
     "Foco inabalavel",
     "Consistencia diaria",
@@ -465,15 +465,15 @@ export default function Result() {
   const testimonials = useMemo(() => locale === "es" ? [
     {
       name: "Eduardo Vasconcelos",
-      text: "Antes empezaba varios cursos y los abandonaba en la segunda semana. Con EmCinco, logre mantener consistencia por primera vez. En poco mas de un mes ya estaba aplicando conceptos de tecnologia en mi trabajo.",
+      text: "Antes empezaba varios cursos y los abandonaba en la segunda semana. Con EmCinco, logré mantener consistencia por primera vez. En poco más de un mes ya estaba aplicando conceptos de tecnología en mi trabajo.",
     },
     {
       name: "Camila Nogueira",
-      text: "Siempre pense que aprender algo nuevo requeria mucho tiempo libre (que no tengo). Los 5 minutos al dia cambiaron completamente eso. Hoy estudiar es parte de mi rutina, como cepillarme los dientes.",
+      text: "Siempre pensé que aprender algo nuevo requería mucho tiempo libre (que no tengo). Los 5 minutos al día cambiaron completamente eso. Hoy estudiar es parte de mi rutina, como cepillarme los dientes.",
     },
     {
       name: "Felipe Arantes",
-      text: "La mayor ganancia para mi fue la claridad. Deje de saltar de contenido en contenido sin direccion. Ahora sigo un camino estructurado y veo progreso real cada semana.",
+      text: "La mayor ganancia para mí fue la claridad. Dejé de saltar de contenido en contenido sin dirección. Ahora sigo un camino estructurado y veo progreso real cada semana.",
     },
   ] : [
     {
@@ -491,12 +491,12 @@ export default function Result() {
   ], [locale]);
 
   const goals = useMemo(() => locale === "es" ? [
-    "Desarrollas nuevas habilidades en solo 5 minutos al dia",
-    "Tu consistencia se vuelve automatica y sin esfuerzo",
-    "Ya no estas paralizado por indecision o procrastinacion",
+    "Desarrollas nuevas habilidades en solo 5 minutos al día",
+    "Tu consistencia se vuelve automática y sin esfuerzo",
+    "Ya no estás paralizado por indecisión o procrastinación",
     "Te sientes enfocado, confiado y listo para evolucionar",
     "Tu aprendizaje se vuelve fluido, diario y placentero",
-    "Pasas el dia con claridad mental y motivacion constante",
+    "Pasas el día con claridad mental y motivación constante",
   ] : [
     "Voce desenvolve novas habilidades em apenas 5 minutos por dia",
     "Sua consistencia se torna automatica e sem esforco",
