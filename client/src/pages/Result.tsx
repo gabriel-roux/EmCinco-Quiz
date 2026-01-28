@@ -289,7 +289,7 @@ export default function Result() {
   const [showCheckout, setShowCheckout] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [profile, setProfile] = useState<CheckoutProfile>("racional");
-  const { locale, currency, currencySymbol } = useLocale();
+  const { locale, currency, currencySymbol, t } = useLocale();
   const content = landingContent[locale];
   const profileCopy = useMemo(() => getProfileCopy(locale), [locale]);
   const prices = pricing[locale].regular;
@@ -689,50 +689,50 @@ export default function Result() {
 
         <div className="bg-primary/15 border border-primary rounded-2xl p-5 space-y-4">
           <h3 className="font-bold text-lg text-center">
-            O que você recebe HOJE:
+            {t("result.whatYouGet")}
           </h3>
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Seu plano personalizado de 4 semanas</span>
+              <span>{t("result.plan4weeks")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>1 desafio novo todos os dias (apenas 5 min)</span>
+              <span>{t("result.dailyChallenge")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Acompanhamento de progresso automático</span>
+              <span>{t("result.progressTracking")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Relatórios semanais de evolução</span>
+              <span>{t("result.weeklyReports")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Acesso ao painel privado</span>
+              <span>{t("result.privateAccess")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Suporte por WhatsApp</span>
+              <span>{t("result.whatsappSupport")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Acesso ao grupo de network</span>
+              <span>{t("result.networkAccess")}</span>
             </li>
           </ul>
         </div>
@@ -742,7 +742,7 @@ export default function Result() {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-green-700 dark:text-green-400">
-                  Código promocional aplicado!
+                  {t("result.promoApplied")}
                 </span>
               </div>
               <div className="flex items-center gap-2">

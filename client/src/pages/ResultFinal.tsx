@@ -16,6 +16,7 @@ import happyPhoto from "@assets/image_1767730696591.png";
 import CheckoutModal from "@/components/CheckoutModal";
 import ExitPopup from "@/components/ExitPopup";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
+import { useLocale } from "@/lib/i18n";
 
 // Componente de título animado com dois highlights (vermelho e azul)
 function FinalTitle() {
@@ -139,6 +140,7 @@ function Testimonial({ name, text }: TestimonialProps) {
 }
 
 export default function ResultFinal() {
+  const { t } = useLocale();
   const [selectedPlan, setSelectedPlan] = useState<
     "1week" | "4week" | "12week"
   >("4week");
@@ -366,31 +368,31 @@ export default function ResultFinal() {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
-          <h3 className="font-bold text-lg text-center">O que você recebe HOJE:</h3>
+          <h3 className="font-bold text-lg text-center">{t("result.whatYouGet")}</h3>
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Seu plano personalizado de 4 semanas</span>
+              <span>{t("result.plan4weeks")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>1 desafio novo todos os dias (apenas 5 min)</span>
+              <span>{t("result.dailyChallenge")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Acompanhamento de progresso automático</span>
+              <span>{t("result.progressTracking")}</span>
             </li>
             <li className="flex items-start gap-3">
               <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Check className="w-3 h-3 text-primary" />
               </div>
-              <span>Relatórios semanais de evolução</span>
+              <span>{t("result.weeklyReports")}</span>
             </li>
           </ul>
         </div>
