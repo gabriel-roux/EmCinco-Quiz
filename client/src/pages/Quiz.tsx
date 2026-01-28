@@ -378,6 +378,7 @@ export default function Quiz() {
                 <LikertScale
                   value={answers[currentStep.id!] as number}
                   onChange={(val) => handleAnswer(currentStep.id!, val)}
+                  labels={{ min: landing.disagree, max: landing.agree }}
                 />
               </div>
             </div>
