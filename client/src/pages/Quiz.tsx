@@ -94,6 +94,16 @@ export default function Quiz() {
   const steps = useMemo(() => getQuizSteps(locale), [locale]);
   const landing = landingContent[locale];
 
+  // Random headline selection (stable per session)
+  const headlineIndex = useMemo(() => Math.floor(Math.random() * 3), []);
+  const selectedHeadline = landing.headlines?.[headlineIndex] || { 
+    title: landing.welcomeTitle1 + " " + landing.welcomeHighlight, 
+    subtitle: landing.subtitle 
+  };
+
+  // Random live count (28-47 pessoas)
+  const liveCount = useMemo(() => Math.floor(Math.random() * 20) + 28, []);
+
   const currentStep = steps[stepIndex];
   const progress = (stepIndex / (steps.length - 1)) * 100;
 
@@ -179,8 +189,6 @@ export default function Quiz() {
       },
     };
 
-    const titleWords = landing.welcomeTitle1.split(" ");
-
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <div className="flex-1 flex flex-col justify-center px-6 py-8">
@@ -198,59 +206,43 @@ export default function Quiz() {
               </span>
             </motion.div>
 
-            <motion.h1 className="font-mono text-2xl md:text-3xl font-bold leading-tight mb-6 tracking-tight">
-              {titleWords.map((word, index) => (
-                <motion.span
-                  key={word}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.3 + index * 0.1,
-                    duration: 0.4,
-                    ease: "easeOut",
-                  }}
-                  className="inline-block mr-[0.3em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
-              <motion.span
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.7,
-                  duration: 0.4,
-                  ease: "easeOut",
-                }}
-                className="inline bg-primary/20 px-1"
-              >
-                {landing.welcomeHighlight}
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-              >
-                .
-              </motion.span>
+            <motion.h1 
+              variants={itemVariants}
+              className="font-mono text-2xl md:text-3xl font-bold leading-tight mb-4 tracking-tight"
+            >
+              {selectedHeadline.title}
             </motion.h1>
+
+            <motion.p
+              variants={itemVariants}
+              className="text-muted-foreground text-base mb-6 leading-relaxed"
+            >
+              {selectedHeadline.subtitle}
+            </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-4 mb-6"
+              className="flex flex-wrap items-center gap-4 mb-6"
             >
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Clock className="w-4 h-4" />
                 <span className="font-mono text-sm">{landing.welcomeDuration}</span>
               </div>
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <span className="font-mono text-sm">{landing.rating}</span>
+              </div>
             </motion.div>
 
-            <motion.p
+            <motion.div 
               variants={itemVariants}
-              className="text-muted-foreground text-base mb-10 leading-relaxed"
+              className="flex items-center gap-2 mb-6 text-sm text-primary"
             >
-              {landing.subtitle}
-            </motion.p>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="font-mono">{liveCount} {landing.socialProofLive}</span>
+            </motion.div>
 
             <motion.div variants={itemVariants}>
               <button
