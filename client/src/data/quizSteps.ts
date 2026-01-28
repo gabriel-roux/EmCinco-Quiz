@@ -348,8 +348,8 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
     {
       id: "age",
       type: "single",
-      question: "Qual e a sua faixa etaria?",
-      highlight: "faixa etaria",
+      question: "Qual é a sua faixa etária?",
+      highlight: "faixa etária",
       micro: "Perfil",
       options: [
         "18-24 anos",
