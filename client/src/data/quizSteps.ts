@@ -262,6 +262,14 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         ],
       },
       {
+        id: "analysis_transition",
+        type: "transition",
+        badge: "ANÁLISIS",
+        title: "CAPTURAMOS TUS SÍNTOMAS. AHORA VAMOS A PERSONALIZAR TU RECOMENDACIÓN EN 30 SEGUNDOS.",
+        highlights: ["PERSONALIZAR", "TU", "RECOMENDACIÓN"],
+        text: "Para eso, necesitamos entender algunos datos biológicos básicos sobre ti.",
+      },
+      {
         id: "habit_stacking_info",
         type: "info",
         title: "Tu viaje de 4 semanas está listo.",
@@ -582,6 +590,14 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         "10 minutos",
         "15 minutos ou mais",
       ],
+    },
+    {
+      id: "analysis_transition",
+      type: "transition",
+      badge: "ANÁLISE",
+      title: "CAPTURAMOS SEUS SINTOMAS. AGORA VAMOS PERSONALIZAR SUA RECOMENDAÇÃO EM 30 SEGUNDOS.",
+      highlights: ["PERSONALIZAR", "SUA", "RECOMENDAÇÃO"],
+      text: "Para isso, precisamos entender alguns dados biológicos básicos sobre você.",
     },
     {
       id: "habit_stacking_info",

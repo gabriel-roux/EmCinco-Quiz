@@ -22,6 +22,7 @@ import {
   TimelineItem,
   DiagnosisStep,
   InfoTitle,
+  TransitionScreen,
 } from "@/components/QuizComponents";
 import {
   Target,
@@ -469,6 +470,15 @@ export default function Quiz() {
                 {currentStep.text}
               </motion.p>
             </div>
+          )}
+
+          {currentStep.type === "transition" && (
+            <TransitionScreen
+              badge={(currentStep as any).badge}
+              title={currentStep.title!}
+              highlights={(currentStep as any).highlights}
+              text={currentStep.text!}
+            />
           )}
 
           {currentStep.type === "summary" && (
