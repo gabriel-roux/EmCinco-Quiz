@@ -27,13 +27,14 @@ interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedPlan: "1week" | "4week" | "12week";
-  onExitIntent: () => void;
+  onExitIntent?: () => void;
   isFinalOffer?: boolean;
+  isBackOffer?: boolean;
 }
 
-function getPlans(locale: Locale, isFinalOffer: boolean): Record<string, Plan> {
+function getPlans(locale: Locale, isFinalOffer: boolean, isBackOffer: boolean = false): Record<string, Plan> {
   const p = pricing[locale];
-  const prices = isFinalOffer ? p.final : p.regular;
+  const prices = isBackOffer ? p.backOffer : (isFinalOffer ? p.final : p.regular);
   const sym = p.currencySymbol;
   const content = landingContent[locale];
   
@@ -83,7 +84,7 @@ function CheckoutForm({
 }: {
   plan: Plan;
   onClose: () => void;
-  onExitIntent: () => void;
+  onExitIntent?: () => void;
   isFinalOffer: boolean;
 }) {
   const stripe = useStripe();
@@ -162,7 +163,9 @@ function CheckoutForm({
   };
 
   const handleClose = () => {
-    onExitIntent();
+    if (onExitIntent) {
+      onExitIntent();
+    }
   };
 
   return (
@@ -241,11 +244,12 @@ export default function CheckoutModal({
   selectedPlan,
   onExitIntent,
   isFinalOffer = false,
+  isBackOffer = false,
 }: CheckoutModalProps) {
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const { locale } = useLocale();
-  const plans = getPlans(locale, isFinalOffer);
+  const plans = getPlans(locale, isFinalOffer, isBackOffer);
   const plan = plans[selectedPlan];
 
   useEffect(() => {

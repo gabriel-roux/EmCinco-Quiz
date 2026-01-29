@@ -618,6 +618,11 @@ export const pricing = {
       "1week": { price: 2.62, daily: 7.14, original: 49.99 },
       "4week": { price: 4.99, daily: 0.17, original: 49.99 },
       "12week": { price: 8.74, daily: 0.10, original: 99.99 },
+    },
+    backOffer: {
+      "1week": { price: 4.99, daily: 0.71, original: 9.99 },
+      "4week": { price: 9.99, daily: 0.35, original: 19.99 },
+      "12week": { price: 14.99, daily: 0.17, original: 29.99 },
     }
   },
   "es": {
@@ -632,6 +637,11 @@ export const pricing = {
       "1week": { price: 1.9, daily: 0.27, original: 19.99 },
       "4week": { price: 4.9, daily: 0.17, original: 29.99 },
       "12week": { price: 7.9, daily: 0.09, original: 49.99 },
+    },
+    backOffer: {
+      "1week": { price: 1.99, daily: 0.28, original: 3.99 },
+      "4week": { price: 4.99, daily: 0.17, original: 9.99 },
+      "12week": { price: 7.49, daily: 0.08, original: 14.99 },
     }
   }
 };

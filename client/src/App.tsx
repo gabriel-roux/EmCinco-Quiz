@@ -9,6 +9,7 @@ import Quiz from "@/pages/Quiz";
 import Processing from "@/pages/Processing";
 import Result from "@/pages/Result";
 import ResultFinal from "@/pages/ResultFinal";
+import ResultBackOffer from "@/pages/ResultBackOffer";
 import Success from "@/pages/Success";
 import NotFound from "@/pages/not-found";
 
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/processing" component={Processing} />
       <Route path="/result" component={Result} />
       <Route path="/result-final" component={ResultFinal} />
+      <Route path="/result-back-offer" component={ResultBackOffer} />
       <Route path="/success" component={Success} />
       <Route
         path="/login"

@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useLocation } from "wouter";
 import {
   Check,
   X,
@@ -280,6 +281,7 @@ function getProfileCopy(locale: Locale) {
 }
 
 export default function Result() {
+  const [, navigate] = useLocation();
   const [selectedPlan, setSelectedPlan] = useState<
     "1week" | "4week" | "12week"
   >("4week");
@@ -293,6 +295,7 @@ export default function Result() {
   const content = landingContent[locale];
   const profileCopy = useMemo(() => getProfileCopy(locale), [locale]);
   const prices = pricing[locale].regular;
+  const hasRedirectedRef = useRef(false);
   
   const formatPrice = (val: number) => {
     if (locale === "es") {
@@ -312,6 +315,50 @@ export default function Result() {
       setProfile(savedProfile);
     }
   }, []);
+
+  // Detectar tentativa de voltar/sair e redirecionar para back offer
+  useEffect(() => {
+    // Push initial state
+    window.history.pushState({ page: "result" }, "", window.location.href);
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (hasRedirectedRef.current) return;
+      
+      // Check if already seen back offer
+      const seenBackOffer = sessionStorage.getItem("emcinco_seen_back_offer");
+      if (seenBackOffer) {
+        return; // Let them go back normally
+      }
+
+      // Prevent default back behavior
+      e.preventDefault();
+      window.history.pushState({ page: "result" }, "", window.location.href);
+      
+      hasRedirectedRef.current = true;
+      sessionStorage.setItem("emcinco_seen_back_offer", "true");
+      navigate("/result-back-offer");
+    };
+
+    // Mouse leave detection (exit intent)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !hasRedirectedRef.current) {
+        const seenBackOffer = sessionStorage.getItem("emcinco_seen_back_offer");
+        if (!seenBackOffer) {
+          hasRedirectedRef.current = true;
+          sessionStorage.setItem("emcinco_seen_back_offer", "true");
+          navigate("/result-back-offer");
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [navigate]);
 
   const copy = profileCopy[profile];
 
