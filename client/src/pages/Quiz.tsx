@@ -144,6 +144,9 @@ export default function Quiz() {
 
   // Exit intent detection for quiz (only after user has started)
   useEffect(() => {
+    // Track if user has left the page (for mobile visibility change)
+    let hasLeftPage = false;
+    
     // Add initial history entry when component mounts
     window.history.pushState(
       { page: "quiz", step: 0 },
@@ -172,13 +175,32 @@ export default function Quiz() {
         setShowExitPopup(true);
       }
     };
+    
+    // Mobile: detect when user leaves app/browser and returns
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        // User left the page (switched app, minimized, etc)
+        if (stepIndexRef.current > 1) {
+          hasLeftPage = true;
+        }
+      } else if (document.visibilityState === "visible" && hasLeftPage) {
+        // User came back - show popup if not already shown
+        hasLeftPage = false;
+        if (!hasShownExitPopupRef.current && stepIndexRef.current > 1) {
+          hasShownExitPopupRef.current = true;
+          setShowExitPopup(true);
+        }
+      }
+    };
 
     window.addEventListener("popstate", handlePopState);
     document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 
