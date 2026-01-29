@@ -326,15 +326,19 @@ export default function Result() {
     window.history.pushState({ page: "result" }, "", window.location.href);
 
     const handlePopState = () => {
-      if (hasRedirectedRef.current) return;
+      // Don't redirect if checkout is open
+      if (hasRedirectedRef.current || showCheckout) return;
       
       hasRedirectedRef.current = true;
       sessionStorage.setItem("emcinco_seen_back_offer", "true");
       window.location.href = "/result-back-offer";
     };
 
-    // Mouse leave detection (exit intent)
+    // Mouse leave detection (exit intent) - only when checkout is NOT open
     const handleMouseLeave = (e: MouseEvent) => {
+      // Don't trigger if checkout modal is open
+      if (showCheckout) return;
+      
       if (e.clientY <= 0 && !hasRedirectedRef.current) {
         hasRedirectedRef.current = true;
         sessionStorage.setItem("emcinco_seen_back_offer", "true");
@@ -349,7 +353,7 @@ export default function Result() {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, []);
+  }, [showCheckout]);
 
   const copy = profileCopy[profile];
 
