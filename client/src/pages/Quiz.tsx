@@ -31,6 +31,10 @@ import {
   ChevronRight,
   Check,
   Clock,
+  Zap,
+  MessageSquare,
+  CheckCircle,
+  Brain,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCreateLead } from "@/hooks/use-leads";
@@ -201,91 +205,94 @@ export default function Quiz() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="max-w-md mx-auto w-full"
+            className="max-w-md mx-auto w-full text-center"
           >
-            <motion.div variants={itemVariants} className="mb-8">
-              <img src={logoEmcinco} alt="EmCinco" className="h-10 mb-4" />
-
-              <span className="inline-block font-mono text-xs tracking-widest border border-primary/30 text-primary px-2 py-1 rounded">
+            <motion.div variants={itemVariants} className="mb-6">
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20">
+                <Zap className="w-3.5 h-3.5" />
                 {landing.badge}
               </span>
             </motion.div>
 
-            <motion.h1 
-              variants={itemVariants}
-              className="font-mono text-2xl md:text-3xl font-bold leading-tight mb-4 tracking-tight"
-            >
-              {selectedHeadline.title}
-            </motion.h1>
+            <motion.div variants={itemVariants} className="mb-6">
+              <img src={logoEmcinco} alt="EmCinco" className="h-12 mx-auto" />
+            </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-muted-foreground text-base mb-6 leading-relaxed"
+              className="text-muted-foreground text-base mb-8 leading-relaxed max-w-sm mx-auto"
             >
               {selectedHeadline.subtitle}
             </motion.p>
 
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-wrap items-center gap-4 mb-6"
-            >
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span className="font-mono text-sm">{landing.welcomeDuration}</span>
-              </div>
-              <div className="flex items-center gap-1 text-muted-foreground">
-                <span className="font-mono text-sm">{landing.rating}</span>
-              </div>
-            </motion.div>
-
             <motion.div 
               variants={itemVariants}
-              className="flex items-center gap-3 mb-6"
+              className="flex items-stretch justify-center gap-4 mb-8"
             >
-              <div className="flex -space-x-2">
-                <img src={avatar1} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
-                <img src={avatar2} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
-                <img src={avatar3} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+              <div className="flex-1 bg-muted/50 rounded-xl px-4 py-3 border border-border">
+                <p className="text-xs text-muted-foreground mb-1">{landing.socialProofLabel}</p>
+                <div className="flex items-center justify-center gap-2">
+                  <div className="flex -space-x-2">
+                    <img src={avatar1} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar2} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar3} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                  </div>
+                  <span className="text-sm font-semibold">+847</span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium text-foreground">{landing.socialProofTotal}</span>
-                <div className="flex items-center gap-1.5 text-xs text-primary">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
-                  </span>
-                  <span className="font-mono">{liveCount} {landing.socialProofLive}</span>
+              <div className="flex-1 bg-muted/50 rounded-xl px-4 py-3 border border-border">
+                <p className="text-xs text-muted-foreground mb-1">{landing.discoveringNow}</p>
+                <div className="flex items-center justify-center gap-2">
+                  <div className="flex -space-x-1">
+                    <img src={avatar2} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar3} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar1} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-sm font-semibold">{liveCount}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="mb-8">
               <button
-                className="w-full py-6 text-base font-mono font-semibold tracking-wide gap-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                className="relative w-full py-5 text-base font-semibold gap-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
                 onClick={() => {
                   handleAnswer("goal", "Life");
                   setStepIndex(1);
                 }}
                 data-testid="button-start-quiz"
               >
-                {landing.cta}
+                <span className="absolute inset-0 rounded-xl animate-pulse bg-primary/30"></span>
+                <MessageSquare className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">{landing.cta}</span>
               </button>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground"
+            >
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-green-500" />
+                <span>{landing.feature1}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-primary" />
+                <span>{landing.feature2}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Brain className="w-4 h-4 text-purple-500" />
+                <span>{landing.feature3}</span>
+              </div>
             </motion.div>
           </motion.div>
         </div>
-
-        <motion.div
-          className="px-6 pb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-        >
-          <div className="max-w-md mx-auto">
-            <p className="text-center text-xs text-muted-foreground font-mono">
-              {landing.privacyNote}
-            </p>
-          </div>
-        </motion.div>
       </div>
     );
   }
