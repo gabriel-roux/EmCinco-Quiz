@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -41,6 +41,7 @@ import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "@/lib/i18n";
 import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
+import QuizExitPopup from "@/components/QuizExitPopup";
 
 import logoEmcinco from "@assets/logo-emcinco.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
@@ -95,10 +96,12 @@ function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
 export default function Quiz() {
   const [stepIndex, setStepIndex] = useState(1);
   const [answers, setAnswers] = useState<QuizAnswers>({});
+  const [showExitPopup, setShowExitPopup] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const createLead = useCreateLead();
   const { locale } = useLocale();
+  const hasShownExitPopupRef = useRef(false);
 
   const steps = useMemo(() => getQuizSteps(locale), [locale]);
   const landing = landingContent[locale];
@@ -126,6 +129,37 @@ export default function Quiz() {
       setStepIndex(0);
     }
   }, []);
+
+  // Exit intent detection for quiz (only after user has started)
+  useEffect(() => {
+    if (stepIndex <= 1) return; // Don't show on welcome screen
+    
+    const handlePopState = () => {
+      if (hasShownExitPopupRef.current || showExitPopup) return;
+      hasShownExitPopupRef.current = true;
+      setShowExitPopup(true);
+      // Push state back to prevent actual navigation
+      window.history.pushState({ page: "quiz" }, "", window.location.href);
+    };
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !hasShownExitPopupRef.current && !showExitPopup) {
+        hasShownExitPopupRef.current = true;
+        setShowExitPopup(true);
+      }
+    };
+
+    // Push initial state
+    window.history.pushState({ page: "quiz" }, "", window.location.href);
+
+    window.addEventListener("popstate", handlePopState);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [stepIndex, showExitPopup]);
 
   const handleAnswer = (key: string, value: any) => {
     setAnswers((prev: QuizAnswers) => ({ ...prev, [key]: value }));
@@ -812,6 +846,13 @@ export default function Quiz() {
         className={
           ["single", "likert"].includes(currentStep.type) && currentStep.type !== "diagnosis" ? "hidden" : ""
         }
+      />
+
+      <QuizExitPopup
+        isOpen={showExitPopup}
+        onClose={() => setShowExitPopup(false)}
+        onContinue={() => setShowExitPopup(false)}
+        progress={progress}
       />
     </Layout>
   );
