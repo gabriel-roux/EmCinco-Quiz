@@ -238,13 +238,23 @@ export default function Quiz() {
 
             <motion.div 
               variants={itemVariants}
-              className="flex items-center gap-2 mb-6 text-sm text-primary"
+              className="flex items-center gap-3 mb-6"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              <span className="font-mono">{liveCount} {landing.socialProofLive}</span>
+              <div className="flex -space-x-2">
+                <img src={avatar1} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+                <img src={avatar2} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+                <img src={avatar3} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-foreground">{landing.socialProofTotal}</span>
+                <div className="flex items-center gap-1.5 text-xs text-primary">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
+                  </span>
+                  <span className="font-mono">{liveCount} {landing.socialProofLive}</span>
+                </div>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
