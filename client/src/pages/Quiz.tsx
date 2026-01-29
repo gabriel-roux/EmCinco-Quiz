@@ -43,7 +43,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "@/lib/i18n";
 import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
 import QuizExitPopup from "@/components/QuizExitPopup";
-import { useRouter } from "wouter";
 
 import logoEmcinco from "@assets/logo-emcinco.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
