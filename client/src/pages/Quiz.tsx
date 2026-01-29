@@ -43,6 +43,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "@/lib/i18n";
 import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
 import QuizExitPopup from "@/components/QuizExitPopup";
+import { useRouter } from "wouter";
 
 import logoEmcinco from "@assets/logo-emcinco.png";
 import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
@@ -64,7 +65,6 @@ const imageMap: Record<string, string> = {
   cartoonLearning: cartoonLearningImg,
 };
 
-
 interface QuizAnswers {
   [key: string]: any;
 }
@@ -78,18 +78,24 @@ function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
   if (answers.consistency_likert >= 4) score++;
   if (answers.focus_likert >= 4) score++;
   if (answers.autopilot_likert >= 4) score++;
-  
+
   // routine_chaos: primeira opção indica estagnação em ambos idiomas
   // pt-BR: "Me sinto estagnado e sem direcao" / es: "Me siento estancado y sin direccion"
   const routineChaosValue = answers.routine_chaos || "";
-  if (routineChaosValue.toLowerCase().includes("estagnado") || 
-      routineChaosValue.toLowerCase().includes("estancado")) score++;
-  
+  if (
+    routineChaosValue.toLowerCase().includes("estagnado") ||
+    routineChaosValue.toLowerCase().includes("estancado")
+  )
+    score++;
+
   // focus_blockers: última opção indica esgotamento em ambos idiomas
   // pt-BR: "Chego mentalmente esgotado..." / es: "Llego mentalmente agotado..."
   const focusBlockersValue = answers.focus_blockers || "";
-  if (focusBlockersValue.toLowerCase().includes("esgotado") || 
-      focusBlockersValue.toLowerCase().includes("agotado")) score++;
+  if (
+    focusBlockersValue.toLowerCase().includes("esgotado") ||
+    focusBlockersValue.toLowerCase().includes("agotado")
+  )
+    score++;
 
   return score >= 3 ? "emocional" : "racional";
 }
@@ -104,15 +110,16 @@ export default function Quiz() {
   const { locale } = useLocale();
   const hasShownExitPopupRef = useRef(false);
   const stepIndexRef = useRef(stepIndex);
+  const router = useRouter();
 
   const steps = useMemo(() => getQuizSteps(locale), [locale]);
   const landing = landingContent[locale];
 
   // Random headline selection (stable per session)
   const headlineIndex = useMemo(() => Math.floor(Math.random() * 3), []);
-  const selectedHeadline = landing.headlines?.[headlineIndex] || { 
-    title: landing.welcomeTitle1 + " " + landing.welcomeHighlight, 
-    subtitle: landing.subtitle 
+  const selectedHeadline = landing.headlines?.[headlineIndex] || {
+    title: landing.welcomeTitle1 + " " + landing.welcomeHighlight,
+    subtitle: landing.subtitle,
   };
 
   // Random live count (28-47 pessoas)
@@ -140,12 +147,16 @@ export default function Quiz() {
   // Exit intent detection for quiz (only after user has started)
   useEffect(() => {
     // Add initial history entry when component mounts
-    window.history.pushState({ page: "quiz", step: 0 }, "", window.location.href);
-    
+    window.history.pushState(
+      { page: "quiz", step: 0 },
+      "",
+      window.location.href,
+    );
+
     const handlePopState = (e: PopStateEvent) => {
       // Re-push state to stay on quiz
       window.history.pushState({ page: "quiz" }, "", window.location.href);
-      
+
       // Show popup if not already shown and user has started quiz
       if (!hasShownExitPopupRef.current && stepIndexRef.current > 1) {
         hasShownExitPopupRef.current = true;
@@ -154,7 +165,11 @@ export default function Quiz() {
     };
 
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !hasShownExitPopupRef.current && stepIndexRef.current > 1) {
+      if (
+        e.clientY <= 0 &&
+        !hasShownExitPopupRef.current &&
+        stepIndexRef.current > 1
+      ) {
         hasShownExitPopupRef.current = true;
         setShowExitPopup(true);
       }
@@ -196,7 +211,7 @@ export default function Quiz() {
 
         localStorage.setItem("emcinco_answers", JSON.stringify(answers));
         localStorage.setItem("emcinco_name", name);
-        
+
         // Classificar perfil do usuário (emocional vs racional)
         const checkoutProfile = getCheckoutProfile(answers);
         localStorage.setItem("emcinco_checkout_profile", checkoutProfile);
@@ -267,28 +282,56 @@ export default function Quiz() {
               {landing.subtitle}
             </motion.p>
 
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="flex items-stretch justify-center gap-3 mb-8"
             >
               <div className="flex-1 bg-primary/5 rounded-2xl px-4 py-3 border border-primary/20">
-                <p className="text-xs text-muted-foreground mb-2">{landing.socialProofLabel}</p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {landing.socialProofLabel}
+                </p>
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
-                    <img src={avatar1} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar2} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar3} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img
+                      src={avatar1}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
+                    <img
+                      src={avatar2}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
+                    <img
+                      src={avatar3}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
                   </div>
                   <span className="text-sm font-bold">+847</span>
                 </div>
               </div>
               <div className="flex-1 bg-primary/5 rounded-2xl px-4 py-3 border border-primary/20">
-                <p className="text-xs text-muted-foreground mb-2">{landing.discoveringNow}</p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {landing.discoveringNow}
+                </p>
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
-                    <img src={avatar2} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar3} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar1} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img
+                      src={avatar2}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
+                    <img
+                      src={avatar3}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
+                    <img
+                      src={avatar1}
+                      alt=""
+                      className="w-7 h-7 rounded-full border-2 border-background object-cover"
+                    />
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="relative flex h-2 w-2">
@@ -316,7 +359,7 @@ export default function Quiz() {
               </button>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground"
             >
@@ -369,8 +412,8 @@ export default function Quiz() {
 
           {currentStep.type === "single" && (
             <div className="space-y-6">
-              <QuestionHeader 
-                title={currentStep.question!} 
+              <QuestionHeader
+                title={currentStep.question!}
                 highlight={currentStep.highlight}
                 micro={currentStep.micro}
               />
@@ -457,11 +500,11 @@ export default function Quiz() {
               ) : (
                 currentStep.icon
               )}
-              <InfoTitle 
-                title={currentStep.title!} 
-                highlight={currentStep.highlight} 
+              <InfoTitle
+                title={currentStep.title!}
+                highlight={currentStep.highlight}
               />
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0.6 }}
@@ -483,7 +526,7 @@ export default function Quiz() {
 
           {currentStep.type === "summary" && (
             <div className="space-y-6">
-              <QuestionHeader 
+              <QuestionHeader
                 title={currentStep.title!}
                 highlight={currentStep.highlight}
                 micro={currentStep.micro}
@@ -600,7 +643,7 @@ export default function Quiz() {
 
           {currentStep.type === "benefits" && (
             <div className="space-y-6">
-              <QuestionHeader 
+              <QuestionHeader
                 title={currentStep.title!}
                 highlight={currentStep.highlight}
                 micro={currentStep.micro}
@@ -623,7 +666,9 @@ export default function Quiz() {
                       <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Check className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-base text-foreground font-medium">{benefit}</p>
+                      <p className="text-base text-foreground font-medium">
+                        {benefit}
+                      </p>
                     </motion.div>
                   ))}
                 </div>
@@ -648,7 +693,7 @@ export default function Quiz() {
 
           {currentStep.type === "timeline" && (
             <div className="space-y-6">
-              <QuestionHeader 
+              <QuestionHeader
                 title={currentStep.title!}
                 highlight={currentStep.highlight}
                 micro={currentStep.micro}
@@ -665,9 +710,21 @@ export default function Quiz() {
                     data={[
                       { name: landing.now, value: 20, label: landing.start },
                       { name: landing.week1, value: 40, label: landing.base },
-                      { name: landing.week2, value: 65, label: landing.building },
-                      { name: landing.week3, value: 85, label: landing.momentum },
-                      { name: landing.week4, value: 100, label: landing.mastery },
+                      {
+                        name: landing.week2,
+                        value: 65,
+                        label: landing.building,
+                      },
+                      {
+                        name: landing.week3,
+                        value: 85,
+                        label: landing.momentum,
+                      },
+                      {
+                        name: landing.week4,
+                        value: 100,
+                        label: landing.mastery,
+                      },
                     ]}
                     margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
                   >
@@ -859,15 +916,22 @@ export default function Quiz() {
         onContinue={handleContinue}
         disabled={!isStepValid()}
         loading={createLead.isPending}
-        label={stepIndex === steps.length - 1 ? landing.generatePlan : landing.continue}
+        label={
+          stepIndex === steps.length - 1
+            ? landing.generatePlan
+            : landing.continue
+        }
         className={
-          ["single", "likert"].includes(currentStep.type) && currentStep.type !== "diagnosis" ? "hidden" : ""
+          ["single", "likert"].includes(currentStep.type) &&
+          currentStep.type !== "diagnosis"
+            ? "hidden"
+            : ""
         }
       />
 
       <QuizExitPopup
         isOpen={showExitPopup}
-        onClose={() => setShowExitPopup(false)}
+        onClose={() => router.push("/result-back-offer")}
         onContinue={() => setShowExitPopup(false)}
         progress={progress}
       />
