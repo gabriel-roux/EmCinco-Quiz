@@ -187,6 +187,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         ],
       },
       {
+        id: "story_1",
+        type: "info",
+        title: "Tu problema no es pereza.",
+        highlight: "no es pereza",
+        text: "Si aprender parece difícil, es porque tu sistema está sobrecargado: atención dispersa, metas confusas y demasiadas decisiones. Nuestro método reconstruye ese sistema en solo 5 minutos al día.",
+        visual: "image",
+        image: "batteryLow",
+      },
+      {
         id: "outcome_desire",
         type: "multi",
         question: "¿Cómo mejora tu vida cuando resuelves esto?",
@@ -232,6 +241,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         ],
       },
       {
+        id: "authority_info",
+        type: "info",
+        title: "Basado en neurociencia.",
+        highlight: "neurociencia",
+        text: "Nuestra IA combina micro-hábitos, ambientes correctos y pequeños refuerzos de dopamina, haciendo tu evolución fácil y natural.",
+        visual: "image",
+        image: "cartoonLearning",
+      },
+      {
         id: "dedicated_time",
         type: "single",
         question: "Siendo realista: ¿cuánto tiempo al día puedes dedicar para mejorar?",
@@ -264,25 +282,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
           "No, estoy empezando ahora",
         ],
       },
-      // FASE 3: Solução (blocos info)
-      {
-        id: "story_1",
-        type: "info",
-        title: "Tu problema no es pereza.",
-        highlight: "no es pereza",
-        text: "Si aprender parece difícil, es porque tu sistema está sobrecargado: atención dispersa, metas confusas y demasiadas decisiones. Nuestro método reconstruye ese sistema en solo 5 minutos al día.",
-        visual: "image",
-        image: "batteryLow",
-      },
-      {
-        id: "authority_info",
-        type: "info",
-        title: "Basado en neurociencia.",
-        highlight: "neurociencia",
-        text: "Nuestra IA combina micro-hábitos, ambientes correctos y pequeños refuerzos de dopamina, haciendo tu evolución fácil y natural.",
-        visual: "image",
-        image: "cartoonLearning",
-      },
       {
         id: "expert_review",
         type: "info",
@@ -307,17 +306,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         title: "Análisis de Perfil Completado",
         text: "El problema no es falta de capacidad — es sobrecarga mental. EmCinco resuelve esto con misiones de 5 min/día diseñadas para tu perfil específico.",
         image: "profile",
-      },
-      {
-        id: "benefits_summary",
-        type: "benefits",
-        title: "Lo que recibes ahora:",
-        benefits: [
-          "Plan 100% personalizado para tu perfil",
-          "Misiones de solo 5 min/día (cabe en tu rutina)",
-          "Resultados reales en 4 semanas: más enfoque, confianza y dinero",
-          "Garantía: si no sientes diferencia, devolvemos todo",
-        ],
       },
       {
         id: "timeline_view",
@@ -522,6 +510,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       ],
     },
     {
+      id: "story_1",
+      type: "info",
+      title: "Seu problema não é preguiça.",
+      highlight: "não é preguiça",
+      text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O nosso método reconstrói esse sistema em apenas 5 minutos por dia.",
+      visual: "image",
+      image: "batteryLow",
+    },
+    {
       id: "outcome_desire",
       type: "multi",
       question: "Como sua vida melhora quando você resolve isso?",
@@ -567,6 +564,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       ],
     },
     {
+      id: "authority_info",
+      type: "info",
+      title: "Fundamentado em neurociência.",
+      highlight: "neurociência",
+      text: "Nossa IA combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
+      visual: "image",
+      image: "cartoonLearning",
+    },
+    {
       id: "dedicated_time",
       type: "single",
       question: "Sendo realista: quanto tempo por dia você consegue dedicar para evoluir?",
@@ -599,25 +605,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         "Não, estou começando agora",
       ],
     },
-    // FASE 3: Solução (blocos info)
-    {
-      id: "story_1",
-      type: "info",
-      title: "Seu problema não é preguiça.",
-      highlight: "não é preguiça",
-      text: "Se aprender parece difícil, é porque o seu sistema está sobrecarregado: atenção dispersa, metas confusas e decisões demais. O nosso método reconstrói esse sistema em apenas 5 minutos por dia.",
-      visual: "image",
-      image: "batteryLow",
-    },
-    {
-      id: "authority_info",
-      type: "info",
-      title: "Fundamentado em neurociência.",
-      highlight: "neurociência",
-      text: "Nossa IA combina micro-hábitos, ambiente certos e pequenos reforços de dopamina, deixando sua evolução fácil e natural.",
-      visual: "image",
-      image: "cartoonLearning",
-    },
     {
       id: "expert_review",
       type: "info",
@@ -642,17 +629,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       title: "Análise de Perfil Concluída",
       text: "O problema não é falta de capacidade — é sobrecarga mental. O EmCinco resolve isso com missões de 5 min/dia feitas para o seu perfil específico.",
       image: "profile",
-    },
-    {
-      id: "benefits_summary",
-      type: "benefits",
-      title: "O que você recebe agora:",
-      benefits: [
-        "Plano 100% personalizado pro seu perfil",
-        "Missões de só 5 min/dia (cabe na sua rotina)",
-        "Resultados reais em 4 semanas: mais foco, confiança e dinheiro",
-        "Garantia: se não sentir diferença, devolvemos tudo",
-      ],
     },
     {
       id: "timeline_view",
