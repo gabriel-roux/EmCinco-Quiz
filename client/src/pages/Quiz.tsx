@@ -54,6 +54,9 @@ import cartoonLearningImg from "@assets/generated_images/cartoon_of_person_learn
 import avatar1 from "@assets/avatars/avatar1_1.jpg";
 import avatar2 from "@assets/avatars/avatar1_2.jpg";
 import avatar3 from "@assets/avatars/avatar1_3.jpg";
+import avatar4 from "@assets/avatars/avatar2_1.jpg";
+import avatar5 from "@assets/avatars/avatar2_2.jpg";
+import avatar6 from "@assets/avatars/avatar2_3.jpg";
 
 const imageMap: Record<string, string> = {
   batteryLow: batteryLowImg,
@@ -338,17 +341,17 @@ export default function Quiz() {
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
                     <img
-                      src={avatar2}
+                      src={avatar4}
                       alt=""
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar3}
+                      src={avatar5}
                       alt=""
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar1}
+                      src={avatar6}
                       alt=""
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
