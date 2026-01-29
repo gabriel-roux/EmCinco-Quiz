@@ -29,8 +29,10 @@ import {
   Timer,
   TrendingUp,
   ChevronRight,
+  Check,
+  Clock,
 } from "lucide-react";
-import { Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useCreateLead } from "@/hooks/use-leads";
 import { useToast } from "@/hooks/use-toast";
 import { useLocale } from "@/lib/i18n";
@@ -535,6 +537,54 @@ export default function Quiz() {
                   />
                 </div>
               </div>
+            </div>
+          )}
+
+          {currentStep.type === "benefits" && (
+            <div className="space-y-6">
+              <QuestionHeader 
+                title={currentStep.title!}
+                highlight={currentStep.highlight}
+                micro={currentStep.micro}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-2xl p-6 border border-green-500/20 shadow-sm"
+              >
+                <div className="space-y-4">
+                  {currentStep.benefits?.map((benefit, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.15 }}
+                      className="flex items-start gap-3"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                      <p className="text-base text-foreground font-medium">{benefit}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-center"
+              >
+                <Button
+                  onClick={handleContinue}
+                  className="w-full max-w-xs mx-auto bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl text-lg shadow-lg"
+                  data-testid="button-benefits-continue"
+                >
+                  {landing.continue}
+                </Button>
+              </motion.div>
             </div>
           )}
 

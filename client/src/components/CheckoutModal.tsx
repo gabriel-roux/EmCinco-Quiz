@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Lock } from "lucide-react";
+import { X, Lock, Flame } from "lucide-react";
 import { SiVisa, SiMastercard, SiAmericanexpress } from "react-icons/si";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -207,6 +207,16 @@ function CheckoutForm({
           </div>
           <div className="text-right text-sm text-green-600">
             {landingContent[locale].youSaved} {discountText} ({discountPercent} OFF)
+          </div>
+        </div>
+
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-3 space-y-2" data-testid="social-proof-banner">
+          <div className="flex items-center justify-center gap-2 text-sm font-medium text-amber-800 dark:text-amber-200">
+            <Flame className="w-4 h-4 animate-pulse text-orange-500" />
+            <span>{landingContent[locale].moreThan9000} {landingContent[locale].choseEmcinco}</span>
+          </div>
+          <div className="text-center text-xs text-amber-700 dark:text-amber-300">
+            {landingContent[locale].limitedSpots}
           </div>
         </div>
 

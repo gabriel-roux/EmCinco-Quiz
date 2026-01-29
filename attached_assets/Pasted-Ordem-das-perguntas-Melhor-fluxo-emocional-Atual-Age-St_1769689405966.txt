@@ -1,0 +1,44 @@
+Ordem das perguntas – Melhor fluxo emocional
+Atual: Age → Struggle → Likerts → Focus blockers → Diagnosis → Autopilot → Typical day...
+Sugestão de nova ordem (mais agressiva na dor no início):
+Landing
+Struggle (cutuca dor forte logo)
+Screen_distraction (dá gatilho imediato com celular)
+Typical_day (faz refletir sobre rotina)
+Autopilot_likert (concordância alta)
+Consistency_likert + Focus_likert (mais concordância)
+Focus_blockers
+Bad_habits (multi, reforça dores)
+Routine_chaos (como se sente no progresso)
+Age (deixa pro meio, menos invasivo)
+Fix_priority (já começa a transição pra solução)
+Suffering_area + Outcome_desire (mostra impacto e desejo)
+Skill_interest + Learning_style
+Dedicated_time + Commitment_time
+App_experience (valida frustração anterior)
+Blocos info (story_1, authority_info, expert_review, habit_stacking_info)
+Profile_summary (Fase 3 forte)
+Captura (email, nome, whatsapp)
+
+Isso cria pico emocional cedo (dor → concordância) e solução depois, aumentando retenção.
+Melhorar blocos de info (Fase 3 – Solução)
+Atual: Bom, mas genérico.
+Sugestão: Torne mais personalizado e urgente:
+No profile_summary: Use variáveis das respostas (ex.: "Seu maior bloqueio é [bad_habit mais escolhido] e [focus_blocker]. O problema não é falta de capacidade – é sobrecarga. O EmCinco resolve isso com missões de 5 min/dia.")
+Adicione mais urgência no habit_stacking_info: "Sua jornada de 4 semanas está pronta. Mas vagas limitadas – comece hoje antes que feche."
+No timeline_view: Mostre semanas com ícones + texto curto: Semana 1: "Pare de quebrar promessas consigo mesmo" (baseado em leads que "começam mas abandonam").
+
+
+Adições rápidas pra aumentar conversão
+No final do quiz (antes de captura): Adicione um bloco "O que você ganha agora":
+"Plano 100% personalizado pro seu perfil"
+"Missões de só 5 min/dia (cabe na sua rotina)"
+"Resultados reais em 4 semanas: mais foco, confiança e dinheiro"
+"Garantia: se não sentir diferença, devolvemos tudo"
+
+No checkout (landingContent): Reforce prova social e urgência: "Mais de 3.812 pessoas já escolheram EmCinco" + timer "Oferta encerra em X minutos" + "Vagas limitadas".
+
+Adaptação pro espanhol (Costa Rica/Chile)
+O ES já está bom, mas ajuste headlines pra dores locais (procrastinación, dispersión, estancamiento).
+Exemplo novo headline ES: "¿Cansado de empezar emocionado y abandonar todo?"
+Mantenha consistência nas opções (ex.: "Procrastinación" em vez de "Procrastinação").
