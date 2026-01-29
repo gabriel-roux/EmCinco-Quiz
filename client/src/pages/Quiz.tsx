@@ -102,6 +102,7 @@ export default function Quiz() {
   const createLead = useCreateLead();
   const { locale } = useLocale();
   const hasShownExitPopupRef = useRef(false);
+  const stepIndexRef = useRef(stepIndex);
 
   const steps = useMemo(() => getQuizSteps(locale), [locale]);
   const landing = landingContent[locale];
@@ -130,27 +131,33 @@ export default function Quiz() {
     }
   }, []);
 
+  // Keep stepIndexRef in sync
+  useEffect(() => {
+    stepIndexRef.current = stepIndex;
+  }, [stepIndex]);
+
   // Exit intent detection for quiz (only after user has started)
   useEffect(() => {
-    if (stepIndex <= 1) return; // Don't show on welcome screen
+    // Add initial history entry when component mounts
+    window.history.pushState({ page: "quiz", step: 0 }, "", window.location.href);
     
-    const handlePopState = () => {
-      if (hasShownExitPopupRef.current || showExitPopup) return;
-      hasShownExitPopupRef.current = true;
-      setShowExitPopup(true);
-      // Push state back to prevent actual navigation
+    const handlePopState = (e: PopStateEvent) => {
+      // Re-push state to stay on quiz
       window.history.pushState({ page: "quiz" }, "", window.location.href);
-    };
-
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !hasShownExitPopupRef.current && !showExitPopup) {
+      
+      // Show popup if not already shown and user has started quiz
+      if (!hasShownExitPopupRef.current && stepIndexRef.current > 1) {
         hasShownExitPopupRef.current = true;
         setShowExitPopup(true);
       }
     };
 
-    // Push initial state
-    window.history.pushState({ page: "quiz" }, "", window.location.href);
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !hasShownExitPopupRef.current && stepIndexRef.current > 1) {
+        hasShownExitPopupRef.current = true;
+        setShowExitPopup(true);
+      }
+    };
 
     window.addEventListener("popstate", handlePopState);
     document.addEventListener("mouseleave", handleMouseLeave);
@@ -159,7 +166,7 @@ export default function Quiz() {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [stepIndex, showExitPopup]);
+  }, []);
 
   const handleAnswer = (key: string, value: any) => {
     setAnswers((prev: QuizAnswers) => ({ ...prev, [key]: value }));
