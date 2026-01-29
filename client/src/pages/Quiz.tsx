@@ -214,46 +214,46 @@ export default function Quiz() {
               </span>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="mb-6">
-              <img src={logoEmcinco} alt="EmCinco" className="h-12 mx-auto" />
+            <motion.div variants={itemVariants} className="mb-4">
+              <img src={logoEmcinco} alt="EmCinco" className="h-14 mx-auto" />
             </motion.div>
 
             <motion.p
               variants={itemVariants}
               className="text-muted-foreground text-base mb-8 leading-relaxed max-w-sm mx-auto"
             >
-              {selectedHeadline.subtitle}
+              {landing.subtitle}
             </motion.p>
 
             <motion.div 
               variants={itemVariants}
-              className="flex items-stretch justify-center gap-4 mb-8"
+              className="flex items-stretch justify-center gap-3 mb-8"
             >
-              <div className="flex-1 bg-muted/50 rounded-xl px-4 py-3 border border-border">
-                <p className="text-xs text-muted-foreground mb-1">{landing.socialProofLabel}</p>
+              <div className="flex-1 bg-primary/5 rounded-2xl px-4 py-3 border border-primary/20">
+                <p className="text-xs text-muted-foreground mb-2">{landing.socialProofLabel}</p>
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
-                    <img src={avatar1} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar2} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar3} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar1} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar2} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar3} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
                   </div>
-                  <span className="text-sm font-semibold">+847</span>
+                  <span className="text-sm font-bold">+847</span>
                 </div>
               </div>
-              <div className="flex-1 bg-muted/50 rounded-xl px-4 py-3 border border-border">
-                <p className="text-xs text-muted-foreground mb-1">{landing.discoveringNow}</p>
+              <div className="flex-1 bg-primary/5 rounded-2xl px-4 py-3 border border-primary/20">
+                <p className="text-xs text-muted-foreground mb-2">{landing.discoveringNow}</p>
                 <div className="flex items-center justify-center gap-2">
-                  <div className="flex -space-x-1">
-                    <img src={avatar2} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar3} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
-                    <img src={avatar1} alt="" className="w-6 h-6 rounded-full border-2 border-background object-cover" />
+                  <div className="flex -space-x-2">
+                    <img src={avatar2} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar3} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
+                    <img src={avatar1} alt="" className="w-7 h-7 rounded-full border-2 border-background object-cover" />
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
-                    <span className="text-sm font-semibold">{liveCount}</span>
+                    <span className="text-sm font-bold">{liveCount}</span>
                   </div>
                 </div>
               </div>
@@ -261,16 +261,16 @@ export default function Quiz() {
 
             <motion.div variants={itemVariants} className="mb-8">
               <button
-                className="relative w-full py-5 text-base font-semibold gap-2 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
+                className="relative w-full py-5 text-base font-semibold gap-2 bg-primary text-primary-foreground rounded-2xl hover:bg-primary/90 transition-colors flex items-center justify-center overflow-hidden"
                 onClick={() => {
                   handleAnswer("goal", "Life");
                   setStepIndex(1);
                 }}
                 data-testid="button-start-quiz"
               >
-                <span className="absolute inset-0 rounded-xl animate-pulse bg-primary/30"></span>
+                <span className="absolute inset-0 rounded-2xl animate-pulse bg-white/10"></span>
                 <MessageSquare className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">{landing.cta}</span>
+                <span className="relative z-10">{landing.ctaDiscover}</span>
               </button>
             </motion.div>
 
