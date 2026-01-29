@@ -318,36 +318,27 @@ export default function Result() {
 
   // Detectar tentativa de voltar/sair e redirecionar para back offer
   useEffect(() => {
-    // Push initial state
+    // Check if already seen back offer
+    const seenBackOffer = sessionStorage.getItem("emcinco_seen_back_offer");
+    if (seenBackOffer) return;
+
+    // Push initial state to enable back button detection
     window.history.pushState({ page: "result" }, "", window.location.href);
 
-    const handlePopState = (e: PopStateEvent) => {
+    const handlePopState = () => {
       if (hasRedirectedRef.current) return;
-      
-      // Check if already seen back offer
-      const seenBackOffer = sessionStorage.getItem("emcinco_seen_back_offer");
-      if (seenBackOffer) {
-        return; // Let them go back normally
-      }
-
-      // Prevent default back behavior
-      e.preventDefault();
-      window.history.pushState({ page: "result" }, "", window.location.href);
       
       hasRedirectedRef.current = true;
       sessionStorage.setItem("emcinco_seen_back_offer", "true");
-      navigate("/result-back-offer");
+      window.location.href = "/result-back-offer";
     };
 
     // Mouse leave detection (exit intent)
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0 && !hasRedirectedRef.current) {
-        const seenBackOffer = sessionStorage.getItem("emcinco_seen_back_offer");
-        if (!seenBackOffer) {
-          hasRedirectedRef.current = true;
-          sessionStorage.setItem("emcinco_seen_back_offer", "true");
-          navigate("/result-back-offer");
-        }
+        hasRedirectedRef.current = true;
+        sessionStorage.setItem("emcinco_seen_back_offer", "true");
+        window.location.href = "/result-back-offer";
       }
     };
 
@@ -358,7 +349,7 @@ export default function Result() {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [navigate]);
+  }, []);
 
   const copy = profileCopy[profile];
 
