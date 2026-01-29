@@ -602,6 +602,34 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
   const [loading, setLoading] = useState(true);
   const { locale } = useLocale();
   const content = landingContent[locale];
+  
+  const highlights = content.diagnosisHighlights || ["PERSONALIZAR", "SUA", "RECOMENDAÇÃO"];
+  const words = (content.diagnosisTitle || "").split(" ");
+  
+  const renderWord = (word: string, index: number) => {
+    const cleanWord = word.replace(/[.,!?]/g, "");
+    const punctuation = word.match(/[.,!?]/)?.[0] || "";
+    const isHighlighted = highlights.some((h: string) => cleanWord.toUpperCase() === h.toUpperCase());
+    
+    return (
+      <motion.span
+        key={index}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.3 + (index * 0.04), ease: "easeOut" }}
+        className="inline"
+      >
+        {isHighlighted ? (
+          <span className="bg-primary text-white px-1.5 py-0.5 mx-0.5">
+            {cleanWord}
+          </span>
+        ) : (
+          <span>{cleanWord}</span>
+        )}
+        {punctuation}{" "}
+      </motion.span>
+    );
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -627,50 +655,41 @@ export function DiagnosisStep({ onContinue }: { onContinue: () => void }) {
         ) : (
           <motion.div
             key="content"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-card rounded-3xl p-8 md:p-10 border border-border shadow-xl space-y-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center text-center space-y-6"
           >
-            <div className="space-y-6">
-              <h2 className="text-2xl md:text-3xl font-mono font-bold text-foreground leading-tight">
-                {content.diagnosisTitle} ✅
-              </h2>
-              
-              <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {content.diagnosisText1}
-                </motion.p>
-                
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  {content.diagnosisText2}
-                </motion.p>
-                
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  {content.diagnosisNote}
-                </motion.p>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-border space-y-4">
-              <p className="font-semibold text-foreground text-lg italic">
-                "{content.diagnosisQuestion}"
-              </p>
-              <p className="text-primary font-bold text-xl">
-                {content.diagnosisPrompt}
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <span className="inline-block px-4 py-1.5 bg-background border border-border rounded-full text-xs font-semibold tracking-wider text-foreground">
+                {content.diagnosisBadge}
+              </span>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="w-10 h-10 rounded-full bg-muted flex items-center justify-center"
+            >
+              <Check className="w-6 h-6 text-foreground" />
+            </motion.div>
+            
+            <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground leading-tight tracking-tight">
+              {words.map((word, i) => renderWord(word, i))}
+            </h1>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+              className="text-base text-muted-foreground leading-relaxed max-w-sm"
+            >
+              {content.diagnosisText}
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
