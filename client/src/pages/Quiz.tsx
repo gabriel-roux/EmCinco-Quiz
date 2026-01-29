@@ -109,7 +109,6 @@ export default function Quiz() {
   const { locale } = useLocale();
   const hasShownExitPopupRef = useRef(false);
   const stepIndexRef = useRef(stepIndex);
-  const router = useRouter();
 
   const steps = useMemo(() => getQuizSteps(locale), [locale]);
   const landing = landingContent[locale];
@@ -930,7 +929,7 @@ export default function Quiz() {
 
       <QuizExitPopup
         isOpen={showExitPopup}
-        onClose={() => router.push("/result-back-offer")}
+        onClose={() => (window.location.href = "/result-back-offer")}
         onContinue={() => setShowExitPopup(false)}
         progress={progress}
       />
