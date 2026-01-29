@@ -92,6 +92,10 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         micro: "Enfoque y Atención",
       },
       {
+        id: "diagnosis_rapid",
+        type: "diagnosis",
+      },
+      {
         id: "focus_blockers",
         type: "single",
         question: "Hoy en día, ¿cuál es tu mayor desafío con el enfoque y la productividad?",
@@ -134,11 +138,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
           "Estoy bien, pero quiero mejorar",
         ],
       },
-      {
-        id: "diagnosis_rapid",
-        type: "diagnosis",
-      },
-      // FASE 2: Transición (perfil y deseos)
       {
         id: "age",
         type: "single",
@@ -263,6 +262,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         ],
       },
       {
+        id: "habit_stacking_info",
+        type: "info",
+        title: "Tu viaje de 4 semanas está listo.",
+        highlight: "4 semanas",
+        text: "Analizamos tu perfil y creamos una ruta que elimina la procrastinación. Vagas limitadas — comienza hoy antes de que se cierre tu cupo.",
+        visual: "image",
+        image: "profile",
+      },
+      {
         id: "commitment_time",
         type: "single",
         question: "¿Cuánto tiempo quieres dedicar diariamente a tu plan EmCinco?",
@@ -290,15 +298,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         text: "Basándonos en tus respuestas, creamos una ruta única con misiones de 5 minutos que se adaptan a tu ritmo. Sin esfuerzo. Sin decisiones. Solo seguir el plan.",
         visual: "image",
         image: "engine",
-      },
-      {
-        id: "habit_stacking_info",
-        type: "info",
-        title: "Tu viaje de 4 semanas está listo.",
-        highlight: "4 semanas",
-        text: "Analizamos tu perfil y creamos una ruta que elimina la procrastinación. Vagas limitadas — comienza hoy antes de que se cierre tu cupo.",
-        visual: "image",
-        image: "profile",
       },
       {
         id: "profile_summary",
@@ -415,6 +414,10 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       micro: "Foco e Atenção",
     },
     {
+      id: "diagnosis_rapid",
+      type: "diagnosis",
+    },
+    {
       id: "focus_blockers",
       type: "single",
       question: "Hoje em dia, qual é o seu maior desafio com foco e produtividade?",
@@ -457,11 +460,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
         "Estou bem, mas quero melhorar",
       ],
     },
-    {
-      id: "diagnosis_rapid",
-      type: "diagnosis",
-    },
-    // FASE 2: Transição (perfil e deseos)
     {
       id: "age",
       type: "single",
@@ -586,6 +584,15 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       ],
     },
     {
+      id: "habit_stacking_info",
+      type: "info",
+      title: "Sua jornada de 4 semanas está pronta.",
+      highlight: "4 semanas",
+      text: "Analisamos seu perfil e criamos uma trilha que elimina a procrastinação. Vagas limitadas — comece hoje antes que seu acesso seja fechado.",
+      visual: "image",
+      image: "profile",
+    },
+    {
       id: "commitment_time",
       type: "single",
       question: "Quanto tempo você quer dedicar diariamente ao seu plano EmCinco?",
@@ -613,15 +620,6 @@ export function getQuizSteps(locale: Locale): QuizStep[] {
       text: "Com base nas suas respostas, criamos uma trilha única com missões de 5 minutos que se adaptam ao seu ritmo. Sem esforço. Sem decisões. Apenas seguir o plano.",
       visual: "image",
       image: "engine",
-    },
-    {
-      id: "habit_stacking_info",
-      type: "info",
-      title: "Sua jornada de 4 semanas está pronta.",
-      highlight: "4 semanas",
-      text: "Analisamos seu perfil e criamos uma trilha que elimina a procrastinação. Vagas limitadas — comece hoje antes que seu acesso seja fechado.",
-      visual: "image",
-      image: "profile",
     },
     {
       id: "profile_summary",
