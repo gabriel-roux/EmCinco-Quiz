@@ -5,8 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LocaleProvider } from "@/lib/i18n";
 import { lazy, Suspense } from "react";
-import Quiz from "@/pages/Quiz";
 
+const Quiz = lazy(() => import("@/pages/Quiz"));
 const Processing = lazy(() => import("@/pages/Processing"));
 const Result = lazy(() => import("@/pages/Result"));
 const ResultFinal = lazy(() => import("@/pages/ResultFinal"));
