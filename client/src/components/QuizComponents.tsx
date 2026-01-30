@@ -453,15 +453,22 @@ interface OptimizedImageProps {
   src: string;
   alt?: string;
   className?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
 }
 
-export function OptimizedImage({ src, alt = "", className }: OptimizedImageProps) {
+export function OptimizedImage({ src, alt = "", className, width = 300, height = 300, priority = false }: OptimizedImageProps) {
   return (
     <img
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       className={cn("object-contain", className)}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={priority ? "high" : "low"}
     />
   );
 }
