@@ -5,9 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LocaleProvider } from "@/lib/i18n";
 import { lazy, Suspense } from "react";
-import { Loader2 } from "lucide-react";
+import Quiz from "@/pages/Quiz";
 
-const Quiz = lazy(() => import("@/pages/Quiz"));
 const Processing = lazy(() => import("@/pages/Processing"));
 const Result = lazy(() => import("@/pages/Result"));
 const ResultFinal = lazy(() => import("@/pages/ResultFinal"));
@@ -17,8 +16,11 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 
 function PageLoader() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <Loader2 className="w-8 h-8 animate-spin text-primary" />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-primary/5 to-background gap-4">
+      <div className="relative">
+        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+      </div>
+      <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
     </div>
   );
 }
