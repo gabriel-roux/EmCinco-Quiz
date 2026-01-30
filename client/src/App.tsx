@@ -15,14 +15,7 @@ const Success = lazy(() => import("@/pages/Success"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function PageLoader() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-primary/5 to-background gap-4">
-      <div className="relative">
-        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-      </div>
-      <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
-    </div>
-  );
+  return null;
 }
 
 function Router() {
