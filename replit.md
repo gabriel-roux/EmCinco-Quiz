@@ -5,6 +5,7 @@
 EmCinco is a high-conversion quiz application designed to diagnose users' learning blockers and generate personalized 4-week skill development plans. The app follows a "Ruut/Noom/BetterMe" style quiz flow with gamification elements, progress tracking, and AI-powered plan generation. Users complete approximately 25-30 interactive quiz screens, then receive a personalized profile and weekly learning plan.
 
 ## Recent Changes
+- **Performance Optimizations**: Deferred Facebook Pixel and Clarity scripts with stub queue to prevent event loss, lazy loading on images with decoding="async", font loading optimization with media="print" trick
 - **Facebook Pixel & CAPI**: Integrated Meta Pixel (browser-side) and Conversions API (server-side) for tracking ViewContent, InitiateCheckout, AddPaymentInfo, and Purchase events
 - **Checkout Improvements**: Pre-fill email/name from quiz in Stripe checkout, fixed scroll issues in modal
 - **Exit Popup**: Fixed centering with flexbox and backdrop blur
