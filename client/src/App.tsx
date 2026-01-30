@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LocaleProvider } from "@/lib/i18n";
 import { lazy, Suspense } from "react";
+import Welcome from "@/pages/Welcome";
 
 const Quiz = lazy(() => import("@/pages/Quiz"));
 const Processing = lazy(() => import("@/pages/Processing"));
@@ -20,24 +21,50 @@ function PageLoader() {
 
 function Router() {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Switch>
-        <Route path="/" component={Quiz} />
-        <Route path="/processing" component={Processing} />
-        <Route path="/result" component={Result} />
-        <Route path="/result-final" component={ResultFinal} />
-        <Route path="/result-back-offer" component={ResultBackOffer} />
-        <Route path="/success" component={Success} />
-        <Route
-          path="/login"
-          component={() =>
-            (window.location.href = "https://app.emcinco.com/login")
-          }
-        />
-        <Route path="/quiz">{() => <Quiz />}</Route>
-        <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route path="/" component={Welcome} />
+      <Route path="/quiz">
+        <Suspense fallback={<PageLoader />}>
+          <Quiz />
+        </Suspense>
+      </Route>
+      <Route path="/processing">
+        <Suspense fallback={<PageLoader />}>
+          <Processing />
+        </Suspense>
+      </Route>
+      <Route path="/result">
+        <Suspense fallback={<PageLoader />}>
+          <Result />
+        </Suspense>
+      </Route>
+      <Route path="/result-final">
+        <Suspense fallback={<PageLoader />}>
+          <ResultFinal />
+        </Suspense>
+      </Route>
+      <Route path="/result-back-offer">
+        <Suspense fallback={<PageLoader />}>
+          <ResultBackOffer />
+        </Suspense>
+      </Route>
+      <Route path="/success">
+        <Suspense fallback={<PageLoader />}>
+          <Success />
+        </Suspense>
+      </Route>
+      <Route
+        path="/login"
+        component={() =>
+          (window.location.href = "https://app.emcinco.com/login")
+        }
+      />
+      <Route>
+        <Suspense fallback={<PageLoader />}>
+          <NotFound />
+        </Suspense>
+      </Route>
+    </Switch>
   );
 }
 

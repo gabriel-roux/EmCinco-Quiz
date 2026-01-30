@@ -91,7 +91,7 @@ function getCheckoutProfile(answers: QuizAnswers): "emocional" | "racional" {
 }
 
 export default function Quiz() {
-  const [stepIndex, setStepIndex] = useState(1);
+  const [stepIndex, setStepIndex] = useState(1); // Start at step 1 (skip landing, handled by Welcome page)
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [, setLocation] = useLocation();
