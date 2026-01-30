@@ -109,10 +109,13 @@ export default function Quiz() {
   };
 
   useEffect(() => {
-    if (!answers.goal && stepIndex > 0) {
-      setStepIndex(0);
+    // If no goal is set, we might be starting fresh.
+    // However, we don't want to force stepIndex to 0 because that step logic was removed.
+    // Instead, if we are at step 0, we move to step 1.
+    if (stepIndex === 0) {
+      setStepIndex(1);
     }
-  }, []);
+  }, [stepIndex]);
 
   // Keep stepIndexRef in sync
   useEffect(() => {
