@@ -40,9 +40,13 @@ export function trackEvent(
   params?: Record<string, any>,
   eventId?: string
 ): void {
+  console.log(`[FB Pixel] trackEvent called: ${eventName}`, { params, eventId, hasFbq: !!window.fbq });
   if (typeof window !== "undefined" && window.fbq) {
     const options = eventId ? { eventID: eventId } : undefined;
     window.fbq("track", eventName, params, options);
+    console.log(`[FB Pixel] Event sent to Meta Pixel: ${eventName}`);
+  } else {
+    console.warn(`[FB Pixel] window.fbq not available - event NOT sent: ${eventName}`);
   }
 }
 
@@ -133,11 +137,12 @@ export async function sendServerEvent(
   customData?: CustomData,
   eventId?: string
 ): Promise<void> {
+  console.log(`[FB CAPI] sendServerEvent called: ${eventName}`, { userData, customData, eventId });
   try {
     const fbc = document.cookie.match(/_fbc=([^;]+)/)?.[1] || "";
     const fbp = document.cookie.match(/_fbp=([^;]+)/)?.[1] || "";
 
-    await fetch("/api/facebook/event", {
+    const response = await fetch("/api/facebook/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -153,7 +158,9 @@ export async function sendServerEvent(
         customData,
       }),
     });
+    const result = await response.json();
+    console.log(`[FB CAPI] Server response for ${eventName}:`, result);
   } catch (error) {
-    console.error("Failed to send server event:", error);
+    console.error("[FB CAPI] Failed to send server event:", error);
   }
 }
