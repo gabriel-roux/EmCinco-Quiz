@@ -19,30 +19,39 @@ export default function Success() {
 
   useEffect(() => {
     const verifyPaymentAndTrack = async () => {
+      console.log("[DEBUG] Success page loaded - starting verification");
+      console.log("[DEBUG] Full URL:", window.location.href);
+      
       // Get payment_intent from URL 
       // Works for both direct navigation and Stripe redirect (3DS flow)
       // Stripe automatically adds payment_intent, payment_intent_client_secret, and redirect_status to return_url
       const urlParams = new URLSearchParams(window.location.search);
       let paymentIntentId = urlParams.get("payment_intent");
       
+      console.log("[DEBUG] payment_intent from URL:", paymentIntentId);
+      
       // Also check for redirect_status to confirm Stripe redirect
       const redirectStatus = urlParams.get("redirect_status");
+      console.log("[DEBUG] redirect_status:", redirectStatus);
+      
       if (redirectStatus && redirectStatus !== "succeeded") {
-        console.error("Stripe redirect status not succeeded:", redirectStatus);
+        console.error("[DEBUG] Stripe redirect status not succeeded:", redirectStatus);
         setIsVerifying(false);
         return;
       }
 
       if (!paymentIntentId) {
-        console.error("No payment_intent in URL - Purchase event NOT sent");
+        console.error("[DEBUG] No payment_intent in URL - Purchase event NOT sent");
         setIsVerifying(false);
         return;
       }
 
       // Client-side dedupe: check localStorage
       const trackedPayments = JSON.parse(localStorage.getItem("emcinco_tracked_purchases") || "[]");
+      console.log("[DEBUG] Already tracked payments:", trackedPayments);
+      
       if (trackedPayments.includes(paymentIntentId)) {
-        console.log("Payment already tracked (localStorage):", paymentIntentId);
+        console.log("[DEBUG] Payment already tracked (localStorage):", paymentIntentId);
         setPaymentVerified(true);
         setIsVerifying(false);
         return;
@@ -50,22 +59,27 @@ export default function Success() {
 
       // Prevent duplicate tracking within same page lifecycle
       if (purchaseTrackedRef.current) {
+        console.log("[DEBUG] purchaseTrackedRef already true, skipping");
         setIsVerifying(false);
         return;
       }
 
       try {
         const email = getStoredEmail();
+        console.log("[DEBUG] Email from storage:", email);
         
         // Verify payment with backend (POST with email for security)
+        console.log("[DEBUG] Calling /api/stripe/verify-payment...");
         const response = await fetch("/api/stripe/verify-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ paymentIntentId, email }),
         });
         const data = await response.json();
+        console.log("[DEBUG] Verify-payment response:", data);
 
         if (data.verified) {
+          console.log("[DEBUG] Payment verified! Sending Purchase event...");
           setPaymentVerified(true);
           purchaseTrackedRef.current = true;
 
@@ -83,6 +97,8 @@ export default function Success() {
 
           // Use actual amount from Stripe (in cents, convert to reais)
           const value = data.amount / 100;
+          
+          console.log("[DEBUG] Purchase event params:", { value, contentId, email, firstName });
 
           const purchaseEventId = trackEventWithId("Purchase", {
             currency: "BRL",
@@ -91,6 +107,8 @@ export default function Success() {
             content_type: "product",
             num_items: 1,
           });
+          
+          console.log("[DEBUG] Browser Pixel Purchase sent with eventId:", purchaseEventId);
 
           sendServerEvent(
             "Purchase",
@@ -106,16 +124,16 @@ export default function Success() {
             purchaseEventId,
           );
 
-          console.log("Purchase event sent - payment verified:", paymentIntentId);
+          console.log("[DEBUG] Server CAPI Purchase event sent - payment verified:", paymentIntentId);
         } else if (data.alreadyProcessed) {
           // Server says already tracked
           setPaymentVerified(true);
-          console.log("Payment already tracked (server):", paymentIntentId);
+          console.log("[DEBUG] Payment already tracked (server):", paymentIntentId);
         } else {
-          console.error("Payment not verified - Purchase event NOT sent:", data.status);
+          console.error("[DEBUG] Payment not verified - Purchase event NOT sent:", data.status, data.message);
         }
       } catch (err) {
-        console.error("Error verifying payment:", err);
+        console.error("[DEBUG] Error verifying payment:", err);
       } finally {
         setIsVerifying(false);
       }
