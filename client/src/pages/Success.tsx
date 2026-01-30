@@ -18,128 +18,56 @@ export default function Success() {
   const purchaseTrackedRef = useRef(false);
 
   useEffect(() => {
-    const verifyPaymentAndTrack = async () => {
-      console.log("[DEBUG] Success page loaded - starting verification");
-      console.log("[DEBUG] Full URL:", window.location.href);
-      
-      // Get payment_intent from URL 
-      // Works for both direct navigation and Stripe redirect (3DS flow)
-      // Stripe automatically adds payment_intent, payment_intent_client_secret, and redirect_status to return_url
-      const urlParams = new URLSearchParams(window.location.search);
-      let paymentIntentId = urlParams.get("payment_intent");
-      
-      console.log("[DEBUG] payment_intent from URL:", paymentIntentId);
-      
-      // Also check for redirect_status to confirm Stripe redirect
-      const redirectStatus = urlParams.get("redirect_status");
-      console.log("[DEBUG] redirect_status:", redirectStatus);
-      
-      if (redirectStatus && redirectStatus !== "succeeded") {
-        console.error("[DEBUG] Stripe redirect status not succeeded:", redirectStatus);
-        setIsVerifying(false);
-        return;
-      }
+    // Prevent duplicate tracking within same page lifecycle
+    if (purchaseTrackedRef.current) {
+      return;
+    }
+    purchaseTrackedRef.current = true;
+    setIsVerifying(false);
+    setPaymentVerified(true);
 
-      if (!paymentIntentId) {
-        console.error("[DEBUG] No payment_intent in URL - Purchase event NOT sent");
-        setIsVerifying(false);
-        return;
-      }
+    // Send Purchase event immediately on page load
+    const email = getStoredEmail();
+    const firstName = getStoredName();
+    const selectedPlan = localStorage.getItem("emcinco_selected_plan") || "4week";
+    const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
+    const contentId = isFinalOffer
+      ? `emcinco_${selectedPlan}_final`
+      : `emcinco_${selectedPlan}`;
 
-      // Client-side dedupe: check localStorage
-      const trackedPayments = JSON.parse(localStorage.getItem("emcinco_tracked_purchases") || "[]");
-      console.log("[DEBUG] Already tracked payments:", trackedPayments);
-      
-      if (trackedPayments.includes(paymentIntentId)) {
-        console.log("[DEBUG] Payment already tracked (localStorage):", paymentIntentId);
-        setPaymentVerified(true);
-        setIsVerifying(false);
-        return;
-      }
-
-      // Prevent duplicate tracking within same page lifecycle
-      if (purchaseTrackedRef.current) {
-        console.log("[DEBUG] purchaseTrackedRef already true, skipping");
-        setIsVerifying(false);
-        return;
-      }
-
-      try {
-        const email = getStoredEmail();
-        console.log("[DEBUG] Email from storage:", email);
-        
-        // Verify payment with backend (POST with email for security)
-        console.log("[DEBUG] Calling /api/stripe/verify-payment...");
-        const response = await fetch("/api/stripe/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ paymentIntentId, email }),
-        });
-        const data = await response.json();
-        console.log("[DEBUG] Verify-payment response:", data);
-
-        if (data.verified) {
-          console.log("[DEBUG] Payment verified! Sending Purchase event...");
-          setPaymentVerified(true);
-          purchaseTrackedRef.current = true;
-
-          // Save to localStorage to prevent future duplicate tracking
-          trackedPayments.push(paymentIntentId);
-          localStorage.setItem("emcinco_tracked_purchases", JSON.stringify(trackedPayments));
-
-          // Now send Purchase event since payment is confirmed
-          const firstName = getStoredName();
-          const selectedPlan = data.planId || localStorage.getItem("emcinco_selected_plan") || "4week";
-          const isFinalOffer = localStorage.getItem("emcinco_final_offer") === "true";
-          const contentId = isFinalOffer
-            ? `emcinco_${selectedPlan}_final`
-            : `emcinco_${selectedPlan}`;
-
-          // Use actual amount from Stripe (in cents, convert to reais)
-          const value = data.amount / 100;
-          
-          console.log("[DEBUG] Purchase event params:", { value, contentId, email, firstName });
-
-          const purchaseEventId = trackEventWithId("Purchase", {
-            currency: "BRL",
-            value,
-            content_ids: [contentId],
-            content_type: "product",
-            num_items: 1,
-          });
-          
-          console.log("[DEBUG] Browser Pixel Purchase sent with eventId:", purchaseEventId);
-
-          sendServerEvent(
-            "Purchase",
-            { email, firstName },
-            {
-              value,
-              currency: "BRL",
-              contentIds: [contentId],
-              contentName: `Plano EmCinco ${selectedPlan}`,
-              contentType: "product",
-              numItems: 1,
-            },
-            purchaseEventId,
-          );
-
-          console.log("[DEBUG] Server CAPI Purchase event sent - payment verified:", paymentIntentId);
-        } else if (data.alreadyProcessed) {
-          // Server says already tracked
-          setPaymentVerified(true);
-          console.log("[DEBUG] Payment already tracked (server):", paymentIntentId);
-        } else {
-          console.error("[DEBUG] Payment not verified - Purchase event NOT sent:", data.status, data.message);
-        }
-      } catch (err) {
-        console.error("[DEBUG] Error verifying payment:", err);
-      } finally {
-        setIsVerifying(false);
-      }
+    // Get value from pricing (estimate based on plan)
+    const planPrices: Record<string, number> = {
+      "1week": 19.90,
+      "4week": 39.90,
+      "12week": 79.90,
     };
+    const value = planPrices[selectedPlan] || 39.90;
 
-    verifyPaymentAndTrack();
+    console.log("[Purchase] Sending Purchase event on Success page load", { email, firstName, selectedPlan, value, contentId });
+
+    const purchaseEventId = trackEventWithId("Purchase", {
+      currency: "BRL",
+      value,
+      content_ids: [contentId],
+      content_type: "product",
+      num_items: 1,
+    });
+
+    sendServerEvent(
+      "Purchase",
+      { email, firstName },
+      {
+        value,
+        currency: "BRL",
+        contentIds: [contentId],
+        contentName: `Plano EmCinco ${selectedPlan}`,
+        contentType: "product",
+        numItems: 1,
+      },
+      purchaseEventId,
+    );
+
+    console.log("[Purchase] Purchase event sent successfully");
   }, []);
 
   // Show loading while verifying
