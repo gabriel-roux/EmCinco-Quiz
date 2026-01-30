@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import tiredPhoto from "@assets/image_1767730709233.png";
-import happyPhoto from "@assets/image_1767730696591.png";
+const tiredPhoto = "/images/tired-photo.webp";
+const happyPhoto = "/images/happy-photo.webp";
 import CheckoutModal from "@/components/CheckoutModal";
 import { trackEventWithId, sendServerEvent, getStoredEmail, getStoredName } from "@/lib/facebookPixel";
 import { useLocale } from "@/lib/i18n";
@@ -333,6 +333,8 @@ export default function ResultBackOffer() {
               <img
                 src={tiredPhoto}
                 alt="Antes"
+                width={140}
+                height={180}
                 className="w-full h-full object-cover grayscale opacity-80"
               />
             </div>
@@ -345,6 +347,8 @@ export default function ResultBackOffer() {
               <img
                 src={happyPhoto}
                 alt="Depois"
+                width={140}
+                height={180}
                 className="w-full h-full object-cover"
               />
             </div>

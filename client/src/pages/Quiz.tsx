@@ -44,28 +44,23 @@ import { useLocale } from "@/lib/i18n";
 import { getQuizSteps, landingContent, type QuizStep } from "@/data/quizSteps";
 import QuizExitPopup from "@/components/QuizExitPopup";
 
-import logoEmcinco from "@assets/logo-emcinco.png";
-import batteryLowImg from "@assets/generated_images/tired_person_with_dead_battery_phone_illustration.png";
-import researchImg from "@assets/generated_images/scientific_behavioral_research_logos_illustration.png";
-import engineImg from "@assets/generated_images/flat_minimal_adaptive_engine_illustration.png";
-import profileImg from "@assets/generated_images/flat_minimal_comparison_avatars_illustration.png";
-import growthImg from "@assets/generated_images/flat_minimal_growth_chart_illustration.png";
-import cartoonLearningImg from "@assets/generated_images/cartoon_of_person_learning_happily..png";
-import avatar1 from "@assets/avatars/avatar1_1.jpg";
-import avatar2 from "@assets/avatars/avatar1_2.jpg";
-import avatar3 from "@assets/avatars/avatar1_3.jpg";
-import avatar4 from "@assets/avatars/avatar2_1.jpg";
-import avatar5 from "@assets/avatars/avatar2_2.jpg";
-import avatar6 from "@assets/avatars/avatar2_3.jpg";
-
 const imageMap: Record<string, string> = {
-  batteryLow: batteryLowImg,
-  research: researchImg,
-  engine: engineImg,
-  profile: profileImg,
-  growth: growthImg,
-  cartoonLearning: cartoonLearningImg,
+  batteryLow: "/images/battery-low.webp",
+  research: "/images/research.webp",
+  engine: "/images/engine.webp",
+  profile: "/images/profile.webp",
+  growth: "/images/growth.webp",
+  cartoonLearning: "/images/cartoon-learning.webp",
 };
+
+const avatars = [
+  "/images/avatar1.webp",
+  "/images/avatar2.webp",
+  "/images/avatar3.webp",
+  "/images/avatar4.webp",
+  "/images/avatar5.webp",
+  "/images/avatar6.webp",
+];
 
 interface QuizAnswers {
   [key: string]: any;
@@ -295,7 +290,7 @@ export default function Quiz() {
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-4">
-              <img src={logoEmcinco} alt="EmCinco" className="h-14 mx-auto" />
+              <img src="/images/logo.webp" alt="EmCinco" width={150} height={50} className="h-14 mx-auto" />
             </motion.div>
 
             <motion.p
@@ -316,18 +311,24 @@ export default function Quiz() {
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
                     <img
-                      src={avatar1}
+                      src={avatars[0]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar2}
+                      src={avatars[1]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar3}
+                      src={avatars[2]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                   </div>
@@ -341,18 +342,24 @@ export default function Quiz() {
                 <div className="flex items-center justify-center gap-2">
                   <div className="flex -space-x-2">
                     <img
-                      src={avatar4}
+                      src={avatars[3]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar5}
+                      src={avatars[4]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                     <img
-                      src={avatar6}
+                      src={avatars[5]}
                       alt=""
+                      width={28}
+                      height={28}
                       className="w-7 h-7 rounded-full border-2 border-background object-cover"
                     />
                   </div>

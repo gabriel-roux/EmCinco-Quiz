@@ -3,8 +3,6 @@ import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import newLogo from "@assets/LOGO-EMCINCO_1768418486475.png";
-
 interface LayoutProps {
   children: ReactNode;
   progress?: number;
@@ -46,7 +44,7 @@ export function Layout({ children, progress, hideHeader = false, onBack, showBac
                 </Button>
               )}
               <Link href="/" className="flex items-center">
-                <img src={newLogo} alt="EmCinco Logo" className="h-6 w-auto" />
+                <img src="/images/logo.webp" alt="EmCinco Logo" width={150} height={50} className="h-6 w-auto" />
               </Link>
             </div>
           </div>
