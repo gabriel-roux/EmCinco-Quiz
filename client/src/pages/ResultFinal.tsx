@@ -465,7 +465,7 @@ export default function ResultFinal() {
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
                 <div className="text-sm text-muted-foreground">
-                  R$49,99
+                  R$14,90
                 </div>
               </div>
               <div className="text-right">
@@ -507,13 +507,13 @@ export default function ResultFinal() {
                     Plano 4 Semanas
                   </div>
                   <div className="text-sm">
-                    <span className="line-through text-red-500">R$49,99</span>{" "}
-                    <span className="text-green-600 font-bold">R$4,99</span>
+                    <span className="line-through text-red-500">R$59,90</span>{" "}
+                    <span className="text-green-600 font-bold">R$29,90</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="font-bold text-lg text-black dark:text-foreground">
-                    R$0,17
+                    R$1,07
                   </div>
                   <div className="text-xs text-muted-foreground">por dia</div>
                 </div>
@@ -547,12 +547,12 @@ export default function ResultFinal() {
               <div className="flex-1">
                 <div className="font-bold">Plano 12 Semanas</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$99,99</span>{" "}
-                  <span className="text-green-600 font-bold">R$8,74</span>
+                  <span className="line-through">R$179,90</span>{" "}
+                  <span className="text-green-600 font-bold">R$89,90</span>
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$0,10</div>
+                <div className="font-bold text-lg">R$1,07</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
