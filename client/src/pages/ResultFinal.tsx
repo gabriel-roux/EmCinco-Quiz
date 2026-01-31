@@ -162,11 +162,11 @@ export default function ResultFinal() {
     const contentId = `emcinco_${selectedPlan}_final`;
     
     const priceMap: Record<string, number> = {
-      "1week": 2.62,
-      "4week": 4.99,
-      "12week": 8.74,
+      "1week": 4.90,
+      "4week": 14.90,
+      "12week": 34.90,
     };
-    const value = priceMap[selectedPlan] || 4.99;
+    const value = priceMap[selectedPlan] || 14.90;
 
     const viewContentId = trackEventWithId("ViewContent", {
       content_name: "EmCinco Final Offer",

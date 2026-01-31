@@ -163,15 +163,15 @@ export default function ResultBackOffer() {
     const contentId = `emcinco_${selectedPlan}_backoffer`;
     
     const priceMap: Record<string, number> = isSpanish ? {
-      "1week": 1.99,
-      "4week": 4.99,
-      "12week": 7.49,
+      "1week": 1.19,
+      "4week": 2.99,
+      "12week": 6.99,
     } : {
-      "1week": 4.99,
-      "4week": 9.99,
-      "12week": 14.99,
+      "1week": 5.90,
+      "4week": 14.90,
+      "12week": 34.90,
     };
-    const value = priceMap[selectedPlan] || (isSpanish ? 4.99 : 9.99);
+    const value = priceMap[selectedPlan] || (isSpanish ? 2.99 : 14.90);
     const currency = isSpanish ? "USD" : "BRL";
 
     const viewContentId = trackEventWithId("ViewContent", {
@@ -245,9 +245,9 @@ export default function ResultBackOffer() {
       { question: "¿Cómo puede ayudarme este plan?", answer: "EmCinco fue desarrollado para eliminar la fatiga de decisión y crear momentum consistente." },
     ],
     prices: {
-      "1week": { original: "US$3,99", final: "US$1,99", daily: "US$0,28" },
-      "4week": { original: "US$9,99", final: "US$4,99", daily: "US$0,17" },
-      "12week": { original: "US$14,99", final: "US$7,49", daily: "US$0,08" },
+      "1week": { original: "US$1,49", final: "US$1,19", daily: "US$0,17" },
+      "4week": { original: "US$5,99", final: "US$2,99", daily: "US$0,11" },
+      "12week": { original: "US$13,99", final: "US$6,99", daily: "US$0,08" },
     },
   } : {
     bannerOld: "30%",
@@ -295,9 +295,9 @@ export default function ResultBackOffer() {
       { question: "Como este plano pode me ajudar?", answer: "O EmCinco foi desenvolvido para eliminar a fadiga de decisão e criar momentum consistente." },
     ],
     prices: {
-      "1week": { original: "R$9,99", final: "R$4,99", daily: "R$0,71" },
-      "4week": { original: "R$19,99", final: "R$9,99", daily: "R$0,35" },
-      "12week": { original: "R$29,99", final: "R$14,99", daily: "R$0,17" },
+      "1week": { original: "R$7,48", final: "R$5,90", daily: "R$0,84" },
+      "4week": { original: "R$29,90", final: "R$14,90", daily: "R$0,53" },
+      "12week": { original: "R$69,90", final: "R$34,90", daily: "R$0,42" },
     },
   };
 

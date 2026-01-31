@@ -375,11 +375,11 @@ export default function Result() {
     const contentId = `emcinco_${selectedPlan}`;
 
     const priceMap: Record<string, number> = {
-      "1week": 10.5,
-      "4week": 19.99,
-      "12week": 34.99,
+      "1week": 7.48,
+      "4week": 29.90,
+      "12week": 69.90,
     };
-    const value = priceMap[selectedPlan] || 19.99;
+    const value = priceMap[selectedPlan] || 29.90;
 
     const viewContentId = trackEventWithId("ViewContent", {
       content_name: "EmCinco Quiz Result",

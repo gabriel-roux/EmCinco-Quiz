@@ -610,38 +610,38 @@ export const pricing = {
     currency: "BRL",
     currencySymbol: "R$",
     regular: {
-      "1week": { price: 10.5, daily: 1.5, original: 49.99 },
-      "4week": { price: 19.99, daily: 0.71, original: 49.99 },
-      "12week": { price: 34.99, daily: 0.41, original: 99.99 },
+      "1week": { price: 7.48, daily: 1.07, original: 14.90 },
+      "4week": { price: 29.90, daily: 1.07, original: 59.90 },
+      "12week": { price: 69.90, daily: 0.83, original: 149.90 },
     },
     final: {
-      "1week": { price: 2.62, daily: 7.14, original: 49.99 },
-      "4week": { price: 4.99, daily: 0.17, original: 49.99 },
-      "12week": { price: 8.74, daily: 0.10, original: 99.99 },
+      "1week": { price: 4.90, daily: 0.70, original: 7.48 },
+      "4week": { price: 14.90, daily: 0.53, original: 29.90 },
+      "12week": { price: 34.90, daily: 0.42, original: 69.90 },
     },
     backOffer: {
-      "1week": { price: 4.99, daily: 0.71, original: 9.99 },
-      "4week": { price: 9.99, daily: 0.35, original: 19.99 },
-      "12week": { price: 14.99, daily: 0.17, original: 29.99 },
+      "1week": { price: 5.90, daily: 0.84, original: 7.48 },
+      "4week": { price: 14.90, daily: 0.53, original: 29.90 },
+      "12week": { price: 34.90, daily: 0.42, original: 69.90 },
     }
   },
   "es": {
     currency: "USD",
     currencySymbol: "$",
     regular: {
-      "1week": { price: 3.9, daily: 0.56, original: 19.99 },
-      "4week": { price: 9.9, daily: 0.35, original: 29.99 },
-      "12week": { price: 15.9, daily: 0.19, original: 49.99 },
+      "1week": { price: 1.49, daily: 0.21, original: 2.99 },
+      "4week": { price: 5.99, daily: 0.21, original: 11.99 },
+      "12week": { price: 13.99, daily: 0.17, original: 29.99 },
     },
     final: {
-      "1week": { price: 1.9, daily: 0.27, original: 19.99 },
-      "4week": { price: 4.9, daily: 0.17, original: 29.99 },
-      "12week": { price: 7.9, daily: 0.09, original: 49.99 },
+      "1week": { price: 0.99, daily: 0.14, original: 1.49 },
+      "4week": { price: 2.99, daily: 0.11, original: 5.99 },
+      "12week": { price: 6.99, daily: 0.08, original: 13.99 },
     },
     backOffer: {
-      "1week": { price: 1.99, daily: 0.28, original: 3.99 },
-      "4week": { price: 4.99, daily: 0.17, original: 9.99 },
-      "12week": { price: 7.49, daily: 0.08, original: 14.99 },
+      "1week": { price: 1.19, daily: 0.17, original: 1.49 },
+      "4week": { price: 2.99, daily: 0.11, original: 5.99 },
+      "12week": { price: 6.99, daily: 0.08, original: 13.99 },
     }
   }
 };
