@@ -377,7 +377,7 @@ export default function Result() {
     const priceMap: Record<string, number> = {
       "1week": 7.48,
       "4week": 29.90,
-      "12week": 89.90,
+      "12week": 49.90,
     };
     const value = priceMap[selectedPlan] || 29.90;
 

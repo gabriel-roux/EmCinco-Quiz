@@ -612,7 +612,7 @@ export const pricing = {
     regular: {
       "1week": { price: 7.48, daily: 1.07, original: 14.90 },
       "4week": { price: 29.90, daily: 1.07, original: 59.90 },
-      "12week": { price: 89.90, daily: 1.07, original: 179.90 },
+      "12week": { price: 49.90, daily: 0.59, original: 89.90 },
     },
     final: {
       "1week": { price: 4.90, daily: 0.70, original: 7.48 },
