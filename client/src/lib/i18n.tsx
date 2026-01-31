@@ -615,9 +615,9 @@ export const pricing = {
       "12week": { price: 49.90, daily: 0.59, original: 89.90 },
     },
     final: {
-      "1week": { price: 7.14, daily: 1.02, original: 14.90 },
-      "4week": { price: 29.90, daily: 1.07, original: 59.90 },
-      "12week": { price: 89.90, daily: 1.07, original: 179.90 },
+      "1week": { price: 7.14, daily: 1.02, original: 7.14 },
+      "4week": { price: 14.90, daily: 0.53, original: 59.90 },
+      "12week": { price: 22.40, daily: 0.27, original: 89.90 },
     },
     backOffer: {
       "1week": { price: 5.90, daily: 0.84, original: 7.48 },

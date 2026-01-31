@@ -163,10 +163,10 @@ export default function ResultFinal() {
     
     const priceMap: Record<string, number> = {
       "1week": 7.14,
-      "4week": 29.90,
-      "12week": 89.90,
+      "4week": 14.90,
+      "12week": 22.40,
     };
-    const value = priceMap[selectedPlan] || 29.90;
+    const value = priceMap[selectedPlan] || 14.90;
 
     const viewContentId = trackEventWithId("ViewContent", {
       content_name: "EmCinco Final Offer",
@@ -465,11 +465,11 @@ export default function ResultFinal() {
               <div className="flex-1">
                 <div className="font-bold">Plano 1 Semana</div>
                 <div className="text-sm text-muted-foreground">
-                  R$14,90
+                  R$7,14
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$7,14</div>
+                <div className="font-bold text-lg">R$1,02</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
@@ -508,12 +508,12 @@ export default function ResultFinal() {
                   </div>
                   <div className="text-sm">
                     <span className="line-through text-red-500">R$59,90</span>{" "}
-                    <span className="text-green-600 font-bold">R$29,90</span>
+                    <span className="text-green-600 font-bold">R$14,90</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="font-bold text-lg text-black dark:text-foreground">
-                    R$1,07
+                    R$0,53
                   </div>
                   <div className="text-xs text-muted-foreground">por dia</div>
                 </div>
@@ -547,12 +547,12 @@ export default function ResultFinal() {
               <div className="flex-1">
                 <div className="font-bold">Plano 12 Semanas</div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="line-through">R$179,90</span>{" "}
-                  <span className="text-green-600 font-bold">R$89,90</span>
+                  <span className="line-through">R$89,90</span>{" "}
+                  <span className="text-green-600 font-bold">R$22,40</span>
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold text-lg">R$1,07</div>
+                <div className="font-bold text-lg">R$0,27</div>
                 <div className="text-xs text-muted-foreground">por dia</div>
               </div>
             </div>
